@@ -18,9 +18,9 @@ class UserProfileSeeder extends Seeder
 
             // 最初の2人だけ画像をつける
             if ($index === 0) {
-                $profile->image = 'images/profiles/cat.jpeg';
+                $profile->image = 'images/profiles/cat.jpg';
             } elseif ($index === 1) {
-                $profile->image = 'images/profiles/dog.jpeg';
+                $profile->image = 'images/profiles/dog.jpg';
             }
 
             $profile->user_id = $user->id;

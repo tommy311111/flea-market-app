@@ -77,4 +77,11 @@ class User extends Authenticatable
     {
     return $this->hasMany(Comment::class);
     }
+
+    public function profileIsFilled()
+{
+    return $this->profile 
+        && $this->profile->postcode 
+        && $this->profile->address;
+}
 }

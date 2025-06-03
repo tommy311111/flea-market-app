@@ -1,0 +1,84 @@
+.register__content {
+    background: #FFFFFF;
+    padding: 40px;
+    border-radius: 30px;
+    border: none;
+}
+
+.register-form__heading {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.register-form__heading-title {
+    margin: 0;
+    font-weight: 400;
+    font-size: 40px;
+}
+
+.register-form {
+    margin: 0 auto;
+    width: 500px;
+}
+
+.form__group {
+    margin-bottom: 15px;
+}
+
+.form__label--item {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.form__group-title {
+    margin: 10px 0;
+}
+
+.form__input--text input {
+    width: 500px;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #E0DFDE;
+    border-radius: 5px;
+}
+
+.form__error {
+    color: #F65A5A;
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.form__button {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form__button-submit {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #FF4B4B;
+    cursor: pointer;
+}
+
+.login__button-submit {
+    color: #2C99FF;
+    font-size: 16px;
+    display: inline-block;
+    padding: 10px;
+    font-family: "游明朝", "Yu Mincho", "Hiragino Mincho Pro", "MS Mincho", serif;
+}
+
+.login__link {
+    margin: 0 auto;
+    width: 200px;
+    text-align: center;
+}
+
+.login__link a {
+    text-decoration: none;
+}

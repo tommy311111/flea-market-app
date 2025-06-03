@@ -1,0 +1,97 @@
+.profile__content {
+    background: #FFFFFF;
+    padding: 40px;
+    border-radius: 30px;
+    border: none;
+}
+
+.profile-form__heading {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.profile-form__heading-title {
+    margin: 0;
+    font-weight: 400;
+    font-size: 28px;
+}
+.profile-form {
+    margin: 0 auto;
+    width: 500px;
+}
+
+.form__group {
+    margin-bottom: 15px;
+}
+
+.form__label--item {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.form__group-title {
+    margin: 10px 0;
+}
+
+.form__input--text input {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #E0DFDE;
+    border-radius: 5px;
+}
+
+.form__error {
+    color: #F65A5A;
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.form__button {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form__button-submit {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #FF4B4B;
+    cursor: pointer;
+}
+
+/* プロフィール画像 */
+.profile-image__group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-image__preview img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #CCC;
+}
+
+.profile-image__button {
+    border: 1px solid #FF4B4B;
+    color: #FF4B4B;
+    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 0.2s;
+}
+
+.profile-image__button:hover {
+    background-color: #FFF0F0;
+}
