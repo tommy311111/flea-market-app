@@ -9,14 +9,14 @@
     <div class="profile-form__heading">
         <h2 class="profile-form__heading-title">プロフィール設定</h2>
     </div>
-    <form class="profile-form" action="{{ route('register.profile') }}" method="POST" enctype="multipart/form-data" novalidate>
+    <form class="profile-form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
         @method('POST')
 
         <!-- プロフィール画像 -->
         <div class="form__group profile-image__group">
             <div class="profile-image__preview">
-                <img src="{{ asset('storage/images/' . $user->image) }}" alt="プロフィール画像">
+                <img src="{{ asset('storage/' . $profile->image) }}" alt="プロフィール画像">
             </div>
             <label class="profile-image__button">
                 画像を選択する

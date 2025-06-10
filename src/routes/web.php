@@ -37,18 +37,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
 });
 
-
-// --- 登録直後のプロフィール入力（ログイン後になる） ---
-Route::middleware('auth')->group(function () {
-    Route::get('/mypage/profile/setup', [RegisterController::class, 'showProfileForm'])->name('register.profile.form');
-    Route::post('/mypage/profile/setup', [RegisterController::class, 'storeProfile'])->name('register.profile');
-
-    Route::get('/item/{id}', [ItemController::class, 'show']);
-
-    // ログイン後のプロフィール編集（マイページ）URLが同じだから上手く動かないかも⇒やっぱ駄目だった今だけ変えとく
-    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('mypage.profile.edit');
-    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('mypage.profile.update');
+// プロフィール機能
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index'); // PG09, PG11, PG12
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit'); // PG10
+    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
+
 
 // --- ログイン関連 ---
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

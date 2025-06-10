@@ -29,7 +29,7 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('register.profile.form');
+        return redirect()->route('profile.edit');
     }
 
     public function showProfileForm()

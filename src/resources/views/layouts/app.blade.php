@@ -29,12 +29,10 @@
                             <button class="header__form--logout" type="submit">ログアウト</button>
                         </form>
                     </li>
-                     <li class="header__list-item">
-                        <form action="/mypage" class="header__form" method="get">
-                            @csrf
-                            <button class="header__form--mypage">マイページ</button>
-                        </form>
-                    </li>
+                    <li class="header__list-item">
+    <a href="{{ route('profile.index') }}" class="header__form--mypage">マイページ</a>
+</li>
+
                     <li class="header__list-item">
                         <form action="/sell" class="header__form" method="get">
                             @csrf
