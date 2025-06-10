@@ -1,0 +1,145 @@
+.purchase__content {
+    margin: 40px auto;
+    max-width: 1000px;
+}
+
+.purchase__main {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* 左側 */
+.purchase__left {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.purchase__section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.purchase__item-info {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.purchase__item-image {
+    width: 150px;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.purchase__item-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.purchase__item-price {
+    font-size: 16px;
+    color: #555;
+    margin-top: 5px;
+}
+
+.purchase__divider {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+/* 支払い方法 */
+.purchase__label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.purchase__select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.purchase__error {
+    color: red;
+    font-size: 13px;
+}
+
+/* 配送先 */
+.purchase__address-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.purchase__address {
+    font-size: 14px;
+    color: #333;
+    margin-top: 8px;
+}
+
+.purchase__edit-button {
+    color: #00aaff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.purchase__edit-button:hover {
+    text-decoration: underline;
+}
+
+/* 右側 */
+.purchase__right {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.purchase__summary {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 20px;
+    background-color: #fff;
+    /* 背景色を削除 */
+}
+
+.purchase__summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+.purchase__summary-row:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+/* 購入ボタン */
+.purchase__submit-button {
+    margin-top: 40px;
+    width: 100%;
+    background-color: #d9534f;
+    color: white;
+    font-size: 16px;
+    padding: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.purchase__submit-button:hover {
+    background-color: #c9302c;
+}

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Item;
 
 class CommentSeeder extends Seeder
 {
@@ -17,20 +18,28 @@ class CommentSeeder extends Seeder
     {
         // ユーザー名ごとのコメント数
         $commentData = [
-            '佐藤 美咲' => 0,
-            '鈴木 大輔' => 0,
+            '佐藤 美咲' => 1,
+            '鈴木 大輔' => 1,
             '高橋 結衣' => 7,
             '田中 直人' => 5,
-            '伊藤 紗季' => 2,
+            '伊藤 紗季' => 4,
         ];
 
+        $items = Item::pluck('id')->toArray(); // 商品ID一覧
+
         foreach ($commentData as $userName => $commentCount) {
-            $user = \App\Models\User::where('name', $userName)->first();
+            $user = User::where('name', $userName)->first();
 
             if ($user && $commentCount > 0) {
-                Comment::factory($commentCount)->create([
-                    'user_id' => $user->id,
-                ]);
+                // 商品IDをシャッフルして重複防止
+                $shuffledItemIds = collect($items)->shuffle()->take($commentCount);
+
+                foreach ($shuffledItemIds as $itemId) {
+                    Comment::factory()->create([
+                        'user_id' => $user->id,
+                        'item_id' => $itemId,
+                    ]);
+                }
             }
         }
     }

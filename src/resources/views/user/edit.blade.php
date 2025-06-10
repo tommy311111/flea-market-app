@@ -16,11 +16,11 @@
         <!-- プロフィール画像 -->
         <div class="form__group profile-image__group">
             <div class="profile-image__preview">
-                <img src="{{ asset('storage/profile_images/' . $user->profile_image) }}" alt="プロフィール画像">
+                <img src="{{ asset('storage/images/' . $user->image) }}" alt="プロフィール画像">
             </div>
             <label class="profile-image__button">
                 画像を選択する
-                <input type="file" name="profile_image" hidden>
+                <input type="file" name="image" hidden>
             </label>
         </div>
 

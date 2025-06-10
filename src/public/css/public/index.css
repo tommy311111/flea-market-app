@@ -1,0 +1,95 @@
+.items-index__header {
+    display: flex;
+    gap: 24px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 8px;
+}
+
+.items-index__tab {
+    cursor: pointer;
+    padding-bottom: 4px;
+    font-weight: normal;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease, color 0.3s ease;
+    color: #888;
+    /* 選択されていない時は灰色 */
+}
+
+.items-index__tab--active {
+    font-weight: bold;
+    border-bottom-color: red;
+    color: red;
+    /* 選択時は赤 */
+}
+
+.items-index__link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.items-index__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 40px;
+}
+
+.items-index__card {
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    color: inherit;
+    text-align: center;
+}
+
+.items-index__image-wrapper {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.items-index__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.items-index__label--sold {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 2px 6px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.items-index__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #555;
+    font-size: 18px;
+    padding: 20px 0;
+}
+
+@media (max-width: 1024px) {
+    .items-index__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .items-index__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,177 @@
+/* ベース設定 */
+.sell__content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff;
+}
+
+.sell-form__heading {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.sell-form__heading-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* 商品画像 */
+.sell-form__image-wrapper {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 4rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.875rem;
+}
+
+.sell-form__image-label {
+    border: 1px solid red;
+    color: red;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.sell-form__image-label:hover {
+    background-color: #ffe5e5;
+}
+
+.sell-form__image-input {
+    display: none;
+}
+
+.sell-form__image-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+/* セクションラベルと下線 */
+.sell-form__section-title {
+    color: gray;
+    font-weight: bold;
+    margin-top: 2rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+}
+
+/* カテゴリー */
+.sell-form__category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem;
+}
+
+.sell-form__category-item {
+    position: relative;
+}
+
+.sell-form__category-checkbox {
+    display: none;
+}
+
+.sell-form__category-name {
+    display: inline-block;
+    border: 1px solid red;
+    color: red;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sell-form__category-checkbox:checked+.sell-form__category-name {
+    background-color: red;
+    color: white;
+}
+
+/* 商品の状態プルダウン */
+.sell-form__select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    margin-top: 0.5rem;
+    border-radius: 5px;
+}
+
+/* 入力フィールド共通 */
+.sell-form__field {
+    margin-top: 1rem;
+}
+
+.sell-form__label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.sell-form__input,
+.sell-form__textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.sell-form__textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* 価格入力欄（￥付き） */
+.sell-form__price-wrapper {
+    position: relative;
+}
+
+.sell-form__price-wrapper {
+    position: relative;
+}
+
+.sell-form__price-input {
+    width: 100%;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.sell-form__yen {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #2a2a2a;
+    pointer-events: none;
+}
+
+/* 出品ボタン */
+.sell-form__submit-button {
+    display: block;
+    width: 100%;
+    background-color: red;
+    font-weight: bold;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    margin-top: 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sell-form__submit-button:hover {
+    background-color: darkred;
+}
+
+.sell-form__error {
+    color: #F65A5A;
+    font-size: 14px;
+    margin-top: 0.25rem;
+}

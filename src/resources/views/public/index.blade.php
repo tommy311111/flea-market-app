@@ -1,52 +1,41 @@
-@extends('layouts/app')
+@extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{asset('css/public/index.css')}}">
+<link rel="stylesheet" href="{{ asset('css/public/index.css') }}">
 @endsection
 
 @section('content')
-<div class="login__content">
-    <div class="login-form__heading">
-        <h2 class="login-form__heading-title">ログイン</h2>
+<div class="items-index">
+    <div class="items-index__header">
+        <h2 class="items-index__tab {{ $tab === 'recommend' ? 'items-index__tab--active' : '' }}">
+            <a href="{{ url('/items?tab=recommend') }}" class="items-index__link">おすすめ</a>
+        </h2>
+        <h2 class="items-index__tab {{ $tab === 'mylist' ? 'items-index__tab--active' : '' }}">
+            <a href="{{ url('/items?tab=mylist') }}" class="items-index__link">マイリスト</a>
+        </h2>
     </div>
-    <form class="login-form" action="/login" method="post" novalidate>
-        @csrf
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">メールアドレス</span>
-            </div>
-            <div class="form__group-content">
-                <div class="form__input--text">
-                    <input type="email" name="email" value="{{ old('email') }}" >
+    <hr class="items-index__divider">
+
+    <div class="items-index__grid">
+        @forelse ($items as $item)
+            <a href="{{ url('/items/' . $item->id) }}" class="items-index__card">
+            <div class="items-index__image-wrapper">
+                    <img src="{{ asset('storage/images/' . $item->image) }}" alt="{{ $item->name }}" class="items-index__image">
                 </div>
-                <div class="form__error">
-                    @error('email')
-                    {{ $message }}
-                    @enderror
+                <div class="items-index__info">
+                    <p class="items-index__name">{{ $item->name }}</p>
+                    @if ($item->is_sold)
+                        <span class="items-index__label items-index__label--sold">Sold</span>
+                    @endif
                 </div>
-            </div>
-        </div>
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">パスワード</span>
-            </div>
-            <div class="form__group-content">
-                <div class="form__input--text">
-                    <input type="password" name="password">
-                </div>
-                <div class="form__error">
-                    @error('password')
-                    {{ $message }}
-                    @enderror
-                </div>
-            </div>
-        </div>
-        <div class="form__button">
-            <button class="form__button-submit" type="submit">ログインする</button>
-        </div>
-    </form>
-    <div class="register__link">
-        <a class="register__button-submit" href="/register">会員登録はこちら</a>
+            </a>
+        @empty
+            @if ($tab === 'mylist' && !Auth::check())
+                <p class="items-index__empty">マイリストを見るにはログインが必要です。</p>
+            @else
+                <p class="items-index__empty">表示する商品がありません。</p>
+            @endif
+        @endforelse
     </div>
 </div>
 @endsection

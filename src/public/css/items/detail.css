@@ -1,0 +1,200 @@
+.item-detail {
+    padding: 40px;
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #fff;
+}
+
+.item-detail__container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.item-detail__image-wrapper {
+    flex: 1 1 45%;
+    text-align: right;
+}
+
+.item-detail__image {
+    max-width: 60%;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item-detail__info {
+    flex: 1 1 45%;
+}
+
+.item-detail__name {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.item-detail__brand {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.item-detail__price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.item-detail__tax {
+    font-size: 14px;
+    color: #888;
+}
+
+.item-detail__icons {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.item-detail__icon-group {
+    text-align: center;
+    font-size: 18px;
+}
+
+.item-detail__icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: block;
+}
+
+.item-detail__icon.liked {
+    filter: brightness(0) saturate(100%) invert(28%) sepia(93%) saturate(748%) hue-rotate(349deg) brightness(96%) contrast(94%);
+    /* 赤色っぽくするフィルター例 */
+}
+
+.item-detail__icon--comment {
+    color: #3498db;
+}
+
+.item-detail__count {
+    font-size: 14px;
+    color: #666;
+}
+
+.item-detail__purchase-button {
+    display: inline-block;
+    background-color: #e53935;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.item-detail__purchase-button:hover {
+    background-color: #d32f2f;
+}
+
+.item-detail__section {
+    margin-bottom: 30px;
+}
+
+.item-detail__section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.item-detail__description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.item-detail__meta {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.item-detail__comment {
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.item-detail__comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.item-detail__comment-user-image {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.item-detail__comment-username {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.item-detail__comment-text {
+    font-size: 15px;
+    color: #333;
+}
+
+.item-detail__comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item-detail__textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+}
+
+.item__error {
+    color: #F65A5A;
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.item-detail__submit-button {
+    background-color: #e53935;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background-color 0.3s ease;
+}
+
+.item-detail__submit-button:hover {
+    background-color: #c62828;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .item-detail__container {
+        flex-direction: column;
+    }
+
+    .item-detail__image-wrapper,
+    .item-detail__info {
+        flex: 1 1 100%;
+    }
+}

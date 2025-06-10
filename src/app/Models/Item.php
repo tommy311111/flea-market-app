@@ -28,6 +28,11 @@ class Item extends Model
     return $this->hasMany(Like::class);
     }
 
+    public function isLikedBy($user)
+{
+    return $this->likes()->where('user_id', $user->id)->exists();
+}
+
     public function order()
     {
         return $this->hasOne(Order::class);
@@ -37,4 +42,6 @@ class Item extends Model
     {
     return $this->hasMany(Comment::class);
     }
+
+    public const CONDITIONS = ['良好', '目立った傷や汚れなし', 'やや傷や汚れあり', '状態が悪い'];
 }

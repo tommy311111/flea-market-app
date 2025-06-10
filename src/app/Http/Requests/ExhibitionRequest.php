@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ExhibitionRequest extends FormRequest
@@ -29,7 +30,7 @@ class ExhibitionRequest extends FormRequest
             'image' => ['required', 'image', 'mimes:jpeg,png'], // 画像：必須、jpeg/png
             'category' => ['required', 'array','min:1'], // カテゴリー：必須、複数可
             'category.*' => ['required'], // 各カテゴリー項目：必須
-            'condition' => ['required'], // 状態：必須
+            'condition' => ['required', Rule::in(\App\Models\Item::CONDITIONS)], // 状態：必須
             'price' => ['required', 'numeric', 'min:0'], // 価格：必須、数値、0円以上
         ];
     }

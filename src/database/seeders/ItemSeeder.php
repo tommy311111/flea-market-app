@@ -36,7 +36,7 @@ class ItemSeeder extends Seeder
                 'condition' => '目立った傷や汚れなし',
                 'price' => 5000,
                 'brand_name' => null,
-                'image' => 'items/HDD+Hard+Dick.jpg',
+                'image' => 'items/HDD.jpg',
                 'description' => '高速で信頼性の高いハードディスク',
             ],
             [

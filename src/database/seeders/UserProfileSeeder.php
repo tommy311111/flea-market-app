@@ -13,18 +13,23 @@ class UserProfileSeeder extends Seeder
     {
         $users = User::all();
 
-        foreach ($users as $index => $user) {
-            $profile = UserProfile::factory()->make();
+       // 画像ファイルのパスを配列で用意
+       $images = [
+        'images/profiles/cat.jpg',
+        'images/profiles/dog.jpg',
+        'images/profiles/flowers.jpg',
+        'images/profiles/rabbit.jpg',
+        'images/profiles/snoopy.png',
+    ];
 
-            // 最初の2人だけ画像をつける
-            if ($index === 0) {
-                $profile->image = 'images/profiles/cat.jpg';
-            } elseif ($index === 1) {
-                $profile->image = 'images/profiles/dog.jpg';
-            }
+    foreach ($users as $index => $user) {
+        $profile = UserProfile::factory()->make();
 
-            $profile->user_id = $user->id;
-            $profile->save();
-        }
+        // ユーザー数が画像数を超えても大丈夫なように、画像をループで使い回す
+        $profile->image = $images[$index % count($images)];
+
+        $profile->user_id = $user->id;
+        $profile->save();
+    }
     }
 }
