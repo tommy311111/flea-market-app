@@ -7,40 +7,61 @@ use App\Models\Order;
 use App\Models\Item;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Actions\Fortify\UpdateUserProfileInformation; // 追加忘れずに
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
 
-public function edit()
-{
-    $user = auth()->user();
-    $profile = $user->profile;
-
-    if (!$user->profileIsFilled()) {
-        return redirect()->route('register.profile.form');
+    public function edit()
+    {
+        $user = auth()->user();
+    
+        // プロフィールがまだ存在しなければ空で作成（1回だけ）
+        if (!$user->profile) {
+            $user->profile()->create([
+                'image'     => null,
+                'name'      => '',
+                'postcode'  => '',
+                'address'   => '',
+                'building'  => '',
+            ]);
+        }
+    
+        $profile = $user->profile;
+    
+        return view('user.edit', compact('user', 'profile'));
     }
+    
 
-    return view('user.edit', compact('user', 'profile'));
-}
-
-public function update(Request $request, UpdateUserProfileInformation $updater)
-{
-    $input = $request->all();
+    public function update(ProfileRequest $request)
+    {
+        $user = $request->user();
+        $profile = $user->profile;
+    
+        $validated = $request->validated();
+        $imagePath = $profile->image;
 
     if ($request->hasFile('image')) {
-        $path = $request->file('image')->store('images/profiles', 'public');
-        $input['image'] = $path;
-    } else {
-        // 画像未更新なら入力配列から削除（DBの値を維持させるため）
-        unset($input['image']);
+        $image = $request->file('image');
+        if ($image->isValid()) {
+            $imagePath = $image->store('images/profiles', 'public');
+        }
     }
-
-    $updater->update($request->user(), $input);
-
-    return redirect()->route('mypage.profile.edit')->with('status', 'プロフィールを更新しました');
-}
+        
+    
+        $user->update([
+            'name' => $validated['name'],
+        ]);
+    
+        $profile->update([
+            'postcode' => $validated['postcode'] ?? '',
+            'address' => $validated['address'] ?? '',
+            'building' => $validated['building'] ?? '',
+            'image' => $validated['image'] ?? $profile->image,
+        ]);
+    
+        return redirect()->route('items.index')->with('status', 'プロフィールを更新しました');
+    }
 
 // 既存の edit(), update() に続けて追加してOK
 public function index(Request $request)

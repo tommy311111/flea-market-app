@@ -6,15 +6,13 @@
 
 @section('content')
 <div class="items-index">
-    <div class="items-index__header">
-        <h2 class="items-index__tab {{ $tab === 'recommend' ? 'items-index__tab--active' : '' }}">
-            <a href="{{ url('/items?tab=recommend') }}" class="items-index__link">おすすめ</a>
-        </h2>
-        <h2 class="items-index__tab {{ $tab === 'mylist' ? 'items-index__tab--active' : '' }}">
-            <a href="{{ url('/items?tab=mylist') }}" class="items-index__link">マイリスト</a>
-        </h2>
+    <div class="index__tabs">
+    <a href="{{ route('items.index', ['page' => 'recommend']) }}" class="index__tab {{ $page === 'recommend' ? 'index__tab--active' : '' }}">おすすめ</a>
+    <a href="{{ route('items.index', ['page' => 'mylist']) }}" class="index__tab {{ $page === 'mylist' ? 'index__tab--active' : '' }}">マイリスト</a>
     </div>
-    <hr class="items-index__divider">
+</div>
+<div class="profile__divider"></div>
+
 
     <div class="items-index__grid">
         @forelse ($items as $item)
@@ -30,7 +28,7 @@
                 </div>
             </a>
         @empty
-            @if ($tab === 'mylist' && !Auth::check())
+            @if ($page === 'mylist' && !Auth::check())
                 <p class="items-index__empty">マイリストを見るにはログインが必要です。</p>
             @else
                 <p class="items-index__empty">表示する商品がありません。</p>

@@ -1,25 +1,47 @@
 .items-index__header {
     display: flex;
-    gap: 24px;
+    gap: 1.5rem;
+    /* 24px */
     border-bottom: 2px solid #ccc;
-    padding-bottom: 8px;
+    padding-bottom: 0.5rem;
+    /* 8px */
 }
 
-.items-index__tab {
-    cursor: pointer;
-    padding-bottom: 4px;
-    font-weight: normal;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.3s ease, color 0.3s ease;
-    color: #888;
-    /* 選択されていない時は灰色 */
+.index__tabs {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    /* 24px */
+    padding: 1rem 0.625rem 0.25rem;
+    /* 16px 10px 4px */
+    margin-left: 5rem;
+    /* 80px */
+    background-color: #fff;
+    text-decoration: none;
 }
 
-.items-index__tab--active {
+.index__tab {
+    font-size: 1rem;
+    /* 16px */
     font-weight: bold;
-    border-bottom-color: red;
+    color: #888;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    /* 4px 8px */
+}
+
+.index__tab--active {
     color: red;
-    /* 選択時は赤 */
+}
+
+.profile__divider {
+    height: 0.125rem;
+    /* 2px */
+    background-color: #ccc;
+    width: 100%;
+    margin: 0.125rem 0;
+    /* 2px */
 }
 
 .items-index__link {
@@ -30,17 +52,20 @@
 .items-index__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin: 40px;
+    gap: 1rem;
+    /* 16px */
+    margin: 2.5rem;
+    /* 40px */
 }
 
 .items-index__card {
     text-decoration: none;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px;
+    border-radius: 0.125rem;
+    /* 2px */
+    padding: 0.75rem;
+    /* 12px */
     color: inherit;
-    text-align: center;
+    text-align: left;
 }
 
 .items-index__image-wrapper {
@@ -48,8 +73,10 @@
     padding-top: 100%;
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
-    margin-bottom: 8px;
+    border-radius: 0.5rem;
+    /* 8px */
+    margin-bottom: 0.5rem;
+    /* 8px */
 }
 
 .items-index__image {
@@ -61,35 +88,61 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 0.5rem;
+}
+
+.items-index__name {
+    margin: 0.125rem 0;
+    /* 上下2px */
+    margin-left: 0.25rem;
+    /* 左4px */
+    font-weight: 500;
 }
 
 .items-index__label--sold {
     display: inline-block;
-    margin-top: 4px;
-    padding: 2px 6px;
+    margin-top: 0.25rem;
+    padding: 0.125rem 0.375rem;
     background-color: red;
     color: white;
-    font-size: 12px;
-    border-radius: 4px;
+    font-size: 0.75rem;
+    /* 12px */
+    border-radius: 0.25rem;
 }
 
 .items-index__empty {
     grid-column: 1 / -1;
     text-align: center;
     color: #555;
-    font-size: 18px;
-    padding: 20px 0;
+    font-size: 1.125rem;
+    /* 18px */
+    padding: 1.25rem 0;
+    /* 20px */
 }
 
-@media (max-width: 1024px) {
+/* --- 🖥️ PCサイズ: 1400px以上（余白拡張など） --- */
+@media (min-width: 1400px) {
+    .index__tabs {
+        margin-left: 6rem;
+        padding: 1.5rem 1rem 0.5rem;
+    }
+
     .items-index__grid {
-        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
     }
 }
 
-@media (max-width: 640px) {
+/* --- 📱 タブレット対応: 768〜850pxあたり --- */
+@media (max-width: 850px) {
     .items-index__grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin: 1.5rem;
+    }
+
+    .index__tabs {
+        flex-wrap: wrap;
+        margin-left: 1rem;
+        padding: 1rem;
     }
 }

@@ -11,18 +11,22 @@
     </div>
     <form class="profile-form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
-        @method('POST')
 
         <!-- プロフィール画像 -->
         <div class="form__group profile-image__group">
-            <div class="profile-image__preview">
-                <img src="{{ asset('storage/' . $profile->image) }}" alt="プロフィール画像">
-            </div>
-            <label class="profile-image__button">
-                画像を選択する
-                <input type="file" name="image" hidden>
-            </label>
-        </div>
+        <div id="image-preview" class="profile__image-wrapper">
+        @if ($profile && $profile->image)
+            <img src="{{ asset('storage/' . $profile->image) }}" alt="プロフィール画像" class="profile__image">
+        @else
+            <div class="profile__image--placeholder"></div>
+        @endif
+    </div>
+    <label class="profile-image__button">
+        画像を選択する
+        <input type="file" name="image" id="image" hidden>
+    </label>
+</div>
+
 
         <!-- ユーザー名 -->
         <div class="form__group">
@@ -30,7 +34,7 @@
                 <span class="form__label--item">ユーザー名</span>
             </div>
             <div class="form__input--text">
-                <input type="text" name="name" value="{{ old('name', $user->name) }}">
+                <input type="text" name="name" value="{{ old('name', $user->name) }}"  class="form__input--text-field">
             </div>
             <div class="form__error">@error('name') {{ $message }} @enderror</div>
         </div>
@@ -41,7 +45,7 @@
                 <span class="form__label--item">郵便番号</span>
             </div>
             <div class="form__input--text">
-                <input type="text" name="postcode" value="{{ old('postcode', $user->postcode) }}">
+                <input type="text" name="postcode" value="{{ old('postcode', $profile->postcode) }}"  class="form__input--text-field">
                 <div class="form__error">
                     @error('postcode')
                     {{ $message }}
@@ -56,7 +60,7 @@
                 <span class="form__label--item">住所</span>
             </div>
             <div class="form__input--text">
-                <input type="text" name="address" value="{{ old('address', $user->address) }}">
+                <input type="text" name="address" value="{{ old('address', $profile->address) }}"  class="form__input--text-field">
                 <div class="form__error">
                     @error('address')
                     {{ $message }}
@@ -71,7 +75,7 @@
                 <span class="form__label--item">建物名</span>
             </div>
             <div class="form__input--text">
-                <input type="text" name="building" value="{{ old('building', $user->building) }}">
+                <input type="text" name="building" value="{{ old('building', $profile->building) }}"  class="form__input--text-field">
                 <div class="form__error">
                     @error('building')
                     {{ $message }}
@@ -86,4 +90,26 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.querySelector('input[name="image"]').addEventListener('change', function (event) {
+        const preview = document.getElementById('image-preview');
+        preview.innerHTML = '';
+
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'profile__image';
+            preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+
+
+
 @endsection

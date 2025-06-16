@@ -12,14 +12,14 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $tab = $request->query('tab', 'recommend'); // 'recommend' or 'mylist'
+        $page = $request->query('page', 'recommend'); // 'recommend' or 'mylist'
         $user = Auth::user();
 
-        if ($tab === 'mylist' && $user) {
+        if ($page === 'mylist' && $user) {
             // ログインユーザーが「いいね」した商品だけ表示
             // ここではuser->likes()リレーションがあると仮定
-            $items = $user->likes()->get(); 
-        } elseif ($tab === 'recommend') {
+            $items = $user->likedItems()->get();  
+        } elseif ($page === 'recommend') {
             if ($user) {
                 // ログインユーザーが出品した商品は除外して取得
                 $items = Item::where('user_id', '!=', $user->id)->get();
@@ -32,7 +32,7 @@ class ItemController extends Controller
             $items = collect([]); // 空コレクション
         }
 
-        return view('public.index', compact('items', 'tab'));
+        return view('public.index', compact('user','items', 'page'));
     }
 
     // 商品詳細表示

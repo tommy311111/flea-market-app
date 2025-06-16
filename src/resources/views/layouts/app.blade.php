@@ -14,7 +14,7 @@
         <div class="header__inner">
             <h1 class="header__logo"> <img src="{{ asset('storage/images/logo/logo.svg') }}" alt="COACHTECH">
             </h1>
-
+    @if (!in_array(Route::currentRouteName(), ['register.form', 'login']))
             {{-- 検索フォーム追加 --}}
         <form action="/search" method="GET" class="header__search-form">
             @csrf
@@ -41,6 +41,7 @@
                     </li>
                 </ul>
             </nav>
+            @endif
         </div>
     </header>
     <main>

@@ -1,64 +1,82 @@
+/* ========== 共通スタイル（remベースに変換） ========== */
 .login__content {
     background: #FFFFFF;
-    padding: 40px;
-    border-radius: 30px;
+    padding: 2.5rem;
+    /* 40px */
+    border-radius: 1.875rem;
+    /* 30px */
     border: none;
 }
 
 .login-form__heading {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
+    /* 20px */
 }
 
 .login-form__heading-title {
     margin: 0;
     font-weight: 400;
-    font-size: 40px;
+    font-size: 2.5rem;
+    /* 40px */
 }
 
 .login-form {
     margin: 0 auto;
-    width: 500px;
+    width: 31.25rem;
+    /* 500px */
 }
 
 .form__group {
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
+    /* 15px */
 }
 
 .form__label--item {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 1rem;
+    /* 16px */
 }
 
 .form__group-title {
-    margin: 10px 0;
+    margin: 0.3125rem 0;
+    /* 5px */
 }
 
 .form__input--text input {
-    width: 500px;
-    font-size: 14px;
-    padding: 10px;
+    width: 100%;
+    font-size: 0.875rem;
+    /* 14px */
+    padding: 0.625rem;
+    /* 10px */
     border: 1px solid #E0DFDE;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
+    /* 5px */
 }
 
 .form__error {
     color: #F65A5A;
-    font-size: 14px;
-    padding: 10px 0;
+    font-size: 0.875rem;
+    /* 14px */
+    padding: 0.5rem 0;
+    /* 10px 0 */
 }
 
 .form__button {
     width: 100%;
-    margin: 0 auto;
+    margin: 0.625rem auto;
+    /* 10px auto */
 }
 
 .form__button-submit {
     width: 100%;
-    padding: 10px;
+    padding: 0.625rem;
+    /* 10px */
     border: none;
-    border-radius: 4px;
-    font-size: 20px;
+    border-radius: 0.25rem;
+    /* 4px */
+    font-size: 1.25rem;
+    /* 20px */
     font-weight: 600;
     color: #fff;
     background-color: #FF4B4B;
@@ -67,18 +85,63 @@
 
 .register__button-submit {
     color: #2C99FF;
-    font-size: 16px;
+    font-size: 1rem;
+    /* 16px */
     display: inline-block;
-    padding: 10px;
-    font-family: "游明朝", "Yu Mincho", "Hiragino Mincho Pro", "MS Mincho", serif;
+    padding: 0.625rem;
+    /* 10px */
 }
 
 .register__link {
     margin: 0 auto;
-    width: 200px;
+    width: 12.5rem;
+    /* 200px */
     text-align: center;
 }
 
 .register__link a {
     text-decoration: none;
+}
+
+/* ========== PC向け調整（1400px〜1540px） ========== */
+@media (min-width: 87.5rem) and (max-width: 96.25rem) {
+    .login__content {
+        padding: 2.5rem;
+        /* 保持 */
+    }
+
+    .login-form {
+        width: 31.25rem;
+        /* 保持 */
+    }
+}
+
+/* ========== タブレット向け調整（768px〜850px） ========== */
+@media (min-width: 48rem) and (max-width: 53.125rem) {
+    .login__content {
+        padding: 2rem;
+        border-radius: 1.5rem;
+    }
+
+    .login-form {
+        width: 90%;
+    }
+
+    .login-form__heading-title {
+        font-size: 2rem;
+        /* 32px */
+    }
+
+    .form__input--text input {
+        font-size: 0.875rem;
+    }
+
+    .form__button-submit {
+        font-size: 1.125rem;
+        /* 18px */
+    }
+
+    .register__link {
+        width: 100%;
+    }
 }

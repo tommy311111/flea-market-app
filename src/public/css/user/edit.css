@@ -12,9 +12,34 @@
 
 .profile-form__heading-title {
     margin: 0;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 28px;
 }
+
+.profile__image-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #ccc;
+    flex-shrink: 0;
+}
+
+.profile__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+}
+
+.profile__image--placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    border-radius: 50%;
+}
+
 .profile-form {
     margin: 0 auto;
     width: 500px;
@@ -30,7 +55,7 @@
 }
 
 .form__group-title {
-    margin: 10px 0;
+    margin: 0.3125rem 0;
 }
 
 .form__input--text input {
@@ -41,10 +66,17 @@
     border-radius: 5px;
 }
 
+.form__input--text-field {
+    color: #666;
+    /* グレー */
+    font-weight: 600;
+    /* 少し太め（500〜600あたり） */
+}
+
 .form__error {
     color: #F65A5A;
     font-size: 14px;
-    padding: 10px 0;
+    padding: 0.3125rem 0;
 }
 
 .form__button {
@@ -94,4 +126,58 @@
 
 .profile-image__button:hover {
     background-color: #FFF0F0;
+}
+
+/* ==== PC（幅1400px以上） ==== */
+@media (min-width: 1400px) {
+    .profile-form {
+        width: 31.25rem;
+        /* 約500px */
+    }
+}
+
+/* ==== タブレット（幅768px〜850px） ==== */
+@media (max-width: 850px) {
+    .profile-form {
+        width: 90%;
+        padding: 2rem 1.5rem;
+    }
+
+    .profile-image__group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .profile-image__preview,
+    .profile__image-wrapper {
+        width: 6rem;
+        /* 約96px */
+        height: 6rem;
+    }
+
+    .profile-image__preview img,
+    .profile__image--placeholder {
+        width: 6rem;
+        height: 6rem;
+    }
+
+    .profile-image__button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .profile-form__heading-title {
+        font-size: 1.5rem;
+    }
+
+    .form__input--text input {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+
+    .form__button-submit {
+        font-size: 1.1rem;
+        padding: 0.8rem;
+    }
 }

@@ -118,7 +118,8 @@
     color: red;
 }
 
-.profile__items {
+/*これは使ってない？*/
+.profile__items {  
     flex-grow: 1;
     padding: 16px 40px;
     background-color: #f9f9f9;

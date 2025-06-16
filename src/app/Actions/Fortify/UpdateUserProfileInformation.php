@@ -25,13 +25,24 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'building'    => ['required', 'string', 'max:255'],
         ])->validate();
 
-        $user->forceFill([
-            'name' => $input['name'],
-            'image' => $input['image'] ?? $user->image,
-            'postcode' => $input['postcode'],
-            'address' => $input['address'],
-            'building' => $input['building'],
-        ])->save();
+         // ① ユーザー名を更新
+    $user->name = $input['name'];
+    $user->save();
+
+    // ② プロフィール画像を保存（ある場合）
+    $imagePath = $user->profile->image;
+    if (isset($input['image'])) {
+        $imagePath = $input['image']->store('images/profiles', 'public');
+    }
+
+    // ③ プロフィール更新
+    $user->profile->update([
+        'image' => $imagePath,
+        'postcode' => $input['postcode'],
+        'address' => $input['address'],
+        'building' => $input['building'],
+    ]);
+        
     }
 
     /**

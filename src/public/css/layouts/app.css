@@ -62,7 +62,7 @@ body {
     padding: 10px;
     position: relative;
     color: #FFFFFF;
-    /* ←白文字に変更 */
+    text-decoration: none;
 }
 
 .header__form--sell {
