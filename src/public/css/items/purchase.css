@@ -6,7 +6,7 @@
 .purchase__main {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 50px;
 }
 
 /* 左側 */
@@ -14,7 +14,7 @@
     width: 60%;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 10px;
 }
 
 .purchase__section {
@@ -25,8 +25,8 @@
 
 .purchase__item-info {
     display: flex;
-    gap: 20px;
-    align-items: center;
+    gap: 30px;
+    align-items: flex-start;
 }
 
 .purchase__item-image {
@@ -42,28 +42,70 @@
 }
 
 .purchase__item-price {
-    font-size: 16px;
+    font-size: 20px;
     color: #555;
+    font-weight: bold;
     margin-top: 5px;
 }
 
 .purchase__divider {
     border: none;
-    border-top: 1px solid #ccc;
-    margin: 20px 0;
+    border-top: 2px solid #BBB;
+    margin: 10px 0;
 }
 
 /* 支払い方法 */
 .purchase__label {
     font-size: 14px;
     font-weight: bold;
+    margin-left: 16px;
+    display: block;
+    margin-bottom: 10px;
 }
 
 .purchase__select {
-    padding: 8px;
+    padding: 6px;
     font-size: 14px;
-    border: 1px solid #ccc;
+    border: 1px solid #bbb;
     border-radius: 4px;
+    margin-top: 10px;
+    margin-left: 50px;
+    appearance: none;
+    width: 78%;
+    background-color: white;
+    cursor: pointer;
+    padding-right: 36px;
+}
+
+.purchase__select-inner {
+    position: relative;
+    display: inline-block;
+    width: 50%;
+}
+
+.purchase__select-inner::after {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 10px solid #666666;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent; 
+    pointer-events: none;
+}
+
+.purchase__select option {
+    background-color: #444;
+    /* 濃いグレー */
+    color: white;
+    /* 白文字 */
+}
+
+.purchase__select option:checked {
+    background-color: #444;
+    color: white;
 }
 
 .purchase__error {
@@ -80,8 +122,9 @@
 
 .purchase__address {
     font-size: 14px;
+    font-weight: 500;
     color: #333;
-    margin-top: 8px;
+    margin-left: 60px;
 }
 
 .purchase__edit-button {
@@ -91,10 +134,7 @@
     cursor: pointer;
     text-decoration: none;
     font-size: 14px;
-}
-
-.purchase__edit-button:hover {
-    text-decoration: underline;
+    margin-right: 20px;
 }
 
 /* 右側 */
@@ -105,32 +145,39 @@
 }
 
 .purchase__summary {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 20px;
+    border: 2px solid #bbb;
     background-color: #fff;
-    /* 背景色を削除 */
+    width: 90%;
 }
 
-.purchase__summary-row {
-    display: flex;
-    justify-content: space-between;
+.purchase__summary-table {
+    width: 100%;
+    border-collapse: collapse;
     font-size: 16px;
-    padding-bottom: 10px;
 }
 
-.purchase__summary-row:not(:last-child) {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+.purchase__summary-table th {
+    font-size: 14px;
+}
+
+.purchase__summary-table th,
+.purchase__summary-table td {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 2px solid #bbb;
+    font-weight: 500;
+}
+
+.purchase__summary-table tr:last-child th,
+.purchase__summary-table tr:last-child td {
+    border-bottom: none;
+    /* 最後の行は下線なし */
 }
 
 /* 購入ボタン */
 .purchase__submit-button {
     margin-top: 40px;
-    width: 100%;
+    width: 90%;
     background-color: #d9534f;
     color: white;
     font-size: 16px;
@@ -138,8 +185,81 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: 500;
 }
 
 .purchase__submit-button:hover {
     background-color: #c9302c;
+}
+
+/* --- PCサイズ（1400px〜1540px） --- */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .purchase__content {
+        max-width: 60rem;
+        /* 約960px */
+    }
+
+    .purchase__select {
+        width: 80%;
+    }
+
+    .purchase__right,
+    .purchase__left {
+        gap: 1rem;
+    }
+}
+
+/* --- タブレットサイズ（768px〜850px） --- */
+@media screen and (max-width: 850px) {
+    .purchase__content {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    
+    .purchase__main {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .purchase__left,
+    .purchase__right {
+        width: 100%;
+    }
+
+    .purchase__select-inner {
+        width: 100%;
+    }
+
+    .purchase__select-inner::after {
+        right: 10rem;
+    }
+
+    .purchase__select {
+        width: 80%;
+        margin-left: 0.5rem;
+        padding-right: 2.25rem;
+        /* 36px */
+    }
+
+    .purchase__address {
+        margin-left: 1rem;
+    }
+
+    .purchase__edit-button {
+        margin-right: 1rem;
+    }
+
+    .purchase__submit-button {
+        width: 100%;
+    }
+
+    .purchase__summary {
+        width: 100%;
+    }
+
+    .purchase__summary-table th,
+    .purchase__summary-table td {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
 }

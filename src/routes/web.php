@@ -22,7 +22,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // いいね機能
-Route::post('/items/{item}/like', [LikeController::class, 'toggle'])->name('likes.toggle');
+Route::post('/items/{item}/like', [LikeController::class, 'toggle'])->middleware('auth')
+->name('items.like');
 
 // コメント機能
 Route::middleware(['auth'])->group(function () {
@@ -32,6 +33,9 @@ Route::middleware(['auth'])->group(function () {
 // 購入機能
 Route::middleware(['auth'])->group(function () {
     Route::get('/purchase/{item}', [PurchaseController::class, 'show'])->name('purchase.show'); // PG06
+    // 例：支払い方法保存用POSTルート
+Route::post('/purchase/{item}/save-payment-method', [PurchaseController::class, 'savePaymentMethod'])->name('purchase.savePaymentMethod');
+
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
     Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])->name('purchase.address.edit'); // PG07
     Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');

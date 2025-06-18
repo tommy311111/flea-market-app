@@ -16,7 +16,7 @@
 
     <div class="items-index__grid">
         @forelse ($items as $item)
-            <a href="{{ url('/items/' . $item->id) }}" class="items-index__card">
+            <a href="{{ route('items.show', ['item' => $item->id]) }}" class="items-index__card">
             <div class="items-index__image-wrapper">
                     <img src="{{ asset('storage/images/' . $item->image) }}" alt="{{ $item->name }}" class="items-index__image">
                 </div>

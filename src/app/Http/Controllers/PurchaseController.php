@@ -10,12 +10,50 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
+{   
+    public function savePaymentMethod(Request $request, Item $item)
 {
+    $request->validate([
+        'payment_method' => 'required|in:コンビニ払い,カード支払い',
+    ]);
+
+    $user = Auth::user();
+
+    // 既存の注文があれば更新、なければ新規作成
+    $order = Order::firstOrNew([
+        'user_id' => $user->id,
+        'item_id' => $item->id,
+    ]);
+
+    $order->payment_method = $request->payment_method;
+
+    // 住所情報もセット（null許容なら省略可能）
+    $order->sending_postcode = $user->profile->postcode;
+    $order->sending_address = $user->profile->address;
+    $order->sending_building = $user->profile->building;
+
+    $order->save();
+
+    // 保存後、同じ購入ページにリダイレクトして、選択値を表示させる
+    return redirect()->route('purchase.show', $item->id)->with('selectedPayment', $request->payment_method);
+}
+
+
     public function show(Item $item)
     {
         $user = Auth::user();
         $methods = Order::PAYMENT_METHOD;
-        return view('items.purchase', compact('item', 'user','methods'));
+
+        // セッションから取得。なければOrdersテーブルの値を取得する方法もあり
+    $selectedPayment = session('selectedPayment');
+
+    // または、既存注文の支払い方法を取得しても良い
+    if (!$selectedPayment) {
+        $order = Order::where('user_id', $user->id)->where('item_id', $item->id)->first();
+        $selectedPayment = $order->payment_method ?? null;
+    }
+
+        return view('items.purchase', compact('item', 'user','methods', 'selectedPayment'));
     }
 
     /**
@@ -36,7 +74,7 @@ class PurchaseController extends Controller
 
         // 商品の購入済みフラグなどを更新する場合はここで実装（例: sold フラグ追加）
 
-        return redirect()->route('items.index')->with('success', '購入が完了しました。');
+        return redirect()->route('items.index')->with('success', '購入が完了しました。'); 
     }
 
     /**

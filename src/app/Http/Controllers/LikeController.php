@@ -9,23 +9,29 @@ use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
-    public function toggle(Request $request, Item $item)
+    public function toggle($id)
     {
-        $likedItems = $request->cookie('liked_items', ''); // Cookieから取得（カンマ区切り）
+        $user = Auth::user();
 
-        $likedArray = $likedItems === '' ? [] : explode(',', $likedItems);
+        $like = Like::withTrashed()
+            ->where('user_id', $user->id)
+            ->where('item_id', $id)
+            ->first();
 
-        if (in_array($item->id, $likedArray)) {
-            // いいね解除
-            $likedArray = array_diff($likedArray, [$item->id]);
+        if ($like) {
+            if ($like->trashed()) {
+                $like->restore(); // いいね復元
+            } else {
+                $like->delete(); // いいね解除
+            }
         } else {
-            // いいね追加
-            $likedArray[] = $item->id;
+            Like::create([
+                'user_id' => $user->id,
+                'item_id' => $id,
+            ]);
         }
 
-        $newLikedItems = implode(',', $likedArray);
+        return redirect()->route('items.show', ['item' => $id]);
 
-        // Cookieの有効期限は例えば30日
-        return redirect()->back()->withCookie(cookie('liked_items', $newLikedItems, 60*24*30));
     }
 }

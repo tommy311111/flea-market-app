@@ -19,27 +19,31 @@
 
             <h1 class="item-detail__name">{{ $item->name }}</h1>
 
-            <p class="item-detail__brand">{{ $item->brand }}</p>
+            <p class="item-detail__brand">{{ $item->brand_name }}</p>
 
-            <p class="item-detail__price">¥{{ number_format($item->price) }} <span class="item-detail__tax">(税込み)</span></p>
+            <p class="item-detail__price">¥{{ number_format($item->price) }} <span class="item-detail__tax">(税込)</span></p>
 
             <div class="item-detail__icons">
+    <div class="item-detail__icon-group">
+    <form action="{{ route('items.like', ['item' => $item->id]) }}" method="POST">
 
-@php
-    $likedItems = explode(',', request()->cookie('liked_items', ''));
-    $isLiked = in_array($item->id, $likedItems);
-@endphp
-    <div class="item-detail__icon-group">
-        <!-- いいね（星）アイコン -->
-        <img src="{{ asset('storage/images/icons/star.png') }}" alt="いいね" class="item-detail__icon {{ $isLiked ? 'liked' : '' }}">
-        <span class="item-detail__count">{{ $item->likes_count }}</span>
+            @csrf
+            <button type="submit" style="background: none; border: none; padding: 0;">
+                <img 
+                    src="{{ asset('storage/images/icons/star.png') }}" 
+                    alt="いいね" 
+                    class="item-detail__icon {{ $liked ? 'liked' : '' }}">
+            </button>
+            <span class="item-detail__count">{{ $item->likes_count }}</span>
+        </form>
     </div>
+
     <div class="item-detail__icon-group">
-        <!-- コメント（吹き出し）アイコン -->
         <img src="{{ asset('storage/images/icons/comment.png') }}" alt="コメント" class="item-detail__icon">
         <span class="item-detail__count">{{ $item->comments_count }}</span>
     </div>
 </div>
+
 
 
             <a href="{{ route('purchase.show',['item' => $item->id]) }}" class="item-detail__purchase-button">購入手続きへ</a>
@@ -51,8 +55,20 @@
 
             <div class="item-detail__section">
                 <h2 class="item-detail__section-title">商品の情報</h2>
-                <p class="item-detail__meta">カテゴリー: {{ implode(', ', $item->categories->pluck('name')->toArray()) }}</p>
-                <p class="item-detail__meta">商品の状態: {{ $item->condition }}</p>
+                <p class="item-detail__meta">
+    <span class="item-detail__label">カテゴリー</span>
+    <span class="item-detail__tag-list">
+        @foreach($item->categories as $category)
+            <span class="item-detail__tag">{{ $category->name }}</span>
+        @endforeach
+    </span>
+</p>
+
+<p class="item-detail__meta">
+    <span class="item-detail__label">商品の状態</span>
+    <span class="item-detail__value">{{ $item->condition }}</span>
+</p>
+
             </div>
 
             <div class="item-detail__section">
@@ -75,7 +91,7 @@
                 <h2 class="item-detail__section-title">商品へのコメント</h2>
             <form action="{{ route('comment.store', $item->id) }}" method="POST" class="item-detail__comment-form" novalidate>
                     @csrf
-                    <textarea name="body" class="item-detail__textarea" placeholder="コメントを入力してください" maxlength="255" required></textarea>
+                    <textarea name="body" class="item-detail__textarea" maxlength="255" required></textarea>
                     @error('body')
         <div class="item__error">{{ $message }}</div>
                     @enderror

@@ -1,51 +1,70 @@
 .address__content {
     background: #FFFFFF;
-    padding: 40px;
-    border-radius: 30px;
+    padding: 2rem;
+    border-radius: 1.875rem;
+    /* 30px */
     border: none;
+    max-width: 37.5rem;
+    /* 600px */
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .address-form__heading {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 2rem;
 }
 
 .address-form__heading-title {
     margin: 0;
-    font-weight: 400;
-    font-size: 40px;
+    font-weight: 500;
+    font-size: 1.5rem;
+    /* 24px */
 }
 
 .address-form {
     margin: 0 auto;
-    width: 500px;
+    width: 31.25rem;
+    /* 500px */
+    box-sizing: border-box;
 }
 
 .form__group {
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
 }
 
 .form__label--item {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 1rem;
+    /* 16px */
 }
 
 .form__group-title {
-    margin: 10px 0;
+    margin-top: 0.625rem;
+    /* 10px */
+    margin-bottom: 0;
+    margin-bottom: 0.25rem;
 }
 
 .form__input--text input {
-    width: 500px;
-    font-size: 14px;
-    padding: 10px;
+    width: 100%;
+    font-size: 0.875rem;
+    /* 14px */
+    font-weight: 400;
+    padding: 0.625rem;
+    /* 10px */
     border: 1px solid #E0DFDE;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
+    /* 5px */
+    box-sizing: border-box;
 }
 
 .form__error {
     color: #F65A5A;
-    font-size: 14px;
-    padding: 10px 0;
+    font-size: 0.875rem;
+    /* 14px */
+    padding: 0.25rem 0;
+    /* 4px */
 }
 
 .form__button {
@@ -55,12 +74,36 @@
 
 .form__button-submit {
     width: 100%;
-    padding: 10px;
+    padding: 0.5rem;
     border: none;
-    border-radius: 4px;
-    font-size: 20px;
+    border-radius: 0.25rem;
+    font-size: 1.25rem;
+    /* 20px */
     font-weight: 600;
     color: #fff;
     background-color: #FF4B4B;
     cursor: pointer;
+    margin-top: 1.25rem;
+    /* 20px */
+}
+
+/* タブレット用（768〜850px） */
+@media (max-width: 850px) {
+    .address-form {
+        width: 90%;
+    }
+
+    .address__content {
+        padding: 1.5rem;
+    }
+
+    .address-form__heading-title {
+        font-size: 1.25rem;
+        /* 20px */
+    }
+
+    .form__button-submit {
+        font-size: 1.125rem;
+        /* 18px */
+    }
 }

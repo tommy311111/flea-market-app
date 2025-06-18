@@ -25,7 +25,7 @@ class Item extends Model
 
     public function likes()
     {
-    return $this->hasMany(Like::class);
+    return $this->hasMany(Like::class)->whereNull('deleted_at');
     }
 
     public function isLikedBy($user)
