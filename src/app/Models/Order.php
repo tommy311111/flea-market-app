@@ -23,5 +23,5 @@ class Order extends Model
         return $this->belongsTo(Item::class);
     }
 
-    public const PAYMENT_METHOD = ['コンビニ払い', 'カード払い'];
+    public const PAYMENT_METHOD = ['コンビニ払い', 'カード支払い'];
 }

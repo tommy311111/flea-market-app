@@ -15,10 +15,10 @@ class UserProfileSeeder extends Seeder
 
        // 画像ファイルのパスを配列で用意
        $images = [
-        'cat.jpg',
-        'dog.jpg',
-        'flowers.jpg',
-        'rabbit.jpg',
+        'cat.jpeg',
+        'dog.jpeg',
+        'flowers.jpeg',
+        'rabbit.jpeg',
         'snoopy.png',
     ];
 

@@ -27,7 +27,7 @@ class ItemSeeder extends Seeder
                 'condition' => '良好',
                 'price' => 15000,
                 'brand_name' => 'ARMANI',
-                'image' => 'Armani+Mens+Clock.jpg',
+                'image' => 'Armani+Mens+Clock.jpeg',
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
             ],
             [
@@ -36,7 +36,7 @@ class ItemSeeder extends Seeder
                 'condition' => '目立った傷や汚れなし',
                 'price' => 5000,
                 'brand_name' => null,
-                'image' => 'HDD.jpg',
+                'image' => 'HDD.jpeg',
                 'description' => '高速で信頼性の高いハードディスク',
             ],
             [
@@ -45,7 +45,7 @@ class ItemSeeder extends Seeder
                 'condition' => 'やや傷や汚れあり',
                 'price' => 300,
                 'brand_name' => null,
-                'image' => 'Onion.jpg',
+                'image' => 'Onion.jpeg',
                 'description' => '新鮮な玉ねぎ3束のセット',
             ],
             [
@@ -54,7 +54,7 @@ class ItemSeeder extends Seeder
                 'condition' => '状態が悪い',
                 'price' => 4000,
                 'brand_name' => null,
-                'image' => 'Shoes.jpg',
+                'image' => 'Shoes.jpeg',
                 'description' => 'クラシックなデザインの革靴',
             ],
             [
@@ -63,7 +63,7 @@ class ItemSeeder extends Seeder
                 'condition' => '良好',
                 'price' => 45000,
                 'brand_name' => null,
-                'image' => 'Laptop.jpg',
+                'image' => 'Laptop.jpeg',
                 'description' => '高性能なノートパソコン',
             ],
             [
@@ -72,7 +72,7 @@ class ItemSeeder extends Seeder
                 'condition' => '目立った傷や汚れなし',
                 'price' => 8000,
                 'brand_name' => null,
-                'image' => 'Mic.jpg',
+                'image' => 'Mic.jpeg',
                 'description' => '高音質のレコーディング用マイク',
             ],
             [
@@ -81,7 +81,7 @@ class ItemSeeder extends Seeder
                 'condition' => 'やや傷や汚れあり',
                 'price' => 3500,
                 'brand_name' => null,
-                'image' => 'Bag.jpg',
+                'image' => 'Bag.jpeg',
                 'description' => 'おしゃれなショルダーバッグ',
             ],
             [
@@ -90,7 +90,7 @@ class ItemSeeder extends Seeder
                 'condition' => '状態が悪い',
                 'price' => 500,
                 'brand_name' => null,
-                'image' => 'Tumbler.jpg',
+                'image' => 'Tumbler.jpeg',
                 'description' => '使いやすいタンブラー',
             ],
             [
@@ -99,7 +99,7 @@ class ItemSeeder extends Seeder
                 'condition' => '良好',
                 'price' => 4000,
                 'brand_name' => null,
-                'image' => 'Coffee+mill.jpg',
+                'image' => 'Coffee+mill.jpeg',
                 'description' => '手動のコーヒーミル',
             ],
             [
@@ -108,7 +108,7 @@ class ItemSeeder extends Seeder
                 'condition' => '目立った傷や汚れなし',
                 'price' => 2500,
                 'brand_name' => null,
-                'image' => 'Makeup.jpg',
+                'image' => 'Makeup.jpeg',
                 'description' => '便利なメイクアップセット',
             ],
         ];

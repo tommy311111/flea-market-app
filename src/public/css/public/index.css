@@ -75,7 +75,7 @@
     overflow: hidden;
     border-radius: 0.5rem;
     /* 8px */
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     /* 8px */
 }
 
@@ -91,23 +91,38 @@
     border-radius: 0.5rem;
 }
 
+.items-index__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* 縦位置を揃える */
+    padding: 0 0.25rem;
+    /* 左右に少し余白（任意） */
+}
+
 .items-index__name {
     margin: 0.125rem 0;
     /* 上下2px */
     margin-left: 0.25rem;
     /* 左4px */
     font-weight: 500;
+    flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 }
 
 .items-index__label--sold {
     display: inline-block;
     margin-top: 0.25rem;
+    margin-right: 0.25rem;
     padding: 0.125rem 0.375rem;
     background-color: red;
     color: white;
     font-size: 0.75rem;
     /* 12px */
     border-radius: 0.25rem;
+    font-weight: 500;
 }
 
 .items-index__empty {

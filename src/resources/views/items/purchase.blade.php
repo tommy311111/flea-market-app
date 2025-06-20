@@ -27,12 +27,16 @@
                 @csrf
                     <label for="payment_method" class="purchase__label">支払い方法</label>
                 <div class="purchase__select-inner">
-                    <select name="payment_method" id="payment_method" class="purchase__select"  onchange="this.form.submit()">
-                        <option value="">選択してください</option>
-                        @foreach ($methods as $method)
-        <option value="{{ $method }}">{{ $method }}</option>
+                <select name="payment_method" id="payment_method" class="purchase__select" onchange="this.form.submit()">
+    <option value="">選択してください</option>
+    @foreach ($methods as $method)
+        <option value="{{ $method }}" 
+            @if (old('payment_method') === $method || session('selectedPayment') === $method) selected @endif>
+            {{ $method }}
+        </option>
     @endforeach
-                    </select>
+</select>
+
                 </div>
                     @error('payment_method')
                         <div class="purchase__error">{{ $message }}</div>
@@ -66,6 +70,8 @@
     <form action="{{ route('purchase.store', $item->id) }}" method="POST">
         @csrf
         <input type="hidden" name="shipping_address" value="{{ '〒' . $user->profile->postcode . ' ' . $user->profile->address . ' ' . $user->profile->building }}">
+        <input type="hidden" name="payment_method" value="{{ session('selectedPayment') }}">
+
             <div class="purchase__summary">
     <table class="purchase__summary-table">
         <tbody>

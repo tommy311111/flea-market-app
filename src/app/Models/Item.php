@@ -38,6 +38,11 @@ class Item extends Model
         return $this->hasOne(Order::class);
     }
 
+    public function getIsSoldAttribute()
+    {
+        return $this->order()->exists();
+    }
+
     public function comments()
     {
     return $this->hasMany(Comment::class);
@@ -47,7 +52,7 @@ class Item extends Model
 
     public static function search($keyword = null, $page = 'recommend', $user = null)
 {
-    $query = self::query();
+    $query = self::query()->with('order');
 
     // 部分一致検索
     if (!empty($keyword)) {

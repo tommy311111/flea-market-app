@@ -8,10 +8,29 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 // --- 会員登録関連（ログイン前） ---
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+// 認証済ユーザーがアクセスできるルート（edit画面など）とは別に定義
+Route::get('/email/verify', function () {
+    return view('auth.verify'); // ここが verify.blade.php を返す
+})->middleware('auth')->name('verification.notice');
+
+// 認証メール内のリンクから来たときの処理
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill(); // 認証を完了
+    return redirect('/mypage/profile'); // 認証後に遷移したい画面に変更
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+// 認証メールの再送
+Route::post('/email/verification-notification', function (Illuminate\Http\Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('status', 'verification-link-sent');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 
 // 商品関連
 Route::get('/', [ItemController::class, 'index'])->name('items.index'); // PG01, PG02
@@ -43,7 +62,7 @@ Route::post('/purchase/{item}/save-payment-method', [PurchaseController::class, 
 });
 
 // プロフィール機能
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index'); // PG09, PG11, PG12
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit'); // PG10
     Route::put('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');

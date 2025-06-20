@@ -16,6 +16,8 @@ class PurchaseController extends Controller
     $request->validate([
         'payment_method' => 'required|in:コンビニ払い,カード支払い',
     ]);
+    
+    
 
     $user = Auth::user();
 
@@ -60,22 +62,24 @@ class PurchaseController extends Controller
      * 商品購入処理（注文登録）
      */
     public function store(PurchaseRequest $request, Item $item)
-    {
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        Order::create([
-            'user_id' => $user->id,
-            'item_id' => $item->id,
-            'payment_method' => $request->payment_method,
-            'sending_postcode' => $user->profile->postcode,
-            'sending_address' => $user->profile->address,
-            'sending_building' => $user->profile->building,
-        ]);
+    // 注文がすでにあるか確認（支払い方法だけ更新など）
+    $order = Order::firstOrNew([
+        'user_id' => $user->id,
+        'item_id' => $item->id,
+    ]);
 
-        // 商品の購入済みフラグなどを更新する場合はここで実装（例: sold フラグ追加）
+    $order->payment_method = $request->payment_method;
+    $order->sending_postcode = $user->profile->postcode;
+    $order->sending_address = $user->profile->address;
+    $order->sending_building = $user->profile->building;
+    $order->save();
 
-        return redirect()->route('items.index')->with('success', '購入が完了しました。'); 
-    }
+    return redirect()->route('items.index')->with('success', '購入が完了しました。');
+}
+
 
     /**
      * 配送先住所変更画面（PG07）表示
