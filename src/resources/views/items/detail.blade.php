@@ -10,7 +10,7 @@
     <div class="item-detail__container">
         {{-- 左：商品画像 --}}
         <div class="item-detail__image-wrapper">
-            <img src="{{ asset('storage/images/' . $item->image) }}" alt="商品画像" class="item-detail__image">
+            <img src="{{ asset('storage/images/items/' . $item->image) }}" alt="商品画像" class="item-detail__image">
 
         </div>
 
@@ -77,7 +77,7 @@
                 @foreach($item->comments as $comment)
                     <div class="item-detail__comment">
                         <div class="item-detail__comment-header">
-                        <img src="{{ asset('storage/' . $comment->user->profile->image) }}" alt="ユーザー画像" class="item-detail__comment-user-image">
+                        <img src="{{ asset('storage/images/profiles/' . $comment->user->profile->image) }}" alt="ユーザー画像" class="item-detail__comment-user-image">
 
                             <span class="item-detail__comment-username">{{ $comment->user->name }}</span>
                         </div>

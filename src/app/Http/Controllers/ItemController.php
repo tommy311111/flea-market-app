@@ -11,29 +11,17 @@ use Illuminate\Support\Facades\Auth;
 class ItemController extends Controller
 {
     public function index(Request $request)
-    {
-        $page = $request->query('page', 'recommend'); // 'recommend' or 'mylist'
-        $user = Auth::user();
+{
+    $page = $request->query('page', 'recommend');
+    $keyword = $request->input('keyword');
+    $user = Auth::user();
 
-        if ($page === 'mylist' && $user) {
-            // ログインユーザーが「いいね」した商品だけ表示
-            // ここではuser->likes()リレーションがあると仮定
-            $items = $user->likedItems()->get();  
-        } elseif ($page === 'recommend') {
-            if ($user) {
-                // ログインユーザーが出品した商品は除外して取得
-                $items = Item::where('user_id', '!=', $user->id)->get();
-            } else {
-                // ログインしていなければ全商品取得
-                $items = Item::get();
-            }
-        } else {
-            // マイリストタブかつ未ログインの場合は空の結果
-            $items = collect([]); // 空コレクション
-        }
+    // モデルで検索ロジックを集約
+    $items = Item::search($keyword, $page, $user);
 
-        return view('public.index', compact('user','items', 'page'));
-    }
+    return view('public.index', compact('items', 'page', 'keyword'));
+}
+
 
     // 商品詳細表示
     public function show($id)
@@ -69,12 +57,13 @@ class ItemController extends Controller
         $item->user_id = Auth::id();
         $item->name = $request->name;
         $item->description = $request->description;
+        $item->brand_name = $request->brand_name;
         $item->price = $request->price;
         $item->image = $safeName;  // 変更した安全なファイル名を保存
         $item->condition = $request->condition;
         $item->save();
 
-        $item->categories()->sync($request->categories);
+        $item->categories()->sync($request->category);
 
         return redirect('/')->with('success', '商品を出品しました。');
     }

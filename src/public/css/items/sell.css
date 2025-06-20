@@ -8,19 +8,20 @@
 
 .sell-form__heading {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
 }
 
 .sell-form__heading-title {
     font-size: 1.8rem;
     font-weight: bold;
+    margin-top: 0;
 }
 
 /* 商品画像 */
 .sell-form__image-wrapper {
     border: 2px solid #ccc;
     border-radius: 8px;
-    padding: 4rem 0;
+    padding: 2rem 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,7 +31,7 @@
 .sell-form__image-label {
     border: 1px solid red;
     color: red;
-    padding: 1rem 2rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
@@ -81,7 +82,7 @@
     display: inline-block;
     border: 1px solid red;
     color: red;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.75rem;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s;
@@ -98,7 +99,9 @@
     padding: 0.5rem;
     border: 1px solid #ccc;
     margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     border-radius: 5px;
+    font-weight: 400;
 }
 
 /* 入力フィールド共通 */
@@ -118,6 +121,7 @@
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-weight: 400;
 }
 
 .sell-form__textarea {
@@ -139,6 +143,7 @@
     padding: 0.5rem 0.5rem 0.5rem 2rem;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-weight: 400;
 }
 
 .sell-form__yen {
@@ -148,6 +153,7 @@
     transform: translateY(-50%);
     color: #2a2a2a;
     pointer-events: none;
+    font-weight: 400;
 }
 
 /* 出品ボタン */
@@ -155,13 +161,13 @@
     display: block;
     width: 100%;
     background-color: red;
-    font-weight: bold;
+    font-weight: 500;
     color: white;
-    padding: 1rem;
+    padding: 0.25rem;
     border: none;
     border-radius: 5px;
     font-size: 1.25rem;
-    margin-top: 2rem;
+    margin-top: 3rem;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -174,4 +180,71 @@
     color: #F65A5A;
     font-size: 14px;
     margin-top: 0.25rem;
+}
+
+/* PC (1400px〜1540px)：レイアウトが広がりすぎないように調整 */
+@media screen and (max-width: 1540px) {
+    .sell__content {
+        max-width: 40rem;
+        /* 1120px */
+        padding: 2rem;
+    }
+
+    .sell-form__heading-title {
+        font-size: 1.6rem;
+    }
+
+    .sell-form__image-preview img {
+        max-width: 180px;
+        max-height: 180px;
+    }
+
+    .sell-form__submit-button {
+        font-size: 1.125rem;
+    }
+}
+
+/* タブレット (768px〜850px)：カラム幅を狭く、要素の配置を柔軟に */
+@media screen and (max-width: 850px) {
+    .sell__content {
+        max-width: 95%;
+        padding: 1.5rem;
+    }
+
+    .sell-form__heading-title {
+        font-size: 1.4rem;
+    }
+
+    .sell-form__image-wrapper {
+        flex-direction: column;
+        padding: 1.5rem 0;
+    }
+
+    .sell-form__image-preview img {
+        max-width: 160px;
+        max-height: 160px;
+    }
+
+        .sell-form__category-list {
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 0.5rem 0.75rem;
+            margin: 0.5rem 0;
+        }
+
+    .sell-form__category-item {
+        flex-shrink: 0;  
+     }
+
+    .sell-form__select,
+    .sell-form__input,
+    .sell-form__textarea,
+    .sell-form__price-input {
+        font-size: 1rem;
+    }
+
+    .sell-form__submit-button {
+        font-size: 1.125rem;
+        padding: 0.5rem;
+    }
 }

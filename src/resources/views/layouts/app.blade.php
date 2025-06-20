@@ -12,15 +12,23 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <h1 class="header__logo"> <img src="{{ asset('storage/images/logo/logo.svg') }}" alt="COACHTECH">
-            </h1>
+        {{-- 上段：ロゴと検索 --}}
+    <div class="header__top">
+        <h1 class="header__logo">
+    <a href="{{ route('items.index') }}">
+        <img src="{{ asset('storage/images/logo/logo.svg') }}" alt="COACHTECH">
+    </a>
+</h1>
+
     @if (!in_array(Route::currentRouteName(), ['register.form', 'login']))
             {{-- 検索フォーム追加 --}}
-        <form action="/search" method="GET" class="header__search-form">
-            @csrf
-            <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？">
-        </form>
-
+            <form action="{{ route('items.index') }}" method="GET" class="header__search-form">
+    <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
+    <input type="hidden" name="page" value="{{ request('page', 'recommend') }}">
+</form>
+</div>
+{{-- 下段：ナビゲーション --}}
+    <div class="header__bottom">
             <nav class="header__nav">
                 <ul class="header__list">
                     <li class="header__list-item">
@@ -41,6 +49,7 @@
                     </li>
                 </ul>
             </nav>
+            </div>
             @endif
         </div>
     </header>

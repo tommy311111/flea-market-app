@@ -12,7 +12,7 @@
     justify-content: flex-start;
     gap: 1.5rem;
     /* 24px */
-    padding: 1rem 0.625rem 0.25rem;
+    padding: 1rem 0.625rem 0;
     /* 16px 10px 4px */
     margin-left: 5rem;
     /* 80px */
@@ -111,20 +111,26 @@
 }
 
 .items-index__empty {
-    grid-column: 1 / -1;
     text-align: center;
-    color: #555;
-    font-size: 1.125rem;
-    /* 18px */
-    padding: 1.25rem 0;
-    /* 20px */
+    margin-top: 40px;
+    font-size: 16px;
+    color: #666;
+}
+
+.items-index__retry {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: underline;
 }
 
 /* --- 🖥️ PCサイズ: 1400px以上（余白拡張など） --- */
 @media (min-width: 1400px) {
     .index__tabs {
         margin-left: 6rem;
-        padding: 1.5rem 1rem 0.5rem;
+        padding: 1.5rem 1rem 0;
     }
 
     .items-index__grid {

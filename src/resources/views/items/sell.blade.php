@@ -1,4 +1,4 @@
-@extends('layouts/app')
+@extends('layouts/app') 
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/items/sell.css') }}">
@@ -35,7 +35,7 @@
             <div class="sell-form__category-list">
     @foreach ($categories as $category)
         <label class="sell-form__category-item">
-            <input type="checkbox" name="category[]" value="{{ $category->name }}" class="sell-form__category-checkbox">
+            <input type="checkbox" name="category[]" value="{{ $category->id }}" class="sell-form__category-checkbox">
             <span class="sell-form__category-name">{{ $category->name }}</span>
         </label>
     @endforeach

@@ -15,6 +15,7 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 // 商品関連
 Route::get('/', [ItemController::class, 'index'])->name('items.index'); // PG01, PG02
+Route::get('/search', [ItemController::class, 'index']); // 検索フォーム
 Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show'); // PG05
 Route::middleware(['auth'])->group(function () {
     Route::get('/sell', [ItemController::class, 'create'])->name('items.create'); // PG08
@@ -45,7 +46,7 @@ Route::post('/purchase/{item}/save-payment-method', [PurchaseController::class, 
 Route::middleware(['auth'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index'); // PG09, PG11, PG12
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit'); // PG10
-    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 

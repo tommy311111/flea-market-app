@@ -11,7 +11,7 @@
                 <!-- 商品情報 -->
                 <div class="purchase__section">
                     <div class="purchase__item-info">
-                        <img src="{{ asset('storage/images/' . $item->image) }}" alt="{{ $item->name }}" class="purchase__item-image">
+                        <img src="{{ asset('storage/images/items/' . $item->image) }}" alt="{{ $item->name }}" class="purchase__item-image">
                         <div class="purchase__item-text">
                             <div class="purchase__item-name">{{ $item->name }}</div>
                             <div class="purchase__item-price">¥{{ number_format($item->price) }}</div>

@@ -15,11 +15,11 @@ class UserProfileSeeder extends Seeder
 
        // 画像ファイルのパスを配列で用意
        $images = [
-        'images/profiles/cat.jpg',
-        'images/profiles/dog.jpg',
-        'images/profiles/flowers.jpg',
-        'images/profiles/rabbit.jpg',
-        'images/profiles/snoopy.png',
+        'cat.jpg',
+        'dog.jpg',
+        'flowers.jpg',
+        'rabbit.jpg',
+        'snoopy.png',
     ];
 
     foreach ($users as $index => $user) {

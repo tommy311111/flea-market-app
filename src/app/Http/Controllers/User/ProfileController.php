@@ -27,7 +27,7 @@ class ProfileController extends Controller
             ]);
         }
     
-        $profile = $user->profile;
+        $profile = $user->profile()->first();
     
         return view('user.edit', compact('user', 'profile'));
     }
@@ -40,13 +40,27 @@ class ProfileController extends Controller
     
         $validated = $request->validated();
         $imagePath = $profile->image;
+        
+        if ($request->hasFile('image')) {
+            
+            $image = $request->file('image');
+            
+            if ($image->isValid()) {
+                
+                $originalName = $image->getClientOriginalName();
+                $safeName = str_replace([' ', '+'], '_', $originalName);
+        
+                // ファイル名にユーザーIDやタイムスタンプを付与して一意に
+                $filename = $user->id . '_' . time() . '_' . $safeName;
+        
+                // 保存してパスを取得
+                $path = $image->storeAs('images/profiles', $filename, 'public');
+                $imagePath = $filename;
 
-    if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        if ($image->isValid()) {
-            $imagePath = $image->store('images/profiles', 'public');
+
+            }
         }
-    }
+        
         
     
         $user->update([
@@ -57,9 +71,9 @@ class ProfileController extends Controller
             'postcode' => $validated['postcode'] ?? '',
             'address' => $validated['address'] ?? '',
             'building' => $validated['building'] ?? '',
-            'image' => $validated['image'] ?? $profile->image,
+            'image' => $imagePath,
         ]);
-    
+
         return redirect()->route('items.index')->with('status', 'プロフィールを更新しました');
     }
 

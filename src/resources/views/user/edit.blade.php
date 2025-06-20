@@ -11,12 +11,12 @@
     </div>
     <form class="profile-form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
-
+        @method('PUT')
         <!-- プロフィール画像 -->
         <div class="form__group profile-image__group">
         <div id="image-preview" class="profile__image-wrapper">
         @if ($profile && $profile->image)
-            <img src="{{ asset('storage/' . $profile->image) }}" alt="プロフィール画像" class="profile__image">
+            <img src="{{ asset('storage/images/profiles/' . $profile->image) }}" alt="プロフィール画像" class="profile__image">
         @else
             <div class="profile__image--placeholder"></div>
         @endif
@@ -24,9 +24,14 @@
     <label class="profile-image__button">
         画像を選択する
         <input type="file" name="image" id="image" hidden>
+       
     </label>
 </div>
-
+<div class="form__error">
+    @error('image')
+        {{ $message }}
+    @enderror
+</div>
 
         <!-- ユーザー名 -->
         <div class="form__group">
