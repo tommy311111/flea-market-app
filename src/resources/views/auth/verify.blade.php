@@ -10,7 +10,7 @@
     </p>
 
     @if (session('status') == 'verification-link-sent')
-        <p class="verify__alert">認証メールを再送しました。</p>
+        <p class="verify__alert">認証メールを送信しました。</p>
     @endif
 
     <form method="POST" action="{{ route('verification.send') }}" class="verify__form">
