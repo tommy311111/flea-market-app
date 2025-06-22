@@ -77,8 +77,11 @@
                 @foreach($item->comments as $comment)
                     <div class="item-detail__comment">
                         <div class="item-detail__comment-header">
+                        @if ($comment->user->profile && $comment->user->profile->image)
                         <img src="{{ asset('storage/images/profiles/' . $comment->user->profile->image) }}" alt="ユーザー画像" class="item-detail__comment-user-image">
-
+                        @else
+                        <div class="item-detail__comment-user-image--placeholder"></div>
+                        @endif
                             <span class="item-detail__comment-username">{{ $comment->user->name }}</span>
                         </div>
                         <p class="item-detail__comment-text">{{ $comment->body }}</p>
