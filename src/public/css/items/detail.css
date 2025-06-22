@@ -193,6 +193,14 @@
     object-fit: cover;
 }
 
+.item-detail__comment-user-image--placeholder {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: inline-block;
+}
+
 .item-detail__comment-username {
     font-weight: bold;
     font-size: 0.875rem;

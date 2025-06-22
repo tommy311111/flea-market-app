@@ -14,46 +14,60 @@ class LoginValidationTest extends TestCase
 
     /** @test */
     public function メールアドレスが未入力だとバリデーションメッセージが表示される()
-    {
-        $response = $this->post('/login', [
-            'email' => '',
-            'password' => 'password123',
-        ]);
+{
+    $this->get('/login')->assertStatus(200); // ログインページを開く
 
-        $response->assertSessionHasErrors([
-            'email' => 'メールアドレスを入力してください',
-        ]);
-    }
+    $response = $this->post('/login', [
+        'email' => '',
+        'password' => 'password123',
+    ]);
+
+    $response->assertSessionHasErrors([
+        'email' => 'メールアドレスを入力してください',
+    ]);
+}
+
 
     /** @test */
     public function パスワードが未入力だとバリデーションメッセージが表示される()
-    {
-        $response = $this->post('/login', [
-            'email' => 'test@example.com',
-            'password' => '',
-        ]);
+{
+    $this->get('/login')->assertStatus(200); // ログインページを開く
 
-        $response->assertSessionHasErrors([
-            'password' => 'パスワードを入力してください',
-        ]);
-    }
+    $response = $this->post('/login', [
+        'email' => 'test@example.com',
+        'password' => '',
+    ]);
+
+    $response->assertSessionHasErrors([
+        'password' => 'パスワードを入力してください',
+    ]);
+}
+
 
     /** @test */
     public function 入力情報が誤っているとログインエラーが表示される()
-    {
-        $response = $this->from('/login')->post('/login', [
-            'email' => 'wrong@example.com',
-            'password' => 'invalidpassword',
-        ]);
+{
+    $response = $this->from('/login')->post('/login', [
+        'email' => 'wrong@example.com',
+        'password' => 'invalidpassword',
+    ]);
 
-        $response->assertRedirect('/login');
-        $response->assertSessionHasErrors('email');
-        $this->assertGuest(); // 未ログイン状態であること
-    }
+    // リダイレクトを確認
+    $response->assertRedirect('/login');
+
+    // セッションエラーを確認
+    $this->assertGuest();
+    $this->assertTrue(session()->has('errors'));
+
+    // リダイレクト先のページでメッセージを確認
+    $followUp = $this->get('/login');
+    $followUp->assertSee('ログイン情報が登録されていません');
+}
 
     /** @test */
     public function 正しい情報を入力すればログインできる()
     {
+        $this->get('/login')->assertStatus(200); // ログインページを開く
         // 事前にユーザーを登録
         $user = User::create([
             'name' => 'テスト太郎',

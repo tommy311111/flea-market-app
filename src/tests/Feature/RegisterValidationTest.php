@@ -14,7 +14,9 @@ class RegisterValidationTest extends TestCase
     use RefreshDatabase;
      /** @test */
      public function 名前が未入力だとバリデーションメッセージが表示される()
-     {
+     {  
+        $this->get('/register')->assertStatus(200);
+
          $response = $this->from('/register')->post('/register', [
              'name' => '',
              'email' => 'test@example.com',
@@ -30,6 +32,8 @@ class RegisterValidationTest extends TestCase
      /** @test */
      public function メールアドレスが未入力だとバリデーションメッセージが表示される()
      {
+        $this->get('/register')->assertStatus(200);
+
          $response = $this->from('/register')->post('/register', [
              'name' => 'テスト太郎',
              'email' => '',
@@ -45,6 +49,8 @@ class RegisterValidationTest extends TestCase
      /** @test */
      public function パスワードが未入力だとバリデーションメッセージが表示される()
      {
+        $this->get('/register')->assertStatus(200);
+
          $response = $this->from('/register')->post('/register', [
              'name' => 'テスト太郎',
              'email' => 'test@example.com',
@@ -60,6 +66,8 @@ class RegisterValidationTest extends TestCase
      /** @test */
      public function パスワードが7文字以下だとバリデーションメッセージが表示される()
      {
+        $this->get('/register')->assertStatus(200);
+
          $response = $this->from('/register')->post('/register', [
              'name' => 'テスト太郎',
              'email' => 'test@example.com',
@@ -75,12 +83,15 @@ class RegisterValidationTest extends TestCase
      /** @test */
      public function パスワードと確認用パスワードが一致しないとバリデーションメッセージが表示される()
      {
-         $response = $this->from('/register')->post('/register', [
-             'name' => 'テスト太郎',
-             'email' => 'test@example.com',
-             'password' => 'password123',
-             'password_confirmation' => 'different123',
-         ]);
+        $this->get('/register')->assertStatus(200);
+
+         // 2. パスワードと確認用パスワードが異なる状態でPOST送信
+    $response = $this->from('/register')->post('/register', [
+        'name' => 'テスト太郎',
+        'email' => 'test@example.com',
+        'password' => 'password123',
+        'password_confirmation' => 'different123',
+    ]);
  
          $response->assertRedirect('/register');
          $response->assertSessionHasErrors('password');
@@ -90,6 +101,7 @@ class RegisterValidationTest extends TestCase
 /** @test */
 public function 正しい入力で会員登録後に認証済みとしてプロフィール編集画面へ遷移できる()
 {
+    $this->get('/register')->assertStatus(200);
     // ユーザー登録（ファクトリでもOK）
     $response = $this->post('/register', [
         'name' => 'テスト太郎',
