@@ -25,7 +25,9 @@ class PurchaseRequest extends FormRequest
     {
         return [
             'payment_method' => ['required'], // 支払い方法（例: クレカ、コンビニなど）
-            'shipping_address' => ['required', 'string'], // 配送先住所
+            'sending_postcode' => ['required', 'string', 'regex:/^\d{3}-\d{4}$/'], // 例: 123-4567
+            'sending_address'     => ['required', 'string', 'max:255'],
+            'sending_building'    => ['required', 'string', 'max:255'],            
         ];
     }
 

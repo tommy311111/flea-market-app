@@ -69,7 +69,10 @@
             <div class="purchase__right">
     <form action="{{ route('purchase.store', $item->id) }}" method="POST">
         @csrf
-        <input type="hidden" name="shipping_address" value="{{ '〒' . $user->profile->postcode . ' ' . $user->profile->address . ' ' . $user->profile->building }}">
+        {{-- hiddenで住所を送信 --}}
+    <input type="hidden" name="sending_postcode" value="{{ $user->profile->postcode }}">
+    <input type="hidden" name="sending_address" value="{{ $user->profile->address }}">
+    <input type="hidden" name="sending_building" value="{{ $user->profile->building }}">
         <input type="hidden" name="payment_method" value="{{ session('selectedPayment') }}">
 
             <div class="purchase__summary">

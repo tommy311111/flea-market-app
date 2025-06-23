@@ -50,24 +50,32 @@ class ItemSearchTest extends TestCase
     public function 検索状態がマイリストでも保持されている()
     {
         // 商品A：カメラ、いいね済み
-        $likedItem = Item::factory()->create([
-            'name' => 'カメラバッグ',
-            'user_id' => $this->otherUser->id,
-        ]);
-        $this->user->likedItems()->attach($likedItem->id);
+    $likedItem = Item::factory()->create([
+        'name' => 'カメラバッグ',
+        'user_id' => $this->otherUser->id,
+    ]);
+    $this->user->likedItems()->attach($likedItem->id);
 
-        // 商品B：いいね済みだが検索にヒットしない
-        $unmatchedItem = Item::factory()->create([
-            'name' => 'スマホケース',
-            'user_id' => $this->otherUser->id,
-        ]);
-        $this->user->likedItems()->attach($unmatchedItem->id);
+    // 商品B：スマホ、いいね済みだが検索にヒットしない
+    $unmatchedItem = Item::factory()->create([
+        'name' => 'スマホケース',
+        'user_id' => $this->otherUser->id,
+    ]);
+    $this->user->likedItems()->attach($unmatchedItem->id);
 
-        // マイリストページで検索
-        $response = $this->get('/?page=mylist&keyword=カメラ');
+    // 1. 商品一覧ページで検索（キーワード: カメラ）
+    $searchResponse = $this->actingAs($this->user)
+        ->get('/?keyword=カメラ');
 
-        $response->assertStatus(200);
-        $response->assertSee('カメラバッグ');
-        $response->assertDontSee('スマホケース');
+    $searchResponse->assertStatus(200);
+    $searchResponse->assertSee('カメラバッグ');
+    $searchResponse->assertDontSee('スマホケース');
+
+    // 2. 検索キーワードを保持したままマイリストページに遷移
+    $mylistResponse = $this->get('/?page=mylist&keyword=カメラ');
+
+    $mylistResponse->assertStatus(200);
+    $mylistResponse->assertSee('カメラバッグ');
+    $mylistResponse->assertDontSee('スマホケース');
     }
 }

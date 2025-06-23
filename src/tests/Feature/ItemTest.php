@@ -44,6 +44,12 @@ class ItemTest extends TestCase
         // Assert
         $response->assertStatus(200);
         $response->assertSee('Sold');
+
+         // 商品名の直後にSoldが表示されていることを確認
+        $response->assertSeeInOrder([
+        $item->name,
+        'Sold',
+    ]);
     }
 
     /** @test */

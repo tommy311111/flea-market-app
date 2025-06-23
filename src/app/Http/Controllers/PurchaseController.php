@@ -16,8 +16,6 @@ class PurchaseController extends Controller
     $request->validate([
         'payment_method' => 'required|in:コンビニ払い,カード支払い',
     ]);
-    
-    
 
     $user = Auth::user();
 

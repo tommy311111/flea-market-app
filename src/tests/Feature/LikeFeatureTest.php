@@ -14,30 +14,35 @@ class LikeFeatureTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function いいねアイコンの押下で商品にいいねを登録できる()
+    public function いいねアイコン押下でいいねが登録されいいね数が画面に反映される()
 {
     $user = User::factory()->create();
     $item = Item::factory()->create();
 
-    $this->assertEquals(0, Like::count());
+    // 1. ユーザーにログインし商品詳細ページを開く（いいね数は0）
+    $response = $this->actingAs($user)
+        ->get("/items/{$item->id}");
+    $response->assertStatus(200);
+    $response->assertSee('<span class="item-detail__count">0</span>', false);
 
-    // 1. 商品詳細ページを開く
-    $this->actingAs($user)
-        ->get("/items/{$item->id}")
-        ->assertStatus(200);
-
-    // 2. いいねアイコンを押下（POSTリクエスト）
+    // 2. いいね登録
     $this->actingAs($user)
         ->post("/items/{$item->id}/like");
 
-    $this->assertEquals(1, Like::count());
-
+    // 3. DBにいいねが登録されているか確認
     $this->assertDatabaseHas('likes', [
         'user_id' => $user->id,
         'item_id' => $item->id,
         'deleted_at' => null,
     ]);
+
+    // 4. 再度商品詳細ページを取得し、いいね数が1に増えていることを確認
+    $response = $this->actingAs($user)
+        ->get("/items/{$item->id}");
+    $response->assertStatus(200);
+    $response->assertSee('<span class="item-detail__count">1</span>', false);
 }
+
 
 
     /** @test */
@@ -85,5 +90,11 @@ class LikeFeatureTest extends TestCase
 
         // 有効ないいねは0になる
         $this->assertEquals(0, Like::whereNull('deleted_at')->count());
+
+        // いいね数が0に減っていることを画面上で確認
+        $response = $this->actingAs($user)
+        ->get("/items/{$item->id}");
+        $response->assertStatus(200);
+        $response->assertSee('<span class="item-detail__count">0</span>', false);
     }
 }
