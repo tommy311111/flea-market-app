@@ -20,7 +20,7 @@
     </a>
 </h1>
 
-    @if (!in_array(Route::currentRouteName(), ['register.form', 'login']))
+    @if (!in_array(Route::currentRouteName(), ['register.form', 'login','verification.notice']))
             {{-- 検索フォーム追加 --}}
             <form action="{{ route('items.index') }}" method="GET" class="header__search-form">
     <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
