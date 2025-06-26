@@ -4,10 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\User\ProfileController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\LikeController;
+use App\Http\Controllers\Item\ItemController;
+use App\Http\Controllers\Purchase\PurchaseController;
+use App\Http\Controllers\Item\CommentController;
+use App\Http\Controllers\Item\LikeController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 // --- 会員登録関連（ログイン前） ---

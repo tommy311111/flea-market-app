@@ -82,5 +82,6 @@ class CommentFeatureTest extends TestCase
 
         $response->assertRedirect(route('items.show', $item->id));
         $response->assertSessionHasErrors('body');
+
     }
 }
