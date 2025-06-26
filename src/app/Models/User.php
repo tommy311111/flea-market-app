@@ -15,32 +15,17 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -49,20 +34,17 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(UserProfile::class);
     }
-    
 
     public function items()
     {
-    return $this->hasMany(Item::class);
+        return $this->hasMany(Item::class);
     }
 
-    // Like モデル経由（詳細な情報が必要な場合）
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
     }
 
-    // 論理削除されていない Like 経由で、Items を取得
     public function likedItems(): BelongsToMany
     {
         return $this->belongsToMany(Item::class, 'likes')
@@ -73,12 +55,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function orders()
     {
-    return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class);
     }
 
     public function comments()
     {
-    return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     public function profileIsFilled()
@@ -89,9 +71,9 @@ class User extends Authenticatable implements MustVerifyEmail
                $this->profile->address &&
                $this->profile->building;
     }
-    
+
     public function sendEmailVerificationNotification()
-{
-    $this->notify(new CustomVerifyEmail());
-}
+    {
+        $this->notify(new CustomVerifyEmail());
+    }
 }

@@ -25,13 +25,13 @@ class Item extends Model
 
     public function likes()
     {
-    return $this->hasMany(Like::class)->whereNull('deleted_at');
+        return $this->hasMany(Like::class)->whereNull('deleted_at');
     }
 
     public function isLikedBy($user)
-{
-    return $this->likes()->where('user_id', $user->id)->exists();
-}
+    {
+        return $this->likes()->where('user_id', $user->id)->exists();
+    }
 
     public function order()
     {
@@ -45,37 +45,33 @@ class Item extends Model
 
     public function comments()
     {
-    return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     public const CONDITIONS = ['良好', '目立った傷や汚れなし', 'やや傷や汚れあり', '状態が悪い'];
 
     public static function search($keyword = null, $page = 'recommend', $user = null)
-{
-    $query = self::query()->with('order');
+    {
+        $query = self::query()->with('order');
 
-    // 部分一致検索
-    if (!empty($keyword)) {
-        $query->where('name', 'like', '%' . $keyword . '%');
-    }
-
-    // マイリスト：ログインしていなければ空コレクションを返す
-    if ($page === 'mylist') {
-        if ($user) {
-            $query->whereHas('likes', function ($q) use ($user) {
-                $q->where('user_id', $user->id);
-            });
-        } else {
-            return collect([]); // ログインしていなければマイリストは空
+        if (!empty($keyword)) {
+            $query->where('name', 'like', '%' . $keyword . '%');
         }
+
+        if ($page === 'mylist') {
+            if ($user) {
+                $query->whereHas('likes', function ($q) use ($user) {
+                    $q->where('user_id', $user->id);
+                });
+            } else {
+                return collect([]);
+            }
+        }
+
+        if ($page === 'recommend' && $user) {
+            $query->where('user_id', '!=', $user->id);
+        }
+
+        return $query->latest()->get();
     }
-
-    // おすすめ：ログインしていれば自分の商品を除外、未ログインならそのまま
-    if ($page === 'recommend' && $user) {
-        $query->where('user_id', '!=', $user->id);
-    }
-
-    return $query->latest()->get();
-}
-
 }

@@ -7,31 +7,21 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ExhibitionRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules(): array
     {
         return [
-            'name' => ['required'], // 商品名：必須
-            'description' => ['required', 'max:255'], // 説明：必須、255文字まで
-            'image' => ['required', 'image', 'mimes:jpeg,png'], // 画像：必須、jpeg/png
-            'category' => ['required', 'array','min:1'], // カテゴリー：必須、複数可
-            'category.*' => ['required', 'exists:categories,id'], // 各カテゴリー項目：必須
-            'condition' => ['required', Rule::in(\App\Models\Item::CONDITIONS)], // 状態：必須
-            'price' => ['required', 'numeric', 'min:0'], // 価格：必須、数値、0円以上
+            'name' => ['required'],
+            'description' => ['required', 'max:255'],
+            'image' => ['required', 'image', 'mimes:jpeg,png'],
+            'category' => ['required', 'array', 'min:1'],
+            'category.*' => ['required', 'exists:categories,id'],
+            'condition' => ['required', Rule::in(\App\Models\Item::CONDITIONS)],
+            'price' => ['required', 'numeric', 'min:0'],
         ];
     }
 

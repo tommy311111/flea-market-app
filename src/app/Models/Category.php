@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    
+
     protected $guarded = [
         'id',
     ];
 
     public function items()
-{
-    return $this->belongsToMany(Item::class);
-}
-
+    {
+        return $this->belongsToMany(Item::class);
+    }
 }
