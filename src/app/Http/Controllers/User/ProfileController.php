@@ -61,8 +61,6 @@ class ProfileController extends Controller
             }
         }
         
-        
-    
         $user->update([
             'name' => $validated['name'],
         ]);
@@ -74,7 +72,7 @@ class ProfileController extends Controller
             'image' => $imagePath,
         ]);
 
-        return redirect()->route('items.index')->with('status', 'プロフィールを更新しました');
+        return redirect()->route('profile.index')->with('status', 'プロフィールを更新しました');
     }
 
 // 既存の edit(), update() に続けて追加してOK

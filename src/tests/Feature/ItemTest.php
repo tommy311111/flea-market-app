@@ -59,15 +59,21 @@ class ItemTest extends TestCase
         $user = User::factory()->create();
         $otherUser = User::factory()->create();
 
-        $myItem = Item::factory()->create(['user_id' => $user->id]);
-        $otherItem = Item::factory()->create(['user_id' => $otherUser->id]);
+        $myItem = Item::factory()->create([
+            'user_id' => $user->id,
+            'name' => '自分の商品タイトル',
+        ]);
+        $otherItem = Item::factory()->create([
+            'user_id' => $otherUser->id,
+            'name' => '他人の商品タイトル',
+        ]);
 
         // Act
         $response = $this->actingAs($user)->get('/');
 
-        // Assert
+         // Assert
         $response->assertStatus(200);
-        $response->assertDontSee($myItem->name);     // 自分の出品商品は見えない
-        $response->assertSee($otherItem->name);      // 他人の商品は表示される
+        $response->assertDontSee('自分の商品タイトル');  // 明確なタイトルを指定
+        $response->assertSee('他人の商品タイトル');
     }
 }
