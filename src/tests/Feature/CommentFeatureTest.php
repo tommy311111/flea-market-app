@@ -23,7 +23,7 @@ class CommentFeatureTest extends TestCase
             ->post(route('comment.store', $item->id), [
                 'body' => 'これはテストコメントです',
             ])
-            ->assertRedirect(); // 成功時のリダイレクト先がある前提
+            ->assertRedirect();
 
         $this->assertDatabaseHas('comments', [
             'user_id' => $user->id,
@@ -31,7 +31,6 @@ class CommentFeatureTest extends TestCase
             'body' => 'これはテストコメントです',
         ]);
 
-        // 再取得して、コメント数が1で表示されているか確認
         $response = $this->get(route('items.show', $item->id));
         $response->assertSee('コメント (1)');
     }
@@ -45,7 +44,8 @@ class CommentFeatureTest extends TestCase
             'body' => 'ゲストユーザーのコメント',
         ]);
 
-        $response->assertRedirect(route('login')); // ゲストはログインページへリダイレクト
+        $response->assertRedirect(route('login'));
+
         $this->assertDatabaseMissing('comments', [
             'body' => 'ゲストユーザーのコメント',
         ]);
@@ -82,6 +82,5 @@ class CommentFeatureTest extends TestCase
 
         $response->assertRedirect(route('items.show', $item->id));
         $response->assertSessionHasErrors('body');
-
     }
 }

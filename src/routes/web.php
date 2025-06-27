@@ -1,14 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
-use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use App\Http\Controllers\User\ProfileController;
-use App\Http\Controllers\Item\ItemController;
-use App\Http\Controllers\Purchase\PurchaseController;
 use App\Http\Controllers\Item\CommentController;
+use App\Http\Controllers\Item\ItemController;
 use App\Http\Controllers\Item\LikeController;
+use App\Http\Controllers\Purchase\PurchaseController;
+use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 // --- 会員登録関連（ログイン前） ---
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
