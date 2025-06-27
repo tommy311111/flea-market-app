@@ -15,7 +15,6 @@ class LikeFactory extends Factory
         return [
             'user_id' => User::factory(),
             'item_id' => Item::factory(),
-            // 論理削除のdeleted_atがあるならnullにしておく
             'deleted_at' => null,
         ];
     }

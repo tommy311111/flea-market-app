@@ -19,7 +19,7 @@ class ItemFactory extends Factory
             'price' => $this->faker->numberBetween(100, 10000),
             'image' => 'test.jpg',
             'brand_name' => $this->faker->company,
-            'condition' => '良好', // または $this->faker->randomElement(Item::CONDITIONS)
+            'condition' => '良好',
         ];
     }
 }

@@ -9,14 +9,8 @@ use App\Models\Like;
 
 class LikeSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run(): void
     {
-        // ユーザー名ごとの「いいね」件数
         $likeData = [
             '佐藤 美咲' => 0,
             '鈴木 大輔' => 0,
@@ -29,7 +23,6 @@ class LikeSeeder extends Seeder
             $user = User::where('name', $userName)->first();
 
             if ($user && $likeCount > 0) {
-                // ランダムな商品を指定件数分取得
                 $itemIds = Item::inRandomOrder()->take($likeCount)->pluck('id');
 
                 foreach ($itemIds as $itemId) {

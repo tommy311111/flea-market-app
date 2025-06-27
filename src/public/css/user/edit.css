@@ -68,9 +68,7 @@
 
 .form__input--text-field {
     color: #666;
-    /* グレー */
     font-weight: 600;
-    /* 少し太め（500〜600あたり） */
 }
 
 .form__error {
@@ -96,7 +94,6 @@
     cursor: pointer;
 }
 
-/* プロフィール画像 */
 .profile-image__group {
     display: flex;
     align-items: center;
@@ -128,15 +125,12 @@
     background-color: #FFF0F0;
 }
 
-/* ==== PC（幅1400px以上） ==== */
 @media (min-width: 1400px) {
     .profile-form {
         width: 31.25rem;
-        /* 約500px */
     }
 }
 
-/* ==== タブレット（幅768px〜850px） ==== */
 @media (max-width: 850px) {
     .profile-form {
         width: 90%;
@@ -152,7 +146,6 @@
     .profile-image__preview,
     .profile__image-wrapper {
         width: 6rem;
-        /* 約96px */
         height: 6rem;
     }
 

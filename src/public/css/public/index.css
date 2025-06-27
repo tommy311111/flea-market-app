@@ -1,34 +1,27 @@
 .items-index__header {
     display: flex;
     gap: 1.5rem;
-    /* 24px */
     border-bottom: 2px solid #ccc;
     padding-bottom: 0.5rem;
-    /* 8px */
 }
 
 .index__tabs {
     display: flex;
     justify-content: flex-start;
     gap: 1.5rem;
-    /* 24px */
     padding: 1rem 0.625rem 0;
-    /* 16px 10px 4px */
     margin-left: 5rem;
-    /* 80px */
     background-color: #fff;
     text-decoration: none;
 }
 
 .index__tab {
     font-size: 1rem;
-    /* 16px */
     font-weight: bold;
     color: #888;
     text-decoration: none;
     cursor: pointer;
     padding: 0.25rem 0.5rem;
-    /* 4px 8px */
 }
 
 .index__tab--active {
@@ -37,11 +30,9 @@
 
 .profile__divider {
     height: 0.125rem;
-    /* 2px */
     background-color: #ccc;
     width: 100%;
     margin: 0.125rem 0;
-    /* 2px */
 }
 
 .items-index__link {
@@ -53,17 +44,13 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    /* 16px */
     margin: 2.5rem;
-    /* 40px */
 }
 
 .items-index__card {
     text-decoration: none;
     border-radius: 0.125rem;
-    /* 2px */
     padding: 0.75rem;
-    /* 12px */
     color: inherit;
     text-align: left;
 }
@@ -74,9 +61,7 @@
     position: relative;
     overflow: hidden;
     border-radius: 0.5rem;
-    /* 8px */
     margin-bottom: 0.25rem;
-    /* 8px */
 }
 
 .items-index__image {
@@ -95,21 +80,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* 縦位置を揃える */
     padding: 0 0.25rem;
-    /* 左右に少し余白（任意） */
 }
 
 .items-index__name {
     margin: 0.125rem 0;
-    /* 上下2px */
     margin-left: 0.25rem;
-    /* 左4px */
     font-weight: 500;
     flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .items-index__label--sold {
@@ -120,7 +101,6 @@
     background-color: red;
     color: white;
     font-size: 0.75rem;
-    /* 12px */
     border-radius: 0.25rem;
     font-weight: 500;
 }
@@ -141,7 +121,6 @@
     text-decoration: underline;
 }
 
-/* --- 🖥️ PCサイズ: 1400px以上（余白拡張など） --- */
 @media (min-width: 1400px) {
     .index__tabs {
         margin-left: 6rem;
@@ -153,7 +132,6 @@
     }
 }
 
-/* --- 📱 タブレット対応: 768〜850pxあたり --- */
 @media (max-width: 850px) {
     .items-index__grid {
         grid-template-columns: repeat(2, 1fr);

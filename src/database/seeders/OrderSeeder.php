@@ -9,16 +9,10 @@ use App\Models\Item;
 
 class OrderSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        // 1. 田中が鈴木のショルダーバッグを購入（コンビニ払い）
         $buyer1 = User::where('name', '田中 直人')->with('profile')->first();
-        $item1 = Item::where('name', 'ショルダーバッグ')->first(); 
+        $item1 = Item::where('name', 'ショルダーバッグ')->first();
 
         if ($buyer1 && $item1 && $buyer1->profile) {
             Order::create([
@@ -31,7 +25,6 @@ class OrderSeeder extends Seeder
             ]);
         }
 
-        // 2. 鈴木が高橋のタンブラーを購入（カード支払い）
         $buyer2 = User::where('name', '鈴木 大輔')->with('profile')->first();
         $item2 = Item::where('name', 'タンブラー')->first();
 
@@ -46,7 +39,6 @@ class OrderSeeder extends Seeder
             ]);
         }
 
-        // 3. 田中が高橋のコーヒーミルを購入（カード支払い、送付先はスカイツリー）
         $buyer3 = User::where('name', '田中 直人')->first();
         $item3 = Item::where('name', 'コーヒーミル')->first();
 

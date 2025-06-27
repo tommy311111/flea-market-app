@@ -8,11 +8,6 @@ use App\Models\Item;
 
 class CategoryItemSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $categoryItems = [
@@ -31,7 +26,7 @@ class CategoryItemSeeder extends Seeder
         foreach ($categoryItems as $itemName => $categoryNames) {
             $item = Item::where('name', $itemName)->first();
             $categoryIds = Category::whereIn('name', $categoryNames)->pluck('id')->toArray();
-        
+
             if ($item && !empty($categoryIds)) {
                 $item->categories()->attach($categoryIds);
             }

@@ -31,43 +31,41 @@ Route::post('/email/verification-notification', function (Illuminate\Http\Reques
     return back()->with('status', 'verification-link-sent');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-
-// 商品関連
+// --- 商品関連 ---
 Route::get('/', [ItemController::class, 'index'])->name('items.index'); // PG01, PG02
 Route::get('/search', [ItemController::class, 'index']); // 検索フォーム
 Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show'); // PG05
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/sell', [ItemController::class, 'create'])->name('items.create'); // PG08
     Route::post('/sell', [ItemController::class, 'store'])->name('items.store');
 });
 
-// いいね機能
-Route::post('/items/{item}/like', [LikeController::class, 'toggle'])->middleware('auth')
-->name('items.like');
+// --- いいね機能 ---
+Route::post('/items/{item}/like', [LikeController::class, 'toggle'])
+    ->middleware('auth')
+    ->name('items.like');
 
-// コメント機能
+// --- コメント機能 ---
 Route::middleware(['auth'])->group(function () {
     Route::post('/items/{item}/comments', [CommentController::class, 'store'])->name('comment.store');
 });
 
-// 購入機能
+// --- 購入機能 ---
 Route::middleware(['auth'])->group(function () {
     Route::get('/purchase/{item}', [PurchaseController::class, 'show'])->name('purchase.show'); // PG06
-    // 例：支払い方法保存用POSTルート
-Route::post('/purchase/{item}/save-payment-method', [PurchaseController::class, 'savePaymentMethod'])->name('purchase.savePaymentMethod');
-
+    Route::post('/purchase/{item}/save-payment-method', [PurchaseController::class, 'savePaymentMethod'])->name('purchase.savePaymentMethod');
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
     Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])->name('purchase.address.edit'); // PG07
     Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
 });
 
-// プロフィール機能
-Route::middleware(['auth','verified'])->group(function () {
+// --- プロフィール機能 ---
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index'); // PG09, PG11, PG12
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit'); // PG10
     Route::put('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
-
 
 // --- ログイン関連 ---
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

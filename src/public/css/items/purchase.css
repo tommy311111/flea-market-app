@@ -9,7 +9,6 @@
     gap: 50px;
 }
 
-/* 左側 */
 .purchase__left {
     width: 60%;
     display: flex;
@@ -54,7 +53,6 @@
     margin: 10px 0;
 }
 
-/* 支払い方法 */
 .purchase__label {
     font-size: 14px;
     font-weight: bold;
@@ -92,15 +90,13 @@
     height: 0;
     border-top: 10px solid #666666;
     border-right: 6px solid transparent;
-    border-left: 6px solid transparent; 
+    border-left: 6px solid transparent;
     pointer-events: none;
 }
 
 .purchase__select option {
     background-color: #444;
-    /* 濃いグレー */
     color: white;
-    /* 白文字 */
 }
 
 .purchase__select option:checked {
@@ -113,7 +109,6 @@
     font-size: 13px;
 }
 
-/* 配送先 */
 .purchase__address-header {
     display: flex;
     justify-content: space-between;
@@ -137,7 +132,6 @@
     margin-right: 20px;
 }
 
-/* 右側 */
 .purchase__right {
     width: 40%;
     display: flex;
@@ -171,10 +165,8 @@
 .purchase__summary-table tr:last-child th,
 .purchase__summary-table tr:last-child td {
     border-bottom: none;
-    /* 最後の行は下線なし */
 }
 
-/* 購入ボタン */
 .purchase__submit-button {
     margin-top: 40px;
     width: 90%;
@@ -192,11 +184,9 @@
     background-color: #c9302c;
 }
 
-/* --- PCサイズ（1400px〜1540px） --- */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
     .purchase__content {
         max-width: 60rem;
-        /* 約960px */
     }
 
     .purchase__select {
@@ -209,13 +199,12 @@
     }
 }
 
-/* --- タブレットサイズ（768px〜850px） --- */
 @media screen and (max-width: 850px) {
     .purchase__content {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
-    
+
     .purchase__main {
         flex-direction: column;
         gap: 2rem;
@@ -238,7 +227,6 @@
         width: 80%;
         margin-left: 0.5rem;
         padding-right: 2.25rem;
-        /* 36px */
     }
 
     .purchase__address {

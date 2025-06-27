@@ -1,4 +1,3 @@
-/* ベース設定 */
 .sell__content {
     max-width: 800px;
     margin: 0 auto;
@@ -17,7 +16,6 @@
     margin-top: 0;
 }
 
-/* 商品画像 */
 .sell-form__image-wrapper {
     border: 2px solid #ccc;
     border-radius: 8px;
@@ -53,7 +51,6 @@
     border-radius: 8px;
 }
 
-/* セクションラベルと下線 */
 .sell-form__section-title {
     color: gray;
     font-weight: bold;
@@ -62,7 +59,6 @@
     padding-bottom: 0.5rem;
 }
 
-/* カテゴリー */
 .sell-form__category-list {
     display: flex;
     flex-wrap: wrap;
@@ -93,7 +89,6 @@
     color: white;
 }
 
-/* 商品の状態プルダウン */
 .sell-form__select {
     width: 100%;
     padding: 0.5rem;
@@ -104,7 +99,6 @@
     font-weight: 400;
 }
 
-/* 入力フィールド共通 */
 .sell-form__field {
     margin-top: 1rem;
 }
@@ -129,11 +123,6 @@
     resize: vertical;
 }
 
-/* 価格入力欄（￥付き） */
-.sell-form__price-wrapper {
-    position: relative;
-}
-
 .sell-form__price-wrapper {
     position: relative;
 }
@@ -156,7 +145,6 @@
     font-weight: 400;
 }
 
-/* 出品ボタン */
 .sell-form__submit-button {
     display: block;
     width: 100%;
@@ -182,11 +170,9 @@
     margin-top: 0.25rem;
 }
 
-/* PC (1400px〜1540px)：レイアウトが広がりすぎないように調整 */
 @media screen and (max-width: 1540px) {
     .sell__content {
         max-width: 40rem;
-        /* 1120px */
         padding: 2rem;
     }
 
@@ -204,7 +190,6 @@
     }
 }
 
-/* タブレット (768px〜850px)：カラム幅を狭く、要素の配置を柔軟に */
 @media screen and (max-width: 850px) {
     .sell__content {
         max-width: 95%;
@@ -225,16 +210,16 @@
         max-height: 160px;
     }
 
-        .sell-form__category-list {
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            gap: 0.5rem 0.75rem;
-            margin: 0.5rem 0;
-        }
+    .sell-form__category-list {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 0.5rem 0.75rem;
+        margin: 0.5rem 0;
+    }
 
     .sell-form__category-item {
-        flex-shrink: 0;  
-     }
+        flex-shrink: 0;
+    }
 
     .sell-form__select,
     .sell-form__input,

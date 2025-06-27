@@ -6,14 +6,8 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Item;
 
-
 class ItemSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $misaki = User::where('name', '佐藤 美咲')->first();

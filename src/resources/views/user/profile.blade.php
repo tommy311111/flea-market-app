@@ -6,9 +6,7 @@
 
 @section('content')
 <div class="profile__content">
-<div class="profile__top">
-    <!-- 左側 -->
-    
+    <div class="profile__top">
         <div class="profile__image-wrapper">
             @if ($profile->image)
                 <img src="{{ asset('storage/images/profiles/' . $profile->image) }}" alt="プロフィール画像" class="profile__image">
@@ -20,14 +18,11 @@
         <div class="profile__info-group">
             <h2 class="profile__name">{{ $user->name }}</h2>
         </div>
-    
 
-    <!-- 右側 -->
-    <div class="profile__edit-wrapper">
-        <a href="{{ route('profile.edit') }}" class="profile__edit-button">プロフィールを編集</a>
+        <div class="profile__edit-wrapper">
+            <a href="{{ route('profile.edit') }}" class="profile__edit-button">プロフィールを編集</a>
+        </div>
     </div>
-</div>
- <!-- ← profile__top の閉じタグ -->
 
     <div class="profile__tabs">
         <a href="{{ route('profile.index', ['page' => 'sell']) }}" class="profile__tab {{ $page === 'sell' ? 'profile__tab--active' : '' }}">出品した商品</a>
@@ -51,5 +46,5 @@
             <p class="items-index__empty">表示する商品がありません</p>
         @endforelse
     </div>
-</div> <!-- ← profile__content の閉じタグ -->
+</div>
 @endsection

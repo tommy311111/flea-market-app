@@ -7,16 +7,14 @@
 @section('content')
 <div class="items-index">
     <div class="index__tabs">
-    <a href="{{ route('items.index', ['page' => 'recommend', 'keyword' => request('keyword')]) }}"
-   class="index__tab {{ $page === 'recommend' ? 'index__tab--active' : '' }}">おすすめ</a>
-
-<a href="{{ route('items.index', ['page' => 'mylist', 'keyword' => request('keyword')]) }}"
-   class="index__tab {{ $page === 'mylist' ? 'index__tab--active' : '' }}">マイリスト</a>
-
+        <a href="{{ route('items.index', ['page' => 'recommend', 'keyword' => request('keyword')]) }}"
+           class="index__tab {{ $page === 'recommend' ? 'index__tab--active' : '' }}">おすすめ</a>
+        <a href="{{ route('items.index', ['page' => 'mylist', 'keyword' => request('keyword')]) }}"
+           class="index__tab {{ $page === 'mylist' ? 'index__tab--active' : '' }}">マイリスト</a>
     </div>
 </div>
-<div class="profile__divider"></div>
 
+<div class="profile__divider"></div>
 
 <div class="items-index__grid">
     @forelse ($items as $item)
@@ -45,12 +43,10 @@
                 @if ($page === 'mylist')
                     マイリストに登録された商品はまだありません
                 @else
-                現在、他のユーザーによる出品はありません
+                    現在、他のユーザーによる出品はありません
                 @endif
             @endif
         </p>
     @endforelse
-</div>
-
 </div>
 @endsection

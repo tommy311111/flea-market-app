@@ -1,7 +1,7 @@
 @extends('layouts/app')
 
 @section('css')
-<link rel="stylesheet" href="{{asset('css/auth/login.css')}}">
+<link rel="stylesheet" href="{{ asset('css/auth/login.css') }}">
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="email" name="email" value="{{ old('email') }}" >
+                    <input type="email" name="email" value="{{ old('email') }}">
                 </div>
                 <div class="form__error">
                     @error('email')

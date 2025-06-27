@@ -71,7 +71,6 @@
     margin: 0 auto;
 }
 
-/* 2番目のアイコン（コメントアイコン）にだけ適用 */
 .item-detail__icon-group:nth-child(2) .item-detail__icon {
     cursor: default;
 }
@@ -93,7 +92,6 @@
     text-align: center;
 }
 
-/* 2個目（コメント）のカウントだけ margin-top: 4px */
 .item-detail__icon-group:nth-child(2) .item-detail__count {
     margin-top: 7px;
 }
@@ -253,7 +251,6 @@
     background-color: #c62828;
 }
 
-/* ========== タブレット専用 (768px〜850px) ========== */
 @media (min-width: 768px) and (max-width: 850px) {
     .item-detail__container {
         flex-direction: column;
@@ -285,28 +282,29 @@
         align-items: center;
     }
 
-        .item-detail__icons {
-            justify-content: center;
-            display: flex;
-            /* 念のため再指定 */
-            margin-left: auto;
-            margin-right: auto;   }
+    .item-detail__icons {
+        justify-content: center;
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-        .item-detail__icon-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;   }
-    
-     .item-detail__icon {
+    .item-detail__icon-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .item-detail__icon {
         margin-bottom: 4px;
-        /* アイコンと数字の間に少し余白 */           }
-    
-        .item-detail__comment-header {
-            justify-content: center;
-            text-align: center;   }
+    }
+
+    .item-detail__comment-header {
+        justify-content: center;
+        text-align: center;
+    }
 }
 
-/* ========== PC中画面（1400px〜1540px） ========== */
 @media (min-width: 1400px) and (max-width: 1540px) {
     .item-detail__image {
         max-width: 55%;
@@ -319,7 +317,6 @@
     }
 }
 
-/* ========== 通常のPC画面（1540px以上） ========== */
 @media (min-width: 1541px) {
     .item-detail__image {
         max-width: 50%;

@@ -1,66 +1,52 @@
 .register__content {
     background: #FFFFFF;
     padding: 2.5rem;
-    /* 40px */
     border-radius: 1.875rem;
-    /* 30px */
     border: none;
 }
 
 .register-form__heading {
     text-align: center;
     margin-bottom: 0.625rem;
-    /* 10px */
 }
 
 .register-form__heading-title {
     margin: 0;
     font-weight: 400;
     font-size: 2.5rem;
-    /* 40px */
 }
 
 .register-form {
     margin: 0 auto;
     width: 31.25rem;
-    /* 500px */
 }
 
 .form__group {
     margin-bottom: 0.625rem;
-    /* 10px */
 }
 
 .form__label--item {
     font-weight: 600;
     font-size: 1rem;
-    /* 16px */
 }
 
 .form__group-title {
     margin: 0.5rem 0;
-    /* 10px 0 */
 }
 
 .form__input--text input {
     width: 31.25rem;
-    /* 500px */
     font-size: 0.875rem;
-    /* 14px */
     padding: 0.625rem;
-    /* 10px */
     border: 1px solid #E0DFDE;
     border-radius: 0.3125rem;
-    /* 5px */
     box-sizing: border-box;
 }
 
 .form__error {
     color: #F65A5A;
     font-size: 0.875rem;
-    /* 14px */
     padding: 0.5rem 0;
-    /* 10px 0 */
 }
 
 .form__button {
@@ -71,14 +57,10 @@
 .form__button-submit {
     width: 100%;
     padding: 0.625rem;
-    /* 10px */
     margin-top: 0.625rem;
-    /* 10px */
     border: none;
     border-radius: 0.25rem;
-    /* 4px */
     font-size: 1.25rem;
-    /* 20px */
     font-weight: 600;
     color: #fff;
     background-color: #FF4B4B;
@@ -88,16 +70,13 @@
 .login__button-submit {
     color: #2C99FF;
     font-size: 1rem;
-    /* 16px */
     display: inline-block;
     padding: 0.625rem;
-    /* 10px */
 }
 
 .login__link {
     margin: 0 auto;
     width: 12.5rem;
-    /* 200px */
     text-align: center;
 }
 
@@ -105,12 +84,10 @@
     text-decoration: none;
 }
 
-/* タブレット向け（768px〜850px） */
 @media screen and (max-width: 850px) and (min-width: 768px) {
     .register-form {
         width: 90%;
         max-width: 30rem;
-        /* 480px */
     }
 
     .form__input--text input {
@@ -118,7 +95,6 @@
     }
 }
 
-/* スマホ向け（767px以下） */
 @media screen and (max-width: 767px) {
     .register-form {
         width: 95%;
