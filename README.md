@@ -1,8 +1,8 @@
-# PIGLY
+# flea-market-app
 
 ## 環境構築
 **Dockerビルド**
-1. `git clone git@github.com:tommy311111/pigly.git`
+1. `git clone git@github.com:tommy311111/flea-market-app.git`
 2. DockerDesktopアプリを立ち上げる
 3. `docker-compose up -d --build`
 
@@ -37,14 +37,24 @@ php artisan db:seed
 ## テストユーザー情報（初期データ）
 
 開発環境またはテスト環境でログイン確認するためのテストユーザーがあらかじめ用意されています。
-
-| 項目           | 内容               |
-|----------------|--------------------|
-| メールアドレス | `test@example.com` |
-| パスワード     | `Password123!`     |
+| 名前    | メールアドレス                                           | パスワード    | 出品         | 購入 | コメント | いいね | 役割               |
+| ----- | ------------------------------------------------- | -------- | ---------- | -- | ---- | --- | ---------------- |
+| 佐藤 美咲 | [misaki@example.com](mailto:misaki@example.com)   | password | 6件（未販売）    | なし | 0件   | 0件  | 出品のみを行う出品専用ユーザー  |
+| 鈴木 大輔 | [daisuke@example.com](mailto:daisuke@example.com) | password | 1件（売却）     | 1件 | 0件   | 0件  | 出品と購入を1回ずつ経験済み   |
+| 高橋 結衣 | [yui@example.com](mailto:yui@example.com)         | password | 3件（うち2つ売却） | -  | 7件   | 7件  | アクティブなコメント＆いいね担当 |
+| 田中 直人 | [naoto@example.com](mailto:naoto@example.com)     | password | 0件         | 2件 | 5件   | 6件  | 購入＋コメント／いいね担当    |
+| 伊藤 紗季 | [saki@example.com](mailto:saki@example.com)       | password | 0件         | 0件 | 2件   | 4件  | 閲覧ユーザー（軽めのアクション） |
 
 > セキュリティ上、本番環境には **このテストユーザーを残さないようにしてください**。
 
+## テスト実行方法
+
+以下のコマンドで、Featureテストを実行できます。
+
+```bash
+docker-compose exec php bash
+php artisan test --env=testing
+```
 
 ## 使用技術(実行環境)
 - PHP7.4.9
@@ -54,20 +64,24 @@ php artisan db:seed
 ## テーブル設計
 ![テーブル1](./table_1.png)
 ![テーブル2](./table_2.png)
+![テーブル3](./table_3.png)
+![テーブル4](./table_4.png)
 
 ## ER図
 ![ER図](./er_diagram.png)
 
-## 主な画面とルート一覧
+## 主な画面構成（詳細は別添のExcelを参照）
 
-| パス                     | 概要                   |
-|--------------------------|------------------------|
-| `/register/step1`        | 会員登録ステップ1      |
-| `/register-step2`        | 会員登録ステップ2      |
-| `/login`                 | ログイン               |
-| `/weight_logs`           | 体重記録一覧（ログイン後） |
-| `/weight_logs/create`    | 新規記録作成           |
-| `/weight_logs/goal_setting` | 目標体重設定        |
+- 商品一覧（トップページ）
+- 商品詳細
+- 会員登録／ログイン
+- メール認証
+- 商品出品
+- プロフィール
+- プロフィール編集
+- 商品購入
+- 送付先住所変更
+（全10画面）
 
 ## URL
 - 開発環境：http://localhost
