@@ -75,7 +75,7 @@ MAIL_PASSWORD=あなたのMailtrapパスワード
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=noreply@example.com
 MAIL_FROM_NAME="Flea Market App"
-
+```
 
 ## 使用技術(実行環境)
 - PHP7.4.9
