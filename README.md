@@ -56,6 +56,27 @@ docker-compose exec php bash
 php artisan test --env=testing
 ```
 
+## メール認証とMailtrap設定
+
+本アプリでは、会員登録後にメール認証を行います。開発環境では [Mailtrap](https://mailtrap.io/) を使用して、送信メールの確認を行います。
+
+### Mailtrapの使用方法
+
+1. [Mailtrap](https://mailtrap.io/) にサインアップ（無料プランで可）
+2. ダッシュボードから Inbox を作成
+3. 「SMTP Settings」→ 「Laravel」を選び、以下を `.env` に追加または変更
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=あなたのMailtrapユーザー名
+MAIL_PASSWORD=あなたのMailtrapパスワード
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=noreply@example.com
+MAIL_FROM_NAME="Flea Market App"
+
+
 ## 使用技術(実行環境)
 - PHP7.4.9
 - Laravel8.83.3
