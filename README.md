@@ -9,7 +9,10 @@
 **Laravel環境構築**
 1. `docker-compose exec php bash`
 2. `composer install`
-3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
+3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成 
+``` bash
+cp .env.example .env
+```
 4. .envに以下の環境変数を追加
 ``` text
 DB_CONNECTION=mysql
@@ -34,28 +37,6 @@ php artisan migrate
 php artisan db:seed
 ```
 
-## テストユーザー情報（初期データ）
-
-開発環境またはテスト環境でログイン確認するためのテストユーザーがあらかじめ用意されています。
-| 名前    | メールアドレス                                           | パスワード    | 出品         | 購入 | コメント | いいね | 役割               |
-| ----- | ------------------------------------------------- | -------- | ---------- | -- | ---- | --- | ---------------- |
-| 佐藤 美咲 | [misaki@example.com](mailto:misaki@example.com)   | password | 6件（未販売）    | なし | 0件   | 0件  | 出品のみを行う出品専用ユーザー  |
-| 鈴木 大輔 | [daisuke@example.com](mailto:daisuke@example.com) | password | 1件（売却）     | 1件 | 0件   | 0件  | 出品と購入を1回ずつ経験済み   |
-| 高橋 結衣 | [yui@example.com](mailto:yui@example.com)         | password | 3件（うち2つ売却） | -  | 7件   | 7件  | アクティブなコメント＆いいね担当 |
-| 田中 直人 | [naoto@example.com](mailto:naoto@example.com)     | password | 0件         | 2件 | 5件   | 6件  | 購入＋コメント／いいね担当    |
-| 伊藤 紗季 | [saki@example.com](mailto:saki@example.com)       | password | 0件         | 0件 | 2件   | 4件  | 閲覧ユーザー（軽めのアクション） |
-
-> セキュリティ上、本番環境には **このテストユーザーを残さないようにしてください**。
-
-## テスト実行方法
-
-以下のコマンドで、Featureテストを実行できます。
-
-```bash
-docker-compose exec php bash
-php artisan test --env=testing
-```
-
 ## メール認証とMailtrap設定
 
 本アプリでは、会員登録後にメール認証を行います。開発環境では [Mailtrap](https://mailtrap.io/) を使用して、送信メールの確認を行います。
@@ -76,6 +57,29 @@ MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=noreply@example.com
 MAIL_FROM_NAME="Flea Market App"
 ```
+
+## テスト実行方法
+
+以下のコマンドで、Featureテストを実行できます。
+
+```bash
+docker-compose exec php bash
+php artisan test --env=testing
+```
+
+## テストユーザー情報（初期データ）
+
+開発環境またはテスト環境でログイン確認するためのテストユーザーがあらかじめ用意されています。
+| 名前    | メールアドレス                                           | パスワード    | 出品         | 購入 | コメント | いいね | 役割               |
+| ----- | ------------------------------------------------- | -------- | ---------- | -- | ---- | --- | ---------------- |
+| 佐藤 美咲 | [misaki@example.com](mailto:misaki@example.com)   | password | 6件（未販売）    | なし | 0件   | 0件  | 出品のみを行う出品専用ユーザー  |
+| 鈴木 大輔 | [daisuke@example.com](mailto:daisuke@example.com) | password | 1件（売却）     | 1件 | 0件   | 0件  | 出品と購入を1回ずつ経験済み   |
+| 高橋 結衣 | [yui@example.com](mailto:yui@example.com)         | password | 3件（うち2つ売却） | -  | 7件   | 7件  | アクティブなコメント＆いいね担当 |
+| 田中 直人 | [naoto@example.com](mailto:naoto@example.com)     | password | 0件         | 2件 | 5件   | 6件  | 購入＋コメント／いいね担当    |
+| 伊藤 紗季 | [saki@example.com](mailto:saki@example.com)       | password | 0件         | 0件 | 2件   | 4件  | 閲覧ユーザー（軽めのアクション） |
+
+> セキュリティ上、本番環境には **このテストユーザーを残さないようにしてください**。
+
 
 ## 使用技術(実行環境)
 - PHP7.4.9
