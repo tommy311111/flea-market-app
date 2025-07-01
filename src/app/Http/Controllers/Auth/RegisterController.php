@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -24,7 +25,7 @@ class RegisterController extends Controller
         ]);
 
         Auth::login($user);
-
+        event(new Registered($user));
         return redirect()->route('profile.edit');
     }
 
