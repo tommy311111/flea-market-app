@@ -39,6 +39,7 @@ php artisan migrate
 php artisan db:seed
 ```
 
+
 ## メール認証とMailtrap設定
 
 本アプリでは、会員登録後にメール認証を行います。開発環境では [Mailtrap](https://mailtrap.io/) を使用して、送信メールの確認を行います。
@@ -59,6 +60,7 @@ MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=noreply@example.com
 MAIL_FROM_NAME="Flea Market App"
 ```
+
 
 ## テスト環境のセットアップ手順
 
@@ -92,13 +94,14 @@ php artisan key:generate --env=testing
 php artisan config:clear
 php artisan migrate --env=testing
 ```
-### テストの実行方法
+### 🔹 4. テストの実行方法
 以下のコマンドで、Feature テストを実行できます：
 ```bash
 php artisan test --env=testing
 ```
-補足
+補足:
 テストでは demo_test データベースが使用されます。本番・開発用DBとは異なります。
+
 
 ## テストユーザー情報（初期データ）
 
@@ -114,10 +117,12 @@ php artisan test --env=testing
 > セキュリティ上、本番環境には **このテストユーザーを残さないようにしてください**。
 
 
+
 ## 使用技術(実行環境)
 - PHP7.4.9
 - Laravel8.83.3
 - MySQL8.0.26
+
 
 ## テーブル設計
 ![テーブル1](./table_1.png)
