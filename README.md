@@ -56,7 +56,7 @@ MAIL_HOST=sandbox.smtp.mailtrap.io
 MAIL_PORT=2525
 MAIL_USERNAME=あなたのMailtrapユーザー名
 MAIL_PASSWORD=あなたのMailtrapパスワード
-MAIL_ENCRYPTION=null
+MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS=noreply@example.com
 MAIL_FROM_NAME="Flea Market App"
 ```
