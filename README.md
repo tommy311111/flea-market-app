@@ -15,7 +15,7 @@
 cp .env.example .env
 ```
 
-4. .envに以下の環境変数を追加
+4. .env ファイルの一部を以下のように編集
 ``` text
 DB_CONNECTION=mysql
 DB_HOST=mysql
