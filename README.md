@@ -48,12 +48,19 @@ php artisan db:seed
 
 1. [Mailtrap](https://mailtrap.io/) にサインアップ（無料プランで可）
 2. ダッシュボードから Inbox を作成
-3. 「SMTP Settings」→「Laravel」を選択し、表示された ユーザー名 と パスワード を`.env`ファイルの該当箇所にコピーしてください。
+3. 「SMTP Settings」→「Laravel」を選択し、右上の "Copy" ボタンで設定をすべてコピーしてください。
+4. コピーした内容を .env に貼り付け、 MAIL_FROM_ADDRESS と MAIL_FROM_NAME を書き換えてください。
 ```env
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
 MAIL_USERNAME=あなたのMailtrapユーザー名
 MAIL_PASSWORD=あなたのMailtrapパスワード
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=noreply@example.com
+MAIL_FROM_NAME="Flea Market App"
 ```
-その他のメール設定（MAIL_HOST や MAIL_PORT など）は .env.exampleにすでに記載されています。
+ パスワードは一部しか表示されないため、「Copy」ボタンで全体をコピーしないと正しく取得できません。
 
 ## テスト環境のセットアップ手順
 
