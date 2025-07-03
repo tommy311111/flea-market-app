@@ -48,8 +48,7 @@ php artisan db:seed
 
 1. [Mailtrap](https://mailtrap.io/) にサインアップ（無料プランで可）
 2. ダッシュボードから Inbox を作成
-3. 「SMTP Settings」→ 「Laravel」を選び、`.env` の、以下の2つを書き換える。
-
+3. 「SMTP Settings」→「Laravel」を選択し、表示された ユーザー名 と パスワード を`.env`ファイルの該当箇所にコピーしてください。
 ```env
 MAIL_USERNAME=あなたのMailtrapユーザー名
 MAIL_PASSWORD=あなたのMailtrapパスワード
@@ -80,7 +79,7 @@ demo_test が一覧に表示されれば作成完了です。
 docker-compose exec php bash
 cp .env.testing.example .env.testing
 ```
-以下の2項目だけを `.env.testing`の自分のMailtrap情報に書き換えてください。
+`.env.testing`の以下の2項目だけ、自分のMailtrap情報に書き換えてください。
 ```env
 MAIL_USERNAME=あなたのMailtrapユーザー名
 MAIL_PASSWORD=あなたのMailtrapパスワード
