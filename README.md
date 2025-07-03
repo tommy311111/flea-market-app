@@ -48,19 +48,13 @@ php artisan db:seed
 
 1. [Mailtrap](https://mailtrap.io/) にサインアップ（無料プランで可）
 2. ダッシュボードから Inbox を作成
-3. 「SMTP Settings」→ 「Laravel」を選び、以下を `.env` に追加または変更
+3. 「SMTP Settings」→ 「Laravel」を選び、`.env` の、以下の2つを書き換える。
 
 ```env
-MAIL_MAILER=smtp
-MAIL_HOST=sandbox.smtp.mailtrap.io
-MAIL_PORT=2525
 MAIL_USERNAME=あなたのMailtrapユーザー名
 MAIL_PASSWORD=あなたのMailtrapパスワード
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=noreply@example.com
-MAIL_FROM_NAME="Flea Market App"
 ```
-
+その他のメール設定（MAIL_HOST や MAIL_PORT など）は .env.exampleにすでに記載されています。
 
 ## テスト環境のセットアップ手順
 
@@ -86,7 +80,12 @@ demo_test が一覧に表示されれば作成完了です。
 docker-compose exec php bash
 cp .env.testing.example .env.testing
 ```
-.env.testing.example にはテスト用設定（例：DB名など）がすでに書かれているため、編集は不要です。
+以下の2項目だけを `.env.testing`の自分のMailtrap情報に書き換えてください。
+```env
+MAIL_USERNAME=あなたのMailtrapユーザー名
+MAIL_PASSWORD=あなたのMailtrapパスワード
+```
+その他のメール設定（MAIL_HOST や MAIL_PORT など）は .env.testing.example にすでに記載されています。
 
 ### 🔹 3. テスト環境用のセットアップ
 ```bash
