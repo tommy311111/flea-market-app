@@ -79,7 +79,7 @@ demo_test が一覧に表示されれば作成完了です。
 docker-compose exec php bash
 cp .env.testing.example .env.testing
 ```
-`.env.testing`の以下の2項目だけ、自分のMailtrap情報に書き換えてください。
+`.env.testing`ファイルの以下の2項目だけ、自分のMailtrap情報に書き換えてください。
 ```env
 MAIL_USERNAME=あなたのMailtrapユーザー名
 MAIL_PASSWORD=あなたのMailtrapパスワード
@@ -93,7 +93,7 @@ php artisan config:clear
 php artisan migrate --env=testing
 ```
 ### 🔹 4. テストの実行方法
-以下のコマンドで、Feature テストを実行できます：
+以下のコマンドで、Feature テストを実行できます
 ```bash
 php artisan test --env=testing
 ```
