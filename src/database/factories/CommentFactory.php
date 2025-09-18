@@ -5,9 +5,12 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Models\Item;
+use App\Models\Comment;
 
 class CommentFactory extends Factory
 {
+    protected $model = Comment::class;
+
     protected static array $commentSamples = [
         'Great condition, thanks!',
         'Fast shipping. Much appreciated.',
@@ -26,11 +29,21 @@ class CommentFactory extends Factory
         'Packaging could be better.'
     ];
 
+    protected static ?array $users = null;
+    protected static ?array $items = null;
+
     public function definition(): array
     {
+        if (is_null(static::$users)) {
+            static::$users = User::pluck('id')->toArray();
+        }
+        if (is_null(static::$items)) {
+            static::$items = Item::pluck('id')->toArray();
+        }
+
         return [
-            'user_id' => User::inRandomOrder()->first()->id,
-            'item_id' => Item::inRandomOrder()->first()->id,
+            'user_id' => static::$users[array_rand(static::$users)],
+            'item_id' => static::$items[array_rand(static::$items)],
             'body' => static::$commentSamples[array_rand(static::$commentSamples)],
         ];
     }

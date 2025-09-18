@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\Item;
 use App\Models\Comment;
 
 class CommentsSeeder extends Seeder
@@ -19,18 +18,15 @@ class CommentsSeeder extends Seeder
             '伊藤 紗季' => 4,
         ];
 
-        $items = Item::pluck('id');
+        foreach ($commentData as $userName => $commentCount) {
+            $user = User::firstWhere('name', $userName);
 
-        collect($commentData)->each(function ($count, $name) use ($items) {
-            $user = User::where('name', $name)->first();
-            if (!$user || $count <= 0) return;
-
-            $items->shuffle()->take($count)->each(function ($itemId) use ($user) {
-                Comment::factory()->create([
-                    'user_id' => $user->id,
-                    'item_id' => $itemId,
-                ]);
-            });
-        });
+            if ($user && $commentCount > 0) {
+                Comment::factory()
+                    ->count($commentCount)
+                    ->for($user)
+                    ->create();
+            }
+        }
     }
 }
