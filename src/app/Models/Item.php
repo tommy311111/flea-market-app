@@ -48,31 +48,32 @@ class Item extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public const CONDITIONS = ['良好', '目立った傷や汚れなし', 'やや傷や汚れあり', '状態が悪い'];
+    public const CONDITIONS = [
+        '良好',
+        '目立った傷や汚れなし',
+        'やや傷や汚れあり',
+        '状態が悪い'
+    ];
 
     public static function search($keyword = null, $page = 'recommend', $user = null)
-{
-    $query = self::query()->with('order');
-
-    if (!empty($keyword)) {
-        $query->where('name', 'like', '%' . $keyword . '%');
+    {
+        return self::query()
+            ->with('order')
+            ->when($keyword, fn($q) =>
+                $q->where('name', 'like', "%{$keyword}%")
+            )
+            ->when($page === 'mylist' && $user, fn($q) =>
+                $q->whereHas('likes', fn($q) =>
+                    $q->where('user_id', $user->id)
+                )->where('user_id', '!=', $user->id)
+            )
+            ->when($page === 'recommend' && $user, fn($q) =>
+                $q->where('user_id', '!=', $user->id)
+            )
+            ->when(
+                $page === 'mylist' && !$user,
+                fn() => collect([]),
+                fn($q) => $q->latest()->get()
+            );
     }
-
-    if ($page === 'mylist') {
-        if ($user) {
-            $query->whereHas('likes', function ($q) use ($user) {
-                $q->where('user_id', $user->id);
-            })->where('user_id', '!=', $user->id);
-        } else {
-            return collect([]);
-        }
-    }
-
-    if ($page === 'recommend' && $user) {
-        $query->where('user_id', '!=', $user->id);
-    }
-
-    return $query->latest()->get();
-}
-
 }
