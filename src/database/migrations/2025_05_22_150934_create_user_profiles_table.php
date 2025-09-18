@@ -21,6 +21,8 @@ class CreateUserProfilesTable extends Migration
             $table->string('building');
             $table->string('image')->nullable();
             $table->timestamps();
+
+            $table->unique('user_id');
         });
     }
 
