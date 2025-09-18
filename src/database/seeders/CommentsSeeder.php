@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Item;
 
-class CommentSeeder extends Seeder
+class CommentsSeeder extends Seeder
 {
     public function run(): void
     {

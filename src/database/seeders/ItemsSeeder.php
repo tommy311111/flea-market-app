@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Item;
 
-class ItemSeeder extends Seeder
+class ItemsSeeder extends Seeder
 {
     public function run()
     {

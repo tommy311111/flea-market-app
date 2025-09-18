@@ -7,7 +7,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\Item;
 
-class OrderSeeder extends Seeder
+class OrdersSeeder extends Seeder
 {
     public function run()
     {

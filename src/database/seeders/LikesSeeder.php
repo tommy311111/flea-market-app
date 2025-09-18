@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\Like;
 
-class LikeSeeder extends Seeder
+class LikesSeeder extends Seeder
 {
     public function run(): void
     {
