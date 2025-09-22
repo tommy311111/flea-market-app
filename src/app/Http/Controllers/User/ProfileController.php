@@ -70,15 +70,10 @@ class ProfileController extends Controller
         $page = $request->query('page', 'sell');
 
         if ($page === 'buy') {
-            $items = Order::with('item')
-                ->where('user_id', $user->id)
-                ->latest()
-                ->get()
-                ->pluck('item');
+            $orders = $user->orders()->with('item')->latest()->get();
+            $items = $orders->pluck('item')->filter();
         } else {
-            $items = Item::where('user_id', $user->id)
-                ->latest()
-                ->get();
+            $items = $user->items()->latest()->get();
         }
 
         return view('user.profile', compact('user', 'profile', 'items', 'page'));
