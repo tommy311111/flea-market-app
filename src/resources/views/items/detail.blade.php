@@ -21,9 +21,9 @@
                     <form action="{{ route('items.like', ['item' => $item->id]) }}" method="POST">
                         @csrf
                         <button type="submit" style="background: none; border: none; padding: 0;">
-                            <img 
-                                src="{{ asset('storage/images/icons/star.png') }}" 
-                                alt="いいね" 
+                            <img
+                                src="{{ asset('storage/images/icons/star.png') }}"
+                                alt="いいね"
                                 class="item-detail__icon {{ $liked ? 'liked' : '' }}">
                         </button>
                         <span class="item-detail__count">{{ $item->likes_count }}</span>

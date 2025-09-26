@@ -9,6 +9,7 @@ use App\Models\Item;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stripe\StripeClient;
 
 class PurchaseController extends Controller
 {
@@ -17,6 +18,7 @@ class PurchaseController extends Controller
         $request->validate([
             'payment_method' => 'required|in:コンビニ払い,カード支払い',
         ]);
+
         $user = Auth::user();
 
         $order = Order::firstOrNew([
@@ -31,21 +33,18 @@ class PurchaseController extends Controller
         $order->save();
 
         return redirect()->route('purchase.show', $item->id)
-                         ->with('selectedPayment', $request->payment_method);
+                        ->with('selectedPayment', $request->payment_method);
     }
 
     public function show(Item $item)
     {
         $user = Auth::user();
         $methods = Order::PAYMENT_METHOD;
-        $selectedPayment = session('selectedPayment');
 
-        if (!$selectedPayment) {
-            $order = Order::where('user_id', $user->id)
-                          ->where('item_id', $item->id)
-                          ->first();
-            $selectedPayment = $order->payment_method ?? null;
-        }
+        $selectedPayment = session('selectedPayment')
+            ?? Order::where('user_id', $user->id)
+                    ->where('item_id', $item->id)
+                    ->value('payment_method');
 
         return view('items.purchase', compact('item', 'user', 'methods', 'selectedPayment'));
     }
@@ -54,24 +53,36 @@ class PurchaseController extends Controller
     {
         $user = Auth::user();
 
-        $order = Order::firstOrNew([
-            'user_id' => $user->id,
-            'item_id' => $item->id,
+        $stripe = new StripeClient(config('stripe.stripe_secret_key'));
+
+        $checkout_session = $stripe->checkout->sessions->create([
+            'payment_method_types' => $request->payment_method === 'コンビニ払い'
+                ? ['konbini']
+                : ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => ['name' => $item->name],
+                    'unit_amount' => $item->price,
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('purchase.success', ['item' => $item->id]),
+            'cancel_url' => route('purchase.show', ['item' => $item->id]),
         ]);
 
-        $order->payment_method = $request->payment_method;
-        $order->sending_postcode = $user->profile->postcode;
-        $order->sending_address = $user->profile->address;
-        $order->sending_building = $user->profile->building;
-        $order->save();
+        return redirect($checkout_session->url);
+    }
 
+    public function success(Item $item)
+    {
         return redirect()->route('items.index')->with('success', '購入が完了しました。');
     }
 
     public function editAddress(Item $item)
     {
         $user = Auth::user();
-
         return view('user.address', compact('item', 'user'));
     }
 
@@ -85,6 +96,7 @@ class PurchaseController extends Controller
             'building' => $request->building,
         ]);
 
-        return redirect()->route('purchase.show', $item->id)->with('success', '配送先住所を更新しました。');
+        return redirect()->route('purchase.show', $item->id)
+                        ->with('success', '配送先住所を更新しました。');
     }
 }
