@@ -9,56 +9,85 @@ use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use Illuminate\Http\Request;
 
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
+/*
+|--------------------------------------------------------------------------
+| 認証関連
+|--------------------------------------------------------------------------
+*/
+Route::prefix('auth')->group(function () {
+    // 会員登録
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
+    Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
-Route::get('/email/verify', function () {
-    return view('auth.verify');
-})->middleware('auth')->name('verification.notice');
+    // ログイン・ログアウト
+    Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+});
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/mypage/profile');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+/*
+|--------------------------------------------------------------------------
+| メール認証
+|--------------------------------------------------------------------------
+*/
+Route::prefix('email')->middleware('auth')->group(function () {
+    Route::get('/verify', fn() => view('auth.verify'))->name('verification.notice');
+    Route::get('/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect('/mypage/profile');
+    })->middleware('signed')->name('verification.verify');
+    Route::post('/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('status', 'verification-link-sent');
+    })->middleware('throttle:6,1')->name('verification.send');
+});
 
-Route::post('/email/verification-notification', function (Illuminate\Http\Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('status', 'verification-link-sent');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
+/*
+|--------------------------------------------------------------------------
+| 商品関連
+|--------------------------------------------------------------------------
+*/
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
-Route::get('/search', [ItemController::class, 'index']);
+Route::get('/search', [ItemController::class, 'index'])->name('items.search');
 Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/sell', [ItemController::class, 'create'])->name('items.create');
-    Route::post('/sell', [ItemController::class, 'store'])->name('items.store');
+// 出品（要ログイン）
+Route::prefix('sell')->middleware('auth')->group(function () {
+    Route::get('/', [ItemController::class, 'create'])->name('items.create');
+    Route::post('/', [ItemController::class, 'store'])->name('items.store');
 });
 
-Route::post('/items/{item}/like', [LikeController::class, 'toggle'])
-    ->middleware('auth')
-    ->name('items.like');
-
-Route::middleware(['auth'])->group(function () {
-    Route::post('/items/{item}/comments', [CommentController::class, 'store'])->name('comment.store');
+// いいね・コメント（要ログイン）
+Route::prefix('items')->middleware('auth')->group(function () {
+    Route::post('/{item}/like', [LikeController::class, 'toggle'])->name('items.like');
+    Route::post('/{item}/comments', [CommentController::class, 'store'])->name('comment.store');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/purchase/{item}', [PurchaseController::class, 'show'])->name('purchase.show');
-    Route::post('/purchase/{item}/save-payment-method', [PurchaseController::class, 'savePaymentMethod'])->name('purchase.savePaymentMethod');
-    Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
-    Route::get('/purchase/{item}/success', [PurchaseController::class, 'success'])->name('purchase.success');
-    Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])->name('purchase.address.edit');
-    Route::post('/purchase/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
+/*
+|--------------------------------------------------------------------------
+| 購入関連（要ログイン）
+|--------------------------------------------------------------------------
+*/
+Route::prefix('purchase')->middleware('auth')->group(function () {
+    Route::get('/{item}', [PurchaseController::class, 'show'])->name('purchase.show');
+    Route::post('/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
+    Route::get('/{item}/success', [PurchaseController::class, 'success'])->name('purchase.success');
+    Route::post('/{item}/save-payment-method', [PurchaseController::class, 'savePaymentMethod'])->name('purchase.savePaymentMethod');
+
+    // 配送先住所
+    Route::get('/address/{item}', [PurchaseController::class, 'editAddress'])->name('purchase.address.edit');
+    Route::post('/address/{item}', [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+/*
+|--------------------------------------------------------------------------
+| マイページ関連（要ログイン & 認証済み）
+|--------------------------------------------------------------------------
+*/
+Route::prefix('mypage')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
-
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
