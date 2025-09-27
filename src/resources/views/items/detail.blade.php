@@ -14,7 +14,10 @@
         <div class="item-detail__info">
             <h1 class="item-detail__name">{{ $item->name }}</h1>
             <p class="item-detail__brand">{{ $item->brand_name }}</p>
-            <p class="item-detail__price">¥{{ number_format($item->price) }} <span class="item-detail__tax">(税込)</span></p>
+            <p class="item-detail__price">
+                ¥{{ number_format($item->price) }} 
+                <span class="item-detail__tax">(税込)</span>
+            </p>
 
             <div class="item-detail__icons">
                 <div class="item-detail__icon-group">
@@ -40,7 +43,7 @@
 
             <div class="item-detail__section">
                 <h2 class="item-detail__section-title">商品説明</h2>
-                <p class="item-detail__description">{{ $item->description }}</p>
+                <p class="item-detail__description">{!! nl2br(e($item->description)) !!}</p>
             </div>
 
             <div class="item-detail__section">
@@ -73,7 +76,7 @@
                             @endif
                             <span class="item-detail__comment-username">{{ $comment->user->name }}</span>
                         </div>
-                        <p class="item-detail__comment-text">{{ $comment->body }}</p>
+                        <p class="item-detail__comment-text">{!! nl2br(e($comment->body)) !!}</p>
                     </div>
                 @endforeach
             </div>
