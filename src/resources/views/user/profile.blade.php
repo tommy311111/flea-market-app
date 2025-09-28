@@ -16,7 +16,7 @@
         </div>
 
         <div class="profile__info-group">
-            <h2 class="profile__name">{{ $user->name }}</h2>
+            <div class="profile__name">{{ $user->name }}</div>
         </div>
 
         <div class="profile__edit-wrapper">

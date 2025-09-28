@@ -7,7 +7,7 @@
 @section('content')
 <div class="profile__content">
     <div class="profile-form__heading">
-        <h2 class="profile-form__heading-title">プロフィール設定</h2>
+        <h1 class="profile-form__heading-title">プロフィール設定</h1>
     </div>
     <form class="profile-form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" novalidate>
         @csrf
@@ -21,7 +21,7 @@
                     <div class="profile__image--placeholder"></div>
                 @endif
             </div>
-            <label class="profile-image__button">
+            <label for="image" class="profile-image__button">
                 画像を選択する
                 <input type="file" name="image" id="image" hidden>
             </label>
@@ -33,11 +33,9 @@
         </div>
 
         <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">ユーザー名</span>
-            </div>
+            <label for="name" class="form__label--item">ユーザー名</label>
             <div class="form__input--text">
-                <input type="text" name="name" value="{{ old('name', $user->name) }}" class="form__input--text-field">
+                <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" class="form__input--text-field">
             </div>
             <div class="form__error">
                 @error('name')
@@ -47,11 +45,9 @@
         </div>
 
         <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">郵便番号</span>
-            </div>
+            <label for="postcode" class="form__label--item">郵便番号</label>
             <div class="form__input--text">
-                <input type="text" name="postcode" value="{{ old('postcode', $profile->postcode) }}" class="form__input--text-field">
+                <input type="text" id="postcode" name="postcode" value="{{ old('postcode', $profile->postcode) }}" class="form__input--text-field">
             </div>
             <div class="form__error">
                 @error('postcode')
@@ -61,11 +57,9 @@
         </div>
 
         <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">住所</span>
-            </div>
+            <label for="address" class="form__label--item">住所</label>
             <div class="form__input--text">
-                <input type="text" name="address" value="{{ old('address', $profile->address) }}" class="form__input--text-field">
+                <input type="text" id="address" name="address" value="{{ old('address', $profile->address) }}" class="form__input--text-field">
             </div>
             <div class="form__error">
                 @error('address')
@@ -75,11 +69,9 @@
         </div>
 
         <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">建物名</span>
-            </div>
+            <label for="building" class="form__label--item">建物名</label>
             <div class="form__input--text">
-                <input type="text" name="building" value="{{ old('building', $profile->building) }}" class="form__input--text-field">
+                <input type="text" id="building" name="building" value="{{ old('building', $profile->building) }}" class="form__input--text-field">
             </div>
             <div class="form__error">
                 @error('building')

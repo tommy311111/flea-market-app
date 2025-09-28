@@ -12,8 +12,8 @@
 
 .profile-form__heading-title {
     margin: 0;
-    font-weight: 500;
-    font-size: 28px;
+    font-weight: 550;
+    font-size: 26px;
 }
 
 .profile__image-wrapper {
@@ -52,6 +52,8 @@
 .form__label--item {
     font-weight: 600;
     font-size: 16px;
+    margin: 2px 0 2px 4px;
+    display: block;
 }
 
 .form__group-title {

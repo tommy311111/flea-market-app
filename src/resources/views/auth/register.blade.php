@@ -11,13 +11,14 @@
     </div>
     <form class="register-form" action="{{ route('register') }}" method="post" novalidate>
         @csrf
+
         <div class="form__group">
             <div class="form__group-title">
-                <span class="form__label--item">ユーザー名</span>
+                <label for="name" class="form__label--item">ユーザー名</label>
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="name" value="{{ old('name') }}">
+                    <input type="text" name="name" id="name" value="{{ old('name') }}">
                 </div>
                 <div class="form__error">
                     @error('name')
@@ -26,13 +27,14 @@
                 </div>
             </div>
         </div>
+
         <div class="form__group">
             <div class="form__group-title">
-                <span class="form__label--item">メールアドレス</span>
+                <label for="email" class="form__label--item">メールアドレス</label>
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="email" name="email" value="{{ old('email') }}">
+                    <input type="email" name="email" id="email" value="{{ old('email') }}">
                 </div>
                 <div class="form__error">
                     @error('email')
@@ -41,13 +43,14 @@
                 </div>
             </div>
         </div>
+
         <div class="form__group">
             <div class="form__group-title">
-                <span class="form__label--item">パスワード</span>
+                <label for="password" class="form__label--item">パスワード</label>
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="password" name="password">
+                    <input type="password" name="password" id="password">
                 </div>
                 <div class="form__error">
                     @error('password')
@@ -56,13 +59,14 @@
                 </div>
             </div>
         </div>
+
         <div class="form__group">
             <div class="form__group-title">
-                <span class="form__label--item">確認用パスワード</span>
+                <label for="password_confirmation" class="form__label--item">確認用パスワード</label>
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="password" name="password_confirmation">
+                    <input type="password" name="password_confirmation" id="password_confirmation">
                 </div>
                 <div class="form__error">
                     @error('password')
@@ -71,10 +75,12 @@
                 </div>
             </div>
         </div>
+
         <div class="form__button">
             <button class="form__button-submit" type="submit">登録する</button>
         </div>
     </form>
+
     <div class="login__link">
         <a class="login__button-submit" href="/login">ログインはこちら</a>
     </div>

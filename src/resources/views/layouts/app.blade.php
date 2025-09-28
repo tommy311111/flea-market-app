@@ -12,11 +12,11 @@
     <header class="header">
         <div class="header__inner">
             <div class="header__top">
-                <h1 class="header__logo">
+                <p class="header__logo">
                     <a href="{{ route('items.index') }}">
                         <img src="{{ asset('storage/images/logo/logo.svg') }}" alt="COACHTECH">
                     </a>
-                </h1>
+                </p>
 
                 @if (!in_array(Route::currentRouteName(), ['register.form', 'login', 'verification.notice']))
                 <form action="{{ route('items.index') }}" method="GET" class="header__search-form">
@@ -38,7 +38,6 @@
                         </li>
                         <li class="header__list-item">
                             <form action="/sell" class="header__form" method="get">
-                                @csrf
                                 <button class="header__form--sell">出品</button>
                             </form>
                         </li>
