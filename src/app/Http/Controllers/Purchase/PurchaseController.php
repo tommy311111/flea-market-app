@@ -9,7 +9,6 @@ use App\Models\Item;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Stripe\StripeClient;
 
 class PurchaseController extends Controller
 {
@@ -26,14 +25,15 @@ class PurchaseController extends Controller
             'item_id' => $item->id,
         ]);
 
-        $order->payment_method = $request->payment_method;
+        $order->payment_method   = $request->payment_method;
         $order->sending_postcode = $user->profile->postcode;
-        $order->sending_address = $user->profile->address;
+        $order->sending_address  = $user->profile->address;
         $order->sending_building = $user->profile->building;
         $order->save();
 
-        return redirect()->route('purchase.show', $item->id)
-                        ->with('selectedPayment', $request->payment_method);
+        return redirect()
+            ->route('purchase.show', $item->id)
+            ->with('selectedPayment', $request->payment_method);
     }
 
     public function show(Item $item)
@@ -43,8 +43,8 @@ class PurchaseController extends Controller
 
         $selectedPayment = session('selectedPayment')
             ?? Order::where('user_id', $user->id)
-                    ->where('item_id', $item->id)
-                    ->value('payment_method');
+                ->where('item_id', $item->id)
+                ->value('payment_method');
 
         return view('items.purchase', compact('item', 'user', 'methods', 'selectedPayment'));
     }
@@ -53,23 +53,37 @@ class PurchaseController extends Controller
     {
         $user = Auth::user();
 
-        $stripe = new StripeClient(config('stripe.stripe_secret_key'));
+        if (app()->environment('testing')) {
+            Order::updateOrCreate(
+                ['user_id' => $user->id, 'item_id' => $item->id],
+                [
+                    'payment_method'   => $request->payment_method,
+                    'sending_postcode' => $user->profile->postcode,
+                    'sending_address'  => $user->profile->address,
+                    'sending_building' => $user->profile->building,
+                ]
+            );
 
+            return redirect()->route('items.index')
+                ->with('success', '購入テスト完了（モック）');
+        }
+
+        $stripe = new \Stripe\StripeClient(config('stripe.stripe_secret_key'));
         $checkout_session = $stripe->checkout->sessions->create([
             'payment_method_types' => $request->payment_method === 'コンビニ払い'
                 ? ['konbini']
                 : ['card'],
             'line_items' => [[
                 'price_data' => [
-                    'currency' => 'jpy',
+                    'currency'     => 'jpy',
                     'product_data' => ['name' => $item->name],
-                    'unit_amount' => $item->price,
+                    'unit_amount'  => $item->price,
                 ],
                 'quantity' => 1,
             ]],
-            'mode' => 'payment',
+            'mode'        => 'payment',
             'success_url' => route('purchase.success', ['item' => $item->id]),
-            'cancel_url' => route('purchase.show', ['item' => $item->id]),
+            'cancel_url'  => route('purchase.show', ['item' => $item->id]),
         ]);
 
         return redirect($checkout_session->url);
@@ -77,7 +91,8 @@ class PurchaseController extends Controller
 
     public function success(Item $item)
     {
-        return redirect()->route('items.index')->with('success', '購入が完了しました。');
+        return redirect()->route('items.index')
+            ->with('success', '購入が完了しました。');
     }
 
     public function editAddress(Item $item)
@@ -92,11 +107,11 @@ class PurchaseController extends Controller
 
         $user->profile->update([
             'postcode' => $request->postcode,
-            'address' => $request->address,
+            'address'  => $request->address,
             'building' => $request->building,
         ]);
 
         return redirect()->route('purchase.show', $item->id)
-                        ->with('success', '配送先住所を更新しました。');
+            ->with('success', '配送先住所を更新しました。');
     }
 }

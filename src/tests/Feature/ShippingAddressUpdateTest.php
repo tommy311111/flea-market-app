@@ -3,11 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\Item;
-use App\Models\Order;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ShippingAddressUpdateTest extends TestCase
@@ -19,9 +17,9 @@ class ShippingAddressUpdateTest extends TestCase
     {
         $user = User::factory()->create();
         UserProfile::factory()->create([
-            'user_id' => $user->id,
+            'user_id'  => $user->id,
             'postcode' => '000-0000',
-            'address' => '旧住所',
+            'address'  => '旧住所',
             'building' => '旧ビル',
         ]);
         $item = Item::factory()->create();
@@ -30,7 +28,7 @@ class ShippingAddressUpdateTest extends TestCase
 
         $this->post(route('purchase.address.update', $item), [
             'postcode' => '123-4567',
-            'address' => '新しい市町村',
+            'address'  => '新しい市町村',
             'building' => '新しい建物',
         ])->assertRedirect(route('purchase.show', $item));
 
@@ -46,9 +44,9 @@ class ShippingAddressUpdateTest extends TestCase
     {
         $user = User::factory()->create();
         UserProfile::factory()->create([
-            'user_id' => $user->id,
+            'user_id'  => $user->id,
             'postcode' => '111-1111',
-            'address' => '初期住所',
+            'address'  => '初期住所',
             'building' => '初期ビル',
         ]);
         $item = Item::factory()->create();
@@ -61,22 +59,22 @@ class ShippingAddressUpdateTest extends TestCase
 
         $this->post(route('purchase.address.update', $item), [
             'postcode' => '222-2222',
-            'address' => '変更後の住所',
+            'address'  => '変更後の住所',
             'building' => '変更後の建物',
         ]);
 
         $this->post(route('purchase.store', $item), [
-            'payment_method' => 'コンビニ払い',
+            'payment_method'   => 'コンビニ払い',
             'sending_postcode' => '222-2222',
-            'sending_address' => '変更後の住所',
+            'sending_address'  => '変更後の住所',
             'sending_building' => '変更後の建物',
         ])->assertRedirect(route('items.index'));
 
         $this->assertDatabaseHas('orders', [
-            'user_id' => $user->id,
-            'item_id' => $item->id,
+            'user_id'          => $user->id,
+            'item_id'          => $item->id,
             'sending_postcode' => '222-2222',
-            'sending_address' => '変更後の住所',
+            'sending_address'  => '変更後の住所',
             'sending_building' => '変更後の建物',
         ]);
     }
