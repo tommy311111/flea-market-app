@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\Like;
 use App\Models\Comment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ItemDetailTest extends TestCase
@@ -78,7 +77,13 @@ class ItemDetailTest extends TestCase
     public function 複数選択されたカテゴリが商品詳細ページに表示される()
     {
         $user = User::factory()->create();
-        $categories = Category::factory()->count(3)->create();
+
+        $categories = collect([
+            'メンズ',
+            'レディース',
+            'キッズ',
+        ])->map(fn($name) => Category::firstOrCreate(['name' => $name]));
+
         $item = Item::factory()->create(['user_id' => $user->id]);
         $item->categories()->attach($categories->pluck('id'));
 
