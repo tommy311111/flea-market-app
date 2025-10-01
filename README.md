@@ -153,17 +153,16 @@ php artisan test --env=testing
 
 ## テストユーザー情報（初期データ）
 
-開発環境またはテスト環境でログイン確認するためのテストユーザーがあらかじめ用意されています。 ※ 全ユーザーのパスワードは共通で `password` です
-| 名前    | メールアドレス                                           | パスワード    | 出品         | 購入 | コメント | いいね | 役割               |
-| ----- | ------------------------------------------------- | -------- | ---------- | -- | ---- | --- | ---------------- |
-| 佐藤 美咲 | [misaki@example.com](mailto:misaki@example.com)   | password | 6件（未販売）    | なし | 0件   | 0件  | 出品のみを行う出品専用ユーザー  |
-| 鈴木 大輔 | [daisuke@example.com](mailto:daisuke@example.com) | password | 1件（売却）     | 1件 | 0件   | 0件  | 出品と購入を1回ずつ経験済み   |
-| 高橋 結衣 | [yui@example.com](mailto:yui@example.com)         | password | 3件（うち2つ売却） | -  | 7件   | 7件  | アクティブなコメント＆いいね担当 |
-| 田中 直人 | [naoto@example.com](mailto:naoto@example.com)     | password | 0件         | 2件 | 5件   | 6件  | 購入＋コメント／いいね担当    |
-| 伊藤 紗季 | [saki@example.com](mailto:saki@example.com)       | password | 0件         | 0件 | 2件   | 4件  | 閲覧ユーザー（軽めのアクション） |
+開発環境またはテスト環境でログイン確認するためのテストユーザーがあらかじめ用意されています。
+※ 全ユーザーのパスワードは共通で `password` です
+
+| 名前     | メールアドレス             | パスワード | 出品           | 購入 | コメント | いいね | 役割                     |
+| -------- | -------------------------- | ---------- | -------------- | ---- | -------- | ------ | ------------------------ |
+| 佐藤 美咲 | misaki@example.com         | password   | 5件（未販売）  | なし | 5件      | 5件    | CO01～CO05の商品を出品    |
+| 鈴木 大輔 | daisuke@example.com        | password   | 5件（未販売）  | なし | 5件      | 5件    | CO06～CO10の商品を出品    |
+| 高橋 結衣 | yui@example.com            | password   | なし           | なし | 0件      | 0件    | 何も紐付けられていないユーザー |
 
 > セキュリティ上、本番環境には **このテストユーザーを残さないようにしてください**。
-
 
 
 ## 使用技術(実行環境)
@@ -172,11 +171,135 @@ php artisan test --env=testing
 - MySQL8.0.26
 
 
-## テーブル設計
-![テーブル1](./table_1.png)
-![テーブル2](./table_2.png)
-![テーブル3](./table_3.png)
-![テーブル4](./table_4.png)
+## テーブル仕様
+### usersテーブル
+| カラム名          | 型           | primary key | unique key | not null | foreign key |
+| ----------------- | ------------ | ----------- | ---------- | -------- | ----------- |
+| id                | bigint       | ◯           |            | ◯        |             |
+| name              | varchar(255) |             |            | ◯        |             |
+| email             | varchar(255) |             | ◯          | ◯        |             |
+| email_verified_at | timestamp    |             |            |          |             |
+| password          | varchar(255) |             |            | ◯        |             |
+| remember_token    | varchar(100) |             |            |          |             |
+| created_at        | timestamp    |             |            |          |             |
+| updated_at        | timestamp    |             |            |          |             |
+
+---
+
+### user_profilesテーブル
+| カラム名   | 型           | primary key | unique key | not null | foreign key |
+| ---------- | ------------ | ----------- | ---------- | -------- | ----------- |
+| id         | bigint       | ◯           |            | ◯        |             |
+| user_id    | bigint       |             | ◯          | ◯        | users.id    |
+| postcode   | varchar(8)   |             |            | ◯        |             |
+| address    | varchar(255) |             |            | ◯        |             |
+| building   | varchar(255) |             |            | ◯        |             |
+| image      | varchar(255) |             |            |          |             |
+| created_at | timestamp    |             |            |          |             |
+| updated_at | timestamp    |             |            |          |             |
+
+---
+
+### categoriesテーブル
+| カラム名   | 型           | primary key | unique key | not null | foreign key |
+| ---------- | ------------ | ----------- | ---------- | -------- | ----------- |
+| id         | bigint       | ◯           |            | ◯        |             |
+| name       | varchar(255) |             | ◯          | ◯        |             |
+| created_at | timestamp    |             |            |          |             |
+| updated_at | timestamp    |             |            |          |             |
+
+---
+
+### itemsテーブル
+| カラム名    | 型                                 | primary key | unique key | not null | foreign key |
+| ----------- | ---------------------------------- | ----------- | ---------- | -------- | ----------- |
+| id          | bigint                             | ◯           |            | ◯        |             |
+| name        | varchar(255)                       |             |            | ◯        |             |
+| user_id     | bigint                             |             |            | ◯        | users.id    |
+| condition   | enum(良好,目立った傷や汚れなし,やや傷や汚れあり,状態が悪い) |             |            | ◯        |             |
+| price       | int                                |             |            | ◯        |             |
+| brand_name  | varchar(255)                       |             |            |          |             |
+| image       | varchar(255)                       |             |            | ◯        |             |
+| description | text                               |             |            | ◯        |             |
+| created_at  | timestamp                          |             |            |          |             |
+| updated_at  | timestamp                          |             |            |          |             |
+
+---
+
+### category_itemテーブル（中間）
+| カラム名   | 型     | primary key | unique key          | not null | foreign key   |
+| ---------- | ------ | ----------- | ------------------- | -------- | ------------- |
+| id         | bigint | ◯           |                     | ◯        |               |
+| item_id    | bigint |             | ◯ (with category_id)| ◯        | items.id      |
+| category_id| bigint |             | ◯ (with item_id)    | ◯        | categories.id |
+| created_at | timestamp |         |                     |          |               |
+| updated_at | timestamp |         |                     |          |               |
+
+---
+
+### likesテーブル
+| カラム名   | 型     | primary key | unique key | not null | foreign key |
+| ---------- | ------ | ----------- | ---------- | -------- | ----------- |
+| id         | bigint | ◯           |            | ◯        |             |
+| user_id    | bigint |             |            | ◯        | users.id    |
+| item_id    | bigint |             |            | ◯        | items.id    |
+| deleted_at | timestamp |          |            |          |             |
+| created_at | timestamp |          |            |          |             |
+| updated_at | timestamp |          |            |          |             |
+
+---
+
+### commentsテーブル
+| カラム名   | 型     | primary key | unique key | not null | foreign key |
+| ---------- | ------ | ----------- | ---------- | -------- | ----------- |
+| id         | bigint | ◯           |            | ◯        |             |
+| user_id    | bigint |             |            | ◯        | users.id    |
+| item_id    | bigint |             |            | ◯        | items.id    |
+| body       | text   |             |            | ◯        |             |
+| created_at | timestamp |          |            |          |             |
+| updated_at | timestamp |          |            |          |             |
+
+---
+
+### ordersテーブル
+| カラム名          | 型           | primary key | unique key | not null | foreign key |
+| ----------------- | ------------ | ----------- | ---------- | -------- | ----------- |
+| id                | bigint       | ◯           |            | ◯        |             |
+| user_id           | bigint       |             |            | ◯        | users.id    |
+| item_id           | bigint       |             |            | ◯        | items.id    |
+| payment_method    | enum(コンビニ払い,カード支払い) | | | ◯ | |
+| sending_postcode  | varchar(8)   |             |            | ◯        |             |
+| sending_address   | varchar(255) |             |            | ◯        |             |
+| sending_building  | varchar(255) |             |            | ◯        |             |
+| created_at        | timestamp    |             |            |          |             |
+| updated_at        | timestamp    |             |            |          |             |
+
+---
+
+### ratingsテーブル
+| カラム名   | 型     | primary key | unique key                          | not null | foreign key |
+| ---------- | ------ | ----------- | ----------------------------------- | -------- | ----------- |
+| id         | bigint | ◯           |                                     | ◯        |             |
+| order_id   | bigint |             | ◯ (with rater_id, rated_id)         | ◯        | orders.id   |
+| rater_id   | bigint |             | ◯ (with order_id, rated_id)         | ◯        | users.id    |
+| rated_id   | bigint |             | ◯ (with order_id, rater_id)         | ◯        | users.id    |
+| score      | tinyint|             |                                     | ◯        |             |
+| created_at | timestamp |          |                                     |          |             |
+| updated_at | timestamp |          |                                     |          |             |
+
+---
+
+### chatsテーブル
+| カラム名   | 型     | primary key | unique key | not null | foreign key |
+| ---------- | ------ | ----------- | ---------- | -------- | ----------- |
+| id         | bigint | ◯           |            | ◯        |             |
+| order_id   | bigint |             |            | ◯        | orders.id   |
+| sender_id  | bigint |             |            | ◯        | users.id    |
+| message    | text   |             |            | ◯        |             |
+| image      | varchar(255) |       |            |          |             |
+| created_at | timestamp |          |            |          |             |
+| updated_at | timestamp |          |            |          |             |
+
 
 ## ER図
 ![ER図](./er_diagram.png)
