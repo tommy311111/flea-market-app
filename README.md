@@ -304,19 +304,6 @@ php artisan test --env=testing
 ## ER図
 ![ER図](./er_diagram.png)
 
-## 主な画面構成（詳細は別添のExcelを参照）
-
-- 商品一覧（トップページ）
-- 商品詳細
-- 会員登録／ログイン
-- メール認証
-- 商品出品
-- プロフィール
-- プロフィール編集
-- 商品購入
-- 送付先住所変更
->（全10画面）
-
 ## URL
 - 開発環境：http://localhost
 - phpMyAdmin：http://localhost:8080/
