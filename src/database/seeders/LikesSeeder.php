@@ -12,11 +12,9 @@ class LikesSeeder extends Seeder
     public function run(): void
     {
         collect([
-            '佐藤 美咲' => 0,
-            '鈴木 大輔' => 0,
-            '高橋 結衣' => 7,
-            '田中 直人' => 6,
-            '伊藤 紗季' => 4,
+            '佐藤 美咲' => 5,
+            '鈴木 大輔' => 5,
+            '高橋 結衣' => 0,
         ])->each(function ($likeCount, $userName) {
             $user = User::where('name', $userName)->first();
             if (!$user || $likeCount === 0) return;

@@ -61,7 +61,7 @@ class ItemsSeeder extends Seeder
                 'description' => '高性能なノートパソコン',
             ],
             [
-                'user_id' => $misaki->id,
+                'user_id' => $daisuke->id,
                 'name' => 'マイク',
                 'condition' => '目立った傷や汚れなし',
                 'price' => 8000,
@@ -79,7 +79,7 @@ class ItemsSeeder extends Seeder
                 'description' => 'おしゃれなショルダーバッグ',
             ],
             [
-                'user_id' => $yui->id,
+                'user_id' => $daisuke->id,
                 'name' => 'タンブラー',
                 'condition' => '状態が悪い',
                 'price' => 500,
@@ -88,7 +88,7 @@ class ItemsSeeder extends Seeder
                 'description' => '使いやすいタンブラー',
             ],
             [
-                'user_id' => $yui->id,
+                'user_id' => $daisuke->id,
                 'name' => 'コーヒーミル',
                 'condition' => '良好',
                 'price' => 4000,

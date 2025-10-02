@@ -13,19 +13,19 @@ class OrdersSeeder extends Seeder
     {
         $orders = [
             [
-                'buyer' => '田中 直人',
+                'buyer' => '佐藤 美咲',
                 'item' => 'ショルダーバッグ',
                 'payment' => 'コンビニ払い',
                 'use_profile' => true
             ],
             [
-                'buyer' => '鈴木 大輔',
+                'buyer' => '佐藤 美咲',
                 'item' => 'タンブラー',
                 'payment' => 'カード支払い',
                 'use_profile' => true
             ],
             [
-                'buyer' => '田中 直人',
+                'buyer' => '鈴木 大輔',
                 'item' => 'コーヒーミル',
                 'payment' => 'カード支払い',
                 'use_profile' => false,

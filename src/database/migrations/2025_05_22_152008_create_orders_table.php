@@ -11,11 +11,12 @@ class CreateOrdersTable extends Migration
      *
      * @return void
      */
-    public function up() 
+    public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('buyer_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
             $table->enum('payment_method', ['コンビニ払い','カード支払い']);
             $table->string('sending_postcode', 8);

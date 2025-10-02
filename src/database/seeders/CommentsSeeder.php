@@ -11,11 +11,9 @@ class CommentsSeeder extends Seeder
     public function run(): void
     {
         $commentData = [
-            '佐藤 美咲' => 1,
-            '鈴木 大輔' => 1,
-            '高橋 結衣' => 7,
-            '田中 直人' => 5,
-            '伊藤 紗季' => 4,
+            '佐藤 美咲' => 5,
+            '鈴木 大輔' => 5,
+            '高橋 結衣' => 0,
         ];
 
         foreach ($commentData as $userName => $commentCount) {

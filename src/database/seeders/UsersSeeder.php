@@ -31,18 +31,6 @@ class UsersSeeder extends Seeder
                 'password' => $password,
                 'email_verified_at' => now(),
             ],
-            [
-                'name' => '田中 直人',
-                'email' => 'naoto@example.com',
-                'password' => $password,
-                'email_verified_at' => now(),
-            ],
-            [
-                'name' => '伊藤 紗季',
-                'email' => 'saki@example.com',
-                'password' => $password,
-                'email_verified_at' => now(),
-            ],
         ];
 
         foreach ($users as $user) {
