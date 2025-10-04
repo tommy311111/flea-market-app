@@ -24,10 +24,7 @@
                     <form action="{{ route('items.like', ['item' => $item->id]) }}" method="POST">
                         @csrf
                         <button type="submit" style="background: none; border: none; padding: 0;">
-                            <img
-                                src="{{ asset('storage/images/icons/star.png') }}"
-                                alt="いいね"
-                                class="item-detail__icon {{ $liked ? 'liked' : '' }}">
+                            <img src="{{ asset('storage/images/icons/star.png') }}" alt="いいね" class="item-detail__icon {{ $liked ? 'liked' : '' }}">
                         </button>
                         <span class="item-detail__count">{{ $item->likes_count }}</span>
                     </form>
@@ -39,7 +36,16 @@
                 </div>
             </div>
 
-            <a href="{{ route('purchase.show',['item' => $item->id]) }}" class="item-detail__purchase-button">購入手続きへ</a>
+            <div class="item-detail__actions">
+                <a href="{{ route('purchase.show', ['item' => $item->id]) }}" class="item-detail__purchase-button">
+                    購入手続きへ
+                </a>
+
+                <form action="{{ route('orders.start', $item->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="item-detail__transaction-button">取引開始</button>
+                </form>
+            </div>
 
             <div class="item-detail__section">
                 <h2 class="item-detail__section-title">商品説明</h2>
@@ -65,7 +71,6 @@
 
             <div class="item-detail__section">
                 <h2 class="item-detail__section-title">コメント ({{ $item->comments_count }})</h2>
-
                 @foreach($item->comments as $comment)
                     <div class="item-detail__comment">
                         <div class="item-detail__comment-header">
