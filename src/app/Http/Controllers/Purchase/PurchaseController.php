@@ -29,6 +29,7 @@ class PurchaseController extends Controller
         $order->sending_postcode = $user->profile->postcode;
         $order->sending_address  = $user->profile->address;
         $order->sending_building = $user->profile->building;
+        $order->status           = 'pending';
         $order->save();
 
         return redirect()
@@ -61,6 +62,7 @@ class PurchaseController extends Controller
                     'sending_postcode' => $user->profile->postcode,
                     'sending_address'  => $user->profile->address,
                     'sending_building' => $user->profile->building,
+                    'status'           => 'pending',
                 ]
             );
 
@@ -91,6 +93,16 @@ class PurchaseController extends Controller
 
     public function success(Item $item)
     {
+        $user = Auth::user();
+
+        $order = Order::where('user_id', $user->id)
+            ->where('item_id', $item->id)
+            ->first();
+
+        if ($order) {
+            $order->update(['status' => 'completed']);
+        }
+
         return redirect()->route('items.index')
             ->with('success', '購入が完了しました。');
     }
