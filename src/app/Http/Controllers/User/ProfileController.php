@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Item;
@@ -63,19 +64,81 @@ class ProfileController extends Controller
         return redirect()->route('profile.index')->with('status', 'プロフィールを更新しました');
     }
 
-    public function index(\Illuminate\Http\Request $request)
+    public function index(Request $request)
     {
         $user = Auth::user();
         $profile = $user->profile;
         $page = $request->query('page', 'sell');
 
+        $items = collect();
+        $orders = collect();
+
+        $transactionOrders = Order::with(['chats'])
+            ->where(function($q) use ($user) {
+                $q->where('seller_id', $user->id)
+                  ->orWhere('buyer_id', $user->id);
+            })
+            ->where('status', 'pending')
+            ->get();
+
+        $total_new_messages = $transactionOrders->sum(function($order) use ($user) {
+            return $order->chats
+                ->where('sender_id', '!=', $user->id)
+                ->where('is_read', false)
+                ->count();
+        });
+
         if ($page === 'buy') {
-            $orders = $user->orders()->with('item')->latest()->get();
+            $orders = Order::where('buyer_id', $user->id)
+                ->where('status', 'completed')
+                ->with('item')
+                ->latest()
+                ->get();
+
             $items = $orders->pluck('item')->filter();
+
+        } elseif ($page === 'transaction') {
+            $orders = $transactionOrders->load(['item', 'chats']);
+
+            foreach ($orders as $order) {
+                $order->new_messages_count = $order->chats
+                    ->where('sender_id', '!=', $user->id)
+                    ->where('is_read', false)
+                    ->count();
+                $order->last_message_at = $order->chats->max('created_at');
+            }
+
+            $orders = $orders->sortByDesc(function ($order) {
+                return $order->last_message_at ?? now();
+            });
+
+            $items = $orders->pluck('item')->filter();
+
+        } elseif ($page === 'completed') {
+            $orders = Order::where(function($q) use ($user) {
+                    $q->where('seller_id', $user->id)
+                      ->orWhere('buyer_id', $user->id);
+                })
+                ->where('status', 'completed')
+                ->whereHas('chats')
+                ->with(['item', 'buyer', 'seller'])
+                ->latest()
+                ->get();
+
+            $items = $orders->pluck('item')->filter();
+
         } else {
             $items = $user->items()->latest()->get();
+            $orders = Order::whereIn('item_id', $items->pluck('id'))->get();
         }
 
-        return view('user.profile', compact('user', 'profile', 'items', 'page'));
+        return view('user.profile', compact(
+            'user',
+            'profile',
+            'items',
+            'page',
+            'orders',
+            'total_new_messages'
+        ));
     }
 }
