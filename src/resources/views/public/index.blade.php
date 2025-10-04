@@ -8,9 +8,13 @@
 <div class="items-index">
     <div class="index__tabs">
         <a href="{{ route('items.index', ['page' => 'recommend', 'keyword' => request('keyword')]) }}"
-           class="index__tab {{ $page === 'recommend' ? 'index__tab--active' : '' }}">おすすめ</a>
+           class="index__tab {{ $page === 'recommend' ? 'index__tab--active' : '' }}">
+           おすすめ
+        </a>
         <a href="{{ route('items.index', ['page' => 'mylist', 'keyword' => request('keyword')]) }}"
-           class="index__tab {{ $page === 'mylist' ? 'index__tab--active' : '' }}">マイリスト</a>
+           class="index__tab {{ $page === 'mylist' ? 'index__tab--active' : '' }}">
+           マイリスト
+        </a>
     </div>
 </div>
 
@@ -24,7 +28,10 @@
             </div>
             <div class="items-index__info">
                 <p class="items-index__name">{{ $item->name }}</p>
-                @if ($item->is_sold)
+                @php
+                    $order = $orders->firstWhere('item_id', $item->id);
+                @endphp
+                @if ($order && $order->status === 'completed')
                     <span class="items-index__label items-index__label--sold">Sold</span>
                 @endif
             </div>
