@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ChatController;
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
@@ -34,6 +36,7 @@ Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show')
 Route::middleware(['auth'])->group(function () {
     Route::get('/sell', [ItemController::class, 'create'])->name('items.create');
     Route::post('/sell', [ItemController::class, 'store'])->name('items.store');
+    Route::post('/orders/{order}/rating', [RatingController::class, 'store'])->name('rating.store');
 });
 
 Route::post('/items/{item}/like', [LikeController::class, 'toggle'])
@@ -57,6 +60,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/items/{item}/start-order', [ChatController::class, 'start'])->name('orders.start');
+    Route::get('/orders/{order}/chats', [ChatController::class, 'show'])->name('chats.show');
+    Route::post('/orders/{order}/chats', [ChatController::class, 'store'])->name('chats.store');
+    Route::get('/chats/{chat}/edit', [ChatController::class, 'edit'])->name('chats.edit');
+    Route::put('/chats/{chat}', [ChatController::class, 'update'])->name('chats.update');
+    Route::delete('/chats/{chat}', [ChatController::class, 'destroy'])->name('chats.destroy');
 });
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
