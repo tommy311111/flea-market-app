@@ -53,11 +53,6 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->wherePivotNull('deleted_at');
     }
 
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
-
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -75,5 +70,26 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new CustomVerifyEmail());
+    }
+
+    public function ratingsReceived()
+    {
+        return $this->hasMany(Rating::class, 'rated_id');
+    }
+
+    public function getAverageRatingAttribute()
+    {
+        $avg = $this->ratingsReceived()->avg('score');
+        return $avg ? round($avg) : null;
+    }
+
+    public function buyOrders()
+    {
+        return $this->hasMany(Order::class, 'buyer_id');
+    }
+
+    public function sellOrders()
+    {
+        return $this->hasMany(Order::class, 'seller_id');
     }
 }
