@@ -166,6 +166,10 @@
     border-radius: 50%;
 }
 
+.chat__message-username {
+    font-weight: 500;
+}
+
 .chat__message-body {
     background: #D9D9D9;
     color: #000;
@@ -173,6 +177,7 @@
     border-radius: 0.125rem;
     margin-top: 0.3125rem;
     display: inline-block;
+    font-weight: 500;
 }
 
 .chat__message-actions {
