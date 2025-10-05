@@ -30,8 +30,10 @@ class MylistTest extends TestCase
         $this->user->likedItems()->attach($this->soldItem->id);
 
         Order::factory()->create([
-            'user_id' => $this->user->id,
+            'buyer_id' => $this->user->id,
             'item_id' => $this->soldItem->id,
+            'seller_id' => $this->soldItem->user_id,
+            'status' => 'completed',
         ]);
     }
 
