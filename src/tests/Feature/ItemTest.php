@@ -32,6 +32,9 @@ class ItemTest extends TestCase
         $item = Item::factory()->create();
         Order::factory()->create([
             'item_id' => $item->id,
+            'buyer_id' => User::factory(),
+            'seller_id' => $item->user_id,
+            'status' => 'completed',
         ]);
 
         $response = $this->get('/');
