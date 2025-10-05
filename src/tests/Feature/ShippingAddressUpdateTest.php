@@ -71,7 +71,7 @@ class ShippingAddressUpdateTest extends TestCase
         ])->assertRedirect(route('items.index'));
 
         $this->assertDatabaseHas('orders', [
-            'user_id'          => $user->id,
+            'buyer_id' => $user->id,
             'item_id'          => $item->id,
             'sending_postcode' => '222-2222',
             'sending_address'  => '変更後の住所',
