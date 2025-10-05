@@ -21,10 +21,11 @@ class PurchaseController extends Controller
         $user = Auth::user();
 
         $order = Order::firstOrNew([
-            'user_id' => $user->id,
-            'item_id' => $item->id,
+            'buyer_id' => $user->id,
+            'item_id'  => $item->id,
         ]);
 
+        $order->seller_id         = $item->user_id;
         $order->payment_method   = $request->payment_method;
         $order->sending_postcode = $user->profile->postcode;
         $order->sending_address  = $user->profile->address;
@@ -43,7 +44,7 @@ class PurchaseController extends Controller
         $methods = Order::PAYMENT_METHOD;
 
         $selectedPayment = session('selectedPayment')
-            ?? Order::where('user_id', $user->id)
+            ?? Order::where('buyer_id', $user->id)
                 ->where('item_id', $item->id)
                 ->value('payment_method');
 
@@ -56,8 +57,9 @@ class PurchaseController extends Controller
 
         if (app()->environment('testing')) {
             Order::updateOrCreate(
-                ['user_id' => $user->id, 'item_id' => $item->id],
+                ['buyer_id' => $user->id, 'item_id' => $item->id],
                 [
+                    'seller_id'        => $item->user_id,
                     'payment_method'   => $request->payment_method,
                     'sending_postcode' => $user->profile->postcode,
                     'sending_address'  => $user->profile->address,
@@ -95,7 +97,7 @@ class PurchaseController extends Controller
     {
         $user = Auth::user();
 
-        $order = Order::where('user_id', $user->id)
+        $order = Order::where('buyer_id', $user->id)
             ->where('item_id', $item->id)
             ->first();
 
