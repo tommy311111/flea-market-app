@@ -7,7 +7,6 @@ use App\Models\UserProfile;
 use App\Models\Item;
 use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class UserProfileViewTest extends TestCase
@@ -15,38 +14,44 @@ class UserProfileViewTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function 必要な情報がプロフィール画面で取得できる()
+    public function 出品商品と購入商品がプロフィール画面で正しく表示される()
     {
-        $user = User::factory()->create(['name' => 'テスト太郎']);
+        $user = User::factory()->create(['name' => '木村 春香']);
         UserProfile::factory()->create([
             'user_id' => $user->id,
-            'image' => 'test_image.jpg',
+            'image' => 'test.jpg',
         ]);
 
         $sellItem = Item::factory()->create([
             'user_id' => $user->id,
-            'name' => '出品テスト商品',
+            'name' => 'テスト出品商品',
         ]);
 
+        $seller = User::factory()->create();
         $buyItem = Item::factory()->create([
-            'name' => '購入テスト商品',
+            'user_id' => $seller->id,
+            'name' => 'テスト購入商品',
         ]);
-
-        Order::factory()->create([
-            'user_id' => $user->id,
+        Order::factory()->completed()->create([
             'item_id' => $buyItem->id,
-        ]);
+            'buyer_id' => $user->id,
+            'seller_id' => $seller->id,
+]);
 
         $this->actingAs($user);
 
-        $response = $this->get(route('profile.index', ['page' => 'sell']));
-        $response->assertStatus(200);
-        $response->assertSee('テスト太郎');
-        $response->assertSee('出品テスト商品');
-        $response->assertSee('プロフィール画像');
+        $responseSell = $this->get('/mypage');
+        $responseSell->assertStatus(200)
+            ->assertSee($user->name)
+            ->assertSee('test.jpg')
+            ->assertSee('テスト出品商品')
+            ->assertDontSee('テスト購入商品');
 
-        $response = $this->get(route('profile.index', ['page' => 'buy']));
-        $response->assertStatus(200);
-        $response->assertSee('購入テスト商品');
+        $responseBuy = $this->get('/mypage?page=buy');
+        $responseBuy->assertStatus(200)
+            ->assertSee($user->name)
+            ->assertSee('test.jpg')
+            ->assertSee('テスト購入商品')
+            ->assertDontSee('テスト出品商品');
     }
 }
