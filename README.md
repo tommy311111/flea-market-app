@@ -264,10 +264,12 @@ php artisan test --env=testing
 ### ordersテーブル
 | カラム名          | 型           | primary key | unique key | not null | foreign key |
 | ----------------- | ------------ | ----------- | ---------- | -------- | ----------- |
-| id                | bigint       | ◯           |            | ◯        |             |
-| user_id           | bigint       |             |            | ◯        | users.id    |
+| id                | bigint       | ◯          |            | ◯        |             |
+| buyer_id          | bigint       |             |            | ◯        | users.id    |
+| seller_id         | bigint       |             |            | ◯        | users.id    |
 | item_id           | bigint       |             |            | ◯        | items.id    |
 | payment_method    | enum(コンビニ払い,カード支払い) | | | ◯ | |
+| status            | enum('pending','completed') | | | ◯ | |
 | sending_postcode  | varchar(8)   |             |            | ◯        |             |
 | sending_address   | varchar(255) |             |            | ◯        |             |
 | sending_building  | varchar(255) |             |            | ◯        |             |
@@ -297,6 +299,7 @@ php artisan test --env=testing
 | sender_id  | bigint |             |            | ◯        | users.id    |
 | message    | text   |             |            | ◯        |             |
 | image      | varchar(255) |       |            |          |             |
+| is_read    | boolean |            |            |          |             |
 | created_at | timestamp |          |            |          |             |
 | updated_at | timestamp |          |            |          |             |
 
