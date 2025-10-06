@@ -294,12 +294,12 @@ php artisan test --env=testing
 ### chatsテーブル
 | カラム名   | 型     | primary key | unique key | not null | foreign key |
 | ---------- | ------ | ----------- | ---------- | -------- | ----------- |
-| id         | bigint | ◯           |            | ◯        |             |
+| id         | bigint | ◯          |            | ◯        |             |
 | order_id   | bigint |             |            | ◯        | orders.id   |
 | sender_id  | bigint |             |            | ◯        | users.id    |
 | message    | text   |             |            | ◯        |             |
 | image      | varchar(255) |       |            |          |             |
-| is_read    | boolean |            |            |          |             |
+| is_read    | boolean |            |            | ◯       |             |
 | created_at | timestamp |          |            |          |             |
 | updated_at | timestamp |          |            |          |             |
 
