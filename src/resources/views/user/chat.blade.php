@@ -205,6 +205,7 @@ document.querySelector('.chat__edit-cancel').addEventListener('click', () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const messageInput = document.getElementById("chatMessage");
+    const form = document.querySelector(".chat__input-area");
     const storageKey = `chat-message-order-{{ $order->id }}`;
     const savedMessage = localStorage.getItem(storageKey);
     if (savedMessage) messageInput.value = savedMessage;
@@ -223,6 +224,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     messageInput.addEventListener("input", () => {
         localStorage.setItem(storageKey, messageInput.value);
+    });
+
+    form.addEventListener("submit", (e) => {
+        setTimeout(() => {
+            localStorage.removeItem(storageKey);
+            messageInput.value = "";
+        }, 100);
     });
 
     document.querySelector("form").addEventListener("submit", () => {
