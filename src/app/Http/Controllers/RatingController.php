@@ -33,7 +33,9 @@ class RatingController extends Controller
             $order->update(['status' => 'completed']);
         }
 
+        if ($order->buyer_id === auth()->id()) {
         Mail::to($order->seller->email)->send(new OrderCompletedMail($order));
+        }
 
         return redirect()->route('items.index')->with('success', '評価を送信しました');
     }
