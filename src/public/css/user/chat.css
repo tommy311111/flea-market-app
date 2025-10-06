@@ -3,7 +3,6 @@
     height: 100vh;
 }
 
-/* --- サイドバー --- */
 .chat__sidebar {
     flex: 1;
     background-color: #868686;
@@ -40,7 +39,6 @@
     font-weight: 400;
 }
 
-/* --- メイン --- */
 .chat__main {
     flex: 5;
     display: flex;
@@ -49,7 +47,6 @@
     background: #fff;
 }
 
-/* --- ヘッダー --- */
 .chat__header {
     display: flex;
     justify-content: space-between;
@@ -96,7 +93,6 @@
     margin: 1rem 0;
 }
 
-/* --- 商品情報 --- */
 .chat__product {
     display: flex;
     align-items: center;
@@ -124,7 +120,6 @@
     font-size: 1.25rem;
 }
 
-/* --- メッセージ --- */
 .chat__messages {
     flex: 1;
     overflow-y: auto;
@@ -193,7 +188,6 @@
     margin-left: 0.5rem;
 }
 
-/* --- 入力欄 --- */
 .chat__input-area-wrapper {
     display: flex;
     flex-direction: column;
@@ -259,7 +253,6 @@
     background-color: #fff;
 }
 
-/* --- 編集モーダル --- */
 .chat__edit-modal {
     position: absolute;
     bottom: 5rem;
@@ -320,7 +313,6 @@
     to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-/* --- 評価モーダル --- */
 .modal {
     display: none;
     position: fixed;
@@ -395,7 +387,6 @@
     border-radius: 0.25rem;
 }
 
-/* --- 💻 PC(1400〜1540px)調整 --- */
 @media (max-width: 1540px) and (min-width: 1400px) {
     .chat__sidebar {
         flex: 1.2;
@@ -408,7 +399,6 @@
     }
 }
 
-/* --- 📱 タブレット(768〜850px)調整 --- */
 @media (max-width: 850px) and (min-width: 768px) {
     .chat__content {
         flex-direction: column;
@@ -428,12 +418,41 @@
     }
     .chat__product {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
     .chat__product-image {
-        width: 40%;
+        width: 30%;
+    }
+    .chat__product-name {
+        margin: 5px 0;
+    }
+    .chat__product-price {
+        margin: 5px 0;
+    }
+    .chat__product-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
     .chat__message {
         max-width: 80%;
+    }
+    .chat__sidebar-list {
+        padding-left: 0;
+        margin-left: 0;
+        margin-right: 0;
+        list-style: none;
+    }
+    .chat__sidebar-item {
+        max-width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+    .chat__sidebar-item a {
+        display: block;
+        text-align: center;
+        text-decoration: none;
     }
 }
