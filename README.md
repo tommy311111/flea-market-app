@@ -305,7 +305,7 @@ php artisan test --env=testing
 
 
 ## ER図
-![ER図](./er_diagram_v2.png)
+![ER図](./er_diagram.png)
 
 ## URL
 - 開発環境：http://localhost
