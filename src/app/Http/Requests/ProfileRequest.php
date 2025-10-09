@@ -25,7 +25,7 @@ class ProfileRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'image.image' => '画像ファイルを選択してください。',
+            'image.image' => '「.png」または「.jpeg」形式でアップロードしてください。',
             'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
             'name.required' => 'ユーザー名を入力してください',
             'name.string' => 'ユーザー名は文字列で入力してください',
