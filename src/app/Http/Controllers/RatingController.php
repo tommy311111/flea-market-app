@@ -29,7 +29,7 @@ class RatingController extends Controller
             'score'    => $request->score,
         ]);
 
-        if ($order->status === 'pending') {
+        if ($order->isBothRated()) {
             $order->update(['status' => 'completed']);
         }
 
