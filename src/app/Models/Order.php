@@ -9,9 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $guarded = [
-        'id',
-    ];
+    protected $guarded = ['id'];
 
     public function user()
     {
@@ -43,5 +41,11 @@ class Order extends Model
     public function ratings()
     {
         return $this->hasMany(Rating::class);
+    }
+
+    public function isBothRated(): bool
+    {
+        $ratings = $this->relationLoaded('ratings') ? $this->ratings : $this->ratings()->get();
+        return $ratings->count() >= 2;
     }
 }
