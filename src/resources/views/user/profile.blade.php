@@ -6,6 +6,8 @@
 
 @section('content')
 <div class="profile__content">
+
+    {{-- --- プロフィール上部 --- --}}
     <div class="profile__top">
         <div class="profile__image-wrapper">
             @if ($profile->image)
@@ -17,7 +19,6 @@
 
         <div class="profile__info-group">
             <div class="profile__name">{{ $user->name }}</div>
-
             @if ($user->average_rating)
                 <p class="profile__rating">
                     @for ($i = 1; $i <= 5; $i++)
@@ -32,6 +33,7 @@
         </div>
     </div>
 
+    {{-- --- タブ --- --}}
     <div class="profile__tabs">
         <a href="{{ route('profile.index', ['page' => 'sell']) }}" class="profile__tab {{ $page === 'sell' ? 'profile__tab--active' : '' }}">
             出品した商品
@@ -45,24 +47,25 @@
                 <span class="profile__tab-badge">{{ $total_new_messages }}</span>
             @endif
         </a>
-        <a href="{{ route('profile.index', ['page' => 'completed']) }}" class="profile__tab {{ $page === 'completed' ? 'profile__tab--active' : '' }}">
-            取引完了済みの商品
-        </a>
     </div>
 
+    {{-- --- タブごとの商品リスト --- --}}
     <div class="items-index__grid">
         @forelse ($items as $item)
             @php
+                // 関連する注文を取得（ある場合のみ）
                 $order = $orders->firstWhere('item_id', $item->id);
                 $new_count = $order->new_messages_count ?? 0;
             @endphp
 
-            @if ($order)
+            {{-- 取引中・完了タブはチャットルームへのリンク、それ以外は商品詳細 --}}
+            @if (in_array($page, ['transaction', 'completed']) && $order)
                 <a href="{{ route('chats.show', $order->id) }}" class="items-index__card">
             @else
                 <a href="{{ route('items.show', $item->id) }}" class="items-index__card">
             @endif
 
+                {{-- 新着メッセージバッジ --}}
                 @if ($new_count > 0)
                     <span class="items-index__badge">{{ $new_count }}</span>
                 @endif
@@ -72,10 +75,9 @@
                 </div>
                 <div class="items-index__info">
                     <p class="items-index__name">{{ $item->name }}</p>
-                    @php
-                        $order = $orders->firstWhere('item_id', $item->id);
-                    @endphp
-                    @if ($order && $order->status === 'completed')
+
+                    {{-- Soldラベル表示 --}}
+                    @if ($order && in_array($order->status, ['in_progress', 'completed']))
                         <span class="items-index__label items-index__label--sold">Sold</span>
                     @endif
                 </div>
