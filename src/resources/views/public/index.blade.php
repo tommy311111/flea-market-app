@@ -9,11 +9,11 @@
     <div class="index__tabs">
         <a href="{{ route('items.index', ['page' => 'recommend', 'keyword' => request('keyword')]) }}"
            class="index__tab {{ $page === 'recommend' ? 'index__tab--active' : '' }}">
-           おすすめ
+            おすすめ
         </a>
         <a href="{{ route('items.index', ['page' => 'mylist', 'keyword' => request('keyword')]) }}"
            class="index__tab {{ $page === 'mylist' ? 'index__tab--active' : '' }}">
-           マイリスト
+            マイリスト
         </a>
     </div>
 </div>
@@ -31,7 +31,8 @@
                 @php
                     $order = $orders->firstWhere('item_id', $item->id);
                 @endphp
-                @if ($order && $order->status === 'completed')
+                {{-- Soldラベル表示 --}}
+                @if ($order && in_array($order->status, ['in_progress', 'completed']))
                     <span class="items-index__label items-index__label--sold">Sold</span>
                 @endif
             </div>
