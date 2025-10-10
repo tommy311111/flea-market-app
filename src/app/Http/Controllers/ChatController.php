@@ -58,7 +58,7 @@ class ChatController extends Controller
                                       $q->where('seller_id', $user->id)
                                         ->orWhere('buyer_id', $user->id);
                                   })
-                                  ->where('status', 'pending')
+                                  ->where('status', 'in_progress' )
                                   ->get();
 
         $profile = $user->profile;
