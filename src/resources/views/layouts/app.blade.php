@@ -18,7 +18,11 @@
                     </a>
                 </p>
 
-                @if (!in_array(Route::currentRouteName(), ['register.form', 'login', 'verification.notice']))
+                @if (
+                    !in_array(Route::currentRouteName(), ['register.form', 'login', 'verification.notice']) &&
+                    !Str::startsWith(Route::currentRouteName(), 'chats.') &&
+                    !Str::startsWith(Route::currentRouteName(), 'orders.start')
+                )
                     <form action="{{ route('items.index') }}" method="GET" class="header__search-form">
                         <input type="text" name="keyword" class="header__search-input" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
                         <input type="hidden" name="page" value="{{ request('page', 'recommend') }}">
