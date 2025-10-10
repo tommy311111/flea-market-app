@@ -20,7 +20,7 @@ class ItemController extends Controller
 
         $items = Item::search($keyword, $page, $user);
 
-        $orders = Order::where('status', 'completed')
+        $orders = Order::whereIn('status', ['in_progress', 'completed'])
             ->with('item')
             ->get();
 
