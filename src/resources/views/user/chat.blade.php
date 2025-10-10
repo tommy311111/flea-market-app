@@ -39,7 +39,7 @@
                     <span class="chat__user-name">{{ $otherUser->name ?? 'ユーザー名' }}</span> さんとの取引画面
                 </h1>
             </div>
-            @if(auth()->id() === $order->buyer_id && $order->status === 'pending')
+            @if(auth()->id() === $order->buyer_id && $order->status === 'in_progress')
                 <button id="completeBtn" class="chat__complete-btn">取引を完了する</button>
             @endif
         </div>
@@ -137,7 +137,7 @@
             </div>
         </div>
 
-        @if(auth()->id() === $order->buyer_id && $order->status === 'pending')
+        @if(auth()->id() === $order->buyer_id && $order->status === 'in_progress')
             <div id="completeModal" class="modal" style="display:none;">
                 <div class="modal__content">
                     <p class="modal__title">取引が完了しました。</p>
