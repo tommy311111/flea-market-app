@@ -269,7 +269,7 @@ php artisan test --env=testing
 | seller_id         | bigint       |             |            | ◯        | users.id    |
 | item_id           | bigint       |             |            | ◯        | items.id    |
 | payment_method    | enum(コンビニ払い,カード支払い) | | | ◯ | |
-| status            | enum('pending','completed') | | | ◯ | |
+| status            | enum('pending','in_progress','completed') | | | ◯ | |
 | sending_postcode  | varchar(8)   |             |            | ◯        |             |
 | sending_address   | varchar(255) |             |            | ◯        |             |
 | sending_building  | varchar(255) |             |            | ◯        |             |
