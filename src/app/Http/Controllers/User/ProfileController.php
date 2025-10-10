@@ -78,7 +78,7 @@ class ProfileController extends Controller
                 $q->where('seller_id', $user->id)
                   ->orWhere('buyer_id', $user->id);
             })
-            ->where('status', 'pending')
+            ->where('status', 'in_progress')
             ->get();
 
         $total_new_messages = $transactionOrders->sum(function($order) use ($user) {
@@ -90,7 +90,7 @@ class ProfileController extends Controller
 
         if ($page === 'buy') {
             $orders = Order::where('buyer_id', $user->id)
-                ->where('status', 'completed')
+                ->whereIn('status', ['in_progress', 'completed'])
                 ->with('item')
                 ->latest()
                 ->get();
@@ -111,19 +111,6 @@ class ProfileController extends Controller
             $orders = $orders->sortByDesc(function ($order) {
                 return $order->last_message_at ?? now();
             });
-
-            $items = $orders->pluck('item')->filter();
-
-        } elseif ($page === 'completed') {
-            $orders = Order::where(function($q) use ($user) {
-                    $q->where('seller_id', $user->id)
-                      ->orWhere('buyer_id', $user->id);
-                })
-                ->where('status', 'completed')
-                ->whereHas('chats')
-                ->with(['item', 'buyer', 'seller'])
-                ->latest()
-                ->get();
 
             $items = $orders->pluck('item')->filter();
 
