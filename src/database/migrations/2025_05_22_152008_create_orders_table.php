@@ -14,7 +14,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
             $table->enum('payment_method', ['コンビニ払い', 'カード支払い']);
-            $table->enum('status', ['pending', 'completed'])->default('pending');
+            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
             $table->string('sending_postcode', 8);
             $table->string('sending_address');
             $table->string('sending_building');
