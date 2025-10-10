@@ -64,7 +64,7 @@ class PurchaseController extends Controller
                     'sending_postcode' => $user->profile->postcode,
                     'sending_address'  => $user->profile->address,
                     'sending_building' => $user->profile->building,
-                    'status'           => 'pending',
+                    'status'           => 'in_progress',
                 ]
             );
 
@@ -102,7 +102,7 @@ class PurchaseController extends Controller
             ->first();
 
         if ($order) {
-            $order->update(['status' => 'completed']);
+            $order->update(['status' => 'in_progress']);
         }
 
         return redirect()->route('items.index')
